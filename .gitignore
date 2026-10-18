@@ -24,3 +24,5 @@ supabase/.branches/
 .tmp-pg/
 dist-pages/
 dist-registro/
+dist-archivo/
+decisiones-que-protegen-demo.html

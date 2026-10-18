@@ -1,10 +1,13 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import type { Plugin } from 'vite';
+import { viteSingleFile } from 'vite-plugin-singlefile';
 
 // La ruta base se configura por variable para publicar en la subruta de GitHub Pages
 // (por ejemplo, VITE_BASE_PATH=/salvaguardaprotecci-n/). En local se usa «/».
 const base = process.env.VITE_BASE_PATH ?? '/';
+// VITE_ARCHIVO_UNICO=1 genera un solo HTML autocontenido (demostración para abrir con doble clic, sin servidor).
+const archivoUnico = process.env.VITE_ARCHIVO_UNICO === '1';
 
 // Política de seguridad de contenido solo en la compilación (el servidor de desarrollo usa scripts en línea).
 // Sin recursos remotos en tiempo de ejecución; la única conexión externa permitida es el backend configurado.
@@ -30,8 +33,8 @@ function csp(): Plugin {
 }
 
 export default defineConfig({
-  base,
-  plugins: [react(), csp()],
+  base: archivoUnico ? './' : base,
+  plugins: archivoUnico ? [react(), viteSingleFile()] : [react(), csp()],
   build: {
     sourcemap: false,
     assetsInlineLimit: 0,

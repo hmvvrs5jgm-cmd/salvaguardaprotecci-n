@@ -17,7 +17,8 @@
     "check:guion": "tsx scripts/check-guion.ts",
     "check:release": "tsx scripts/check-release-config.ts",
     "gen:assessment-sql": "tsx scripts/generate-assessment-seed.ts",
-    "test:db": "bash supabase/tests/run-local.sh"
+    "test:db": "bash supabase/tests/run-local.sh",
+    "build:archivo": "VITE_ARCHIVO_UNICO=1 vite build --outDir dist-archivo && cp dist-archivo/index.html decisiones-que-protegen-demo.html"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "^5.3.0",
@@ -45,6 +46,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.71.2",
     "vite": "^5.4.21",
+    "vite-plugin-singlefile": "^2.3.4",
     "vitest": "^2.1.9"
   }
 }

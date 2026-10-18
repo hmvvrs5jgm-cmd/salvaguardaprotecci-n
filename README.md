@@ -14,6 +14,10 @@ Juego web formativo en español para personas adultas del personal técnico de C
 | Registro privado (Supabase) | 🟡 Preparado y probado en un PostgreSQL local con emulación de Supabase; **no se ha probado contra un proyecto Supabase real** |
 | Publicación en GitHub Pages | 🟡 Flujo preparado y manual; **no se ha publicado** |
 
+## Probar sin instalar nada
+
+`npm run build:archivo` genera `decisiones-que-protegen-demo.html`, un único archivo autocontenido (modo demostración) que se abre con doble clic en cualquier navegador, sin conexión. Este archivo no aplica la política de seguridad de contenido del sitio publicado: úsalo solo para revisar.
+
 ## Ejecutar en local
 
 Requisitos: Node 20+ (probado con 22).
