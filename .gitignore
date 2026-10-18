@@ -23,3 +23,4 @@ supabase/.temp/
 supabase/.branches/
 .tmp-pg/
 dist-pages/
+dist-registro/

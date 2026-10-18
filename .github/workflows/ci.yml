@@ -1,0 +1,48 @@
+name: Validación
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Lint y tipos
+        run: |
+          npm run lint
+          npm run typecheck
+      - name: Grafo narrativo y contenido
+        run: |
+          npm run validate:content
+          npm run check:guion
+          npm run gen:assessment-sql -- --check
+      - name: Pruebas unitarias y de componentes
+        run: npm test
+      - name: Compilación (demostración)
+        run: npm run build
+      - name: La compilación en modo registro no incluye la clave de respuestas
+        env:
+          VITE_APP_MODE: registro
+          VITE_SUPABASE_URL: https://ejemplo.supabase.co
+          VITE_SUPABASE_PUBLISHABLE_KEY: sb_publishable_ejemplo
+          ALLOW_INCOMPLETE_REGISTRO: '1'
+        run: |
+          npx tsx scripts/check-release-config.ts
+          npx vite build --outDir dist-registro
+          if grep -q 'P1:"P1-B"' dist-registro/assets/*.js; then echo "La clave aparece en el paquete de registro"; exit 1; fi
+      - name: Pruebas de base de datos (PostgreSQL local)
+        run: npm run test:db
+      - name: Pruebas de extremo a extremo y accesibilidad
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e
