@@ -42,6 +42,7 @@ export type Accion =
   | { type: 'ELEGIR_ROL'; role: RoleId }
   | { type: 'CAMBIAR_ROL'; role: RoleId }
   | { type: 'CONTINUAR' }
+  | { type: 'SALTAR_INTRO' }
   | { type: 'ELEGIR_OPCION'; optionId: string }
   | { type: 'MOSTRAR_REPARACION' }
   | { type: 'ALTERNAR_TARJETA'; cardId: string }
@@ -152,6 +153,11 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
         return resolverYSalir(ep, s, sc.decision.next);
       }
       return s;
+    }
+    case 'SALTAR_INTRO': {
+      // Versión de lectura: la introducción se muestra completa junto a la decisión.
+      if (s.paso.kind !== 'intro') return s;
+      return { ...s, paso: pasoDecision(sc) };
     }
     case 'ELEGIR_OPCION': {
       if (s.paso.kind !== 'decision' || sc.decision.kind !== 'choice') return s;

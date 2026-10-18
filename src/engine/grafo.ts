@@ -150,9 +150,9 @@ export function recorridoAdecuado(ep: Episode, rol: RoleId): Array<{ scene: Scen
   const out: Array<{ scene: SceneId; label: string }> = [];
   let n: NodeId = ep.start;
   const guard = new Set<string>();
-  while (n !== FINAL && !guard.has(n)) {
+  while (n !== 'CIERRE' && !guard.has(n)) {
     guard.add(n);
-    const s: Episode['scenes'][SceneId] = ep.scenes[n];
+    const s: Episode['scenes'][SceneId] = ep.scenes[n as SceneId];
     if (s.decision.kind === 'cards') {
       out.push({ scene: s.id, label: 'tarjetas' });
       n = s.decision.next;
