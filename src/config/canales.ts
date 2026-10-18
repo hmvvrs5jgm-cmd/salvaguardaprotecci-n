@@ -34,6 +34,15 @@ export const canales: Canal[] = [
     roles: ['cf', 'socio'],
   },
   {
+    id: 'punto-focal-suplente',
+    nombre: 'Punto Focal de Salvaguarda suplente',
+    descripcion:
+      'Asegura la continuidad y reemplaza al Punto Focal titular cuando es necesario. Es una alternativa si no es seguro o adecuado acudir al titular.',
+    estado: 'pendiente',
+    fuente: 'Plan de Salvaguarda FY2026, sección 6 y anexo 4',
+    roles: ['cf', 'socio'],
+  },
+  {
     id: 'gerente',
     nombre: 'Cualquier gerente de ChildFund',
     descripcion:
@@ -82,10 +91,19 @@ export const canales: Canal[] = [
     id: 'punto-focal-socio',
     nombre: 'Punto focal de salvaguarda de tu organización',
     descripcion:
-      'Cada organización socia cuenta con un punto focal propio y está obligada a informar a los puntos focales de ChildFund de las infracciones de su política. Sin acuerdo propio, se aplican las normas mínimas de ChildFund.',
+      'Activa la ruta en tu organización y la informa al Punto Focal de Salvaguarda de ChildFund. Cada organización socia cuenta con un punto focal propio y está obligada a informar a los puntos focales de ChildFund de las infracciones de su política. Sin acuerdo propio, se aplican las normas mínimas de ChildFund.',
     estado: 'pendiente',
-    fuente: 'Procedimiento 5.1.12.3, 5.1.12.6 y 5.1.12.7',
+    fuente: 'Procedimiento 5.1.12.3, 5.1.12.6 y 5.1.12.7; Protocolo de asistencia y derivación, 6; Plan de Salvaguarda FY2026, sección 6',
     roles: ['socio'],
+  },
+  {
+    id: 'cfm',
+    nombre: 'Mecanismo comunitario de retroalimentación y quejas',
+    descripcion:
+      'Canal para que participantes y comunidades comuniquen preocupaciones o quejas de salvaguarda. Forma parte de los canales de recepción de la ruta.',
+    estado: 'pendiente',
+    fuente: 'Política 2.9.2.2; Ruta gráfica de respuesta y derivación',
+    roles: ['cf', 'socio'],
   },
 ];
 
@@ -98,9 +116,10 @@ export interface ContactoEmergencia {
 
 /** Número de emergencia: solo se muestra si está verificado (prompt, apartado 2.2.9). */
 export const emergencia: ContactoEmergencia = {
-  nombre: 'Número de emergencia local',
-  estado: 'pendiente',
-  fuente: 'Pendiente de verificación institucional',
+  nombre: 'Número de emergencia',
+  valor: '911',
+  estado: 'verificado',
+  fuente: 'Protocolo de asistencia y derivación, 7.3; Capítulo III',
 };
 
 /** Directorio local de servicios que mantiene la oficina de país (Procedimiento 5.3.1.3.1–5.3.1.3.2). */
@@ -112,7 +131,7 @@ export const directorioLocal: { descripcion: string; url?: string; estado: Estad
 /** Etiquetas configurables del Referente según la ruta de cada rol (prompt, apartado 5.1). */
 export const etiquetaReferente: Record<'cf' | 'socio', string> = {
   cf: 'Referente · Punto Focal de Salvaguarda',
-  socio: 'Referente · rol competente según la ruta',
+  socio: 'Referente · punto focal de salvaguarda según la ruta',
 };
 
 export function canalesParaRol(rol: 'cf' | 'socio'): Canal[] {

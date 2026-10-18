@@ -38,7 +38,7 @@ for (const rol of ['cf', 'socio'] as const) {
     await page.getByRole('button', { name: 'Continuar' }).click();
     await hastaDecision(page);
     await page.locator('.opciones').getByRole('button', { name: /Para recibir apoyo debes presentar primero/ }).click();
-    await expect(page.locator('.nota-complementaria')).toContainText('la persona adulta decide si desea denunciar');
+    await expect(page.locator('.nota-complementaria')).toContainText('si existiera una obligación legal de denuncia');
     await page.getByRole('button', { name: 'Volver a intentar' }).click();
     await elegir(page, /Se te explicarán las opciones de apoyo/);
     await hastaDecision(page);
@@ -90,7 +90,7 @@ test('D7 no realiza solicitudes de red', async ({ page }) => {
     localStorage.setItem('dqp:preferencias', JSON.stringify({ adultoConfirmado: true }));
     localStorage.setItem(
       'dqp:progreso',
-      JSON.stringify({ episodeId: 'ep1-una-ayuda-con-condiciones', contentVersion: '1.1', role: 'cf', node: 'E06', resolved: [], toolsViewed: [], badges: [] }),
+      JSON.stringify({ episodeId: 'ep1-una-ayuda-con-condiciones', contentVersion: '1.2', role: 'cf', node: 'E06', resolved: [], toolsViewed: [], badges: [] }),
     );
   });
   await page.goto('./#/jugar');

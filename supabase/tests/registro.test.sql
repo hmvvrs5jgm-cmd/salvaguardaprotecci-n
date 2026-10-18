@@ -37,7 +37,7 @@ create function t.respuestas(p_errores text[]) returns jsonb language sql as $$
     case when question_id = any (p_errores)
       then (select o from unnest(option_ids) o where o <> correct_option_id limit 1)
       else correct_option_id end)
-  from private.assessment_items where content_version = '1.1';
+  from private.assessment_items where content_version = '1.2';
 $$;
 revoke all on function t.respuestas(text[]) from public;
 grant execute on all functions in schema t to anon, authenticated;
@@ -71,7 +71,7 @@ select t.anonimo();
 set role anon;
 select t.espera_error('select * from public.profiles', 'permission denied');
 select t.espera_error('select * from public.episode_results', 'permission denied');
-select t.espera_error($$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1')$$, 'permission denied');
+select t.espera_error($$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2')$$, 'permission denied');
 select t.espera_error('select public.my_results()', 'permission denied');
 select t.espera_error('select public.admin_list_results()', 'permission denied');
 select t.espera_error('select public.admin_export_csv()', 'permission denied');
@@ -84,7 +84,7 @@ reset role;
 -- =========================================================================
 select t.como('00000000-0000-0000-0000-00000000000a');
 set role authenticated;
-select t.espera_error($$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1')$$, 'profile_incomplete');
+select t.espera_error($$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2')$$, 'profile_incomplete');
 update public.profiles set display_name = '=HIPERVINCULO("x")', organization = 'Org Ficticia 1'
  where id = '00000000-0000-0000-0000-00000000000a';
 select t.afirma((select count(*) from public.profiles) = 1, 'A solo ve su propio perfil');
@@ -107,16 +107,17 @@ update public.profiles set display_name = 'Persona D', organization = 'Org Ficti
 -- =========================================================================
 select t.como('00000000-0000-0000-0000-00000000000d');
 set role authenticated;
-select t.espera_error($$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1')$$, 'email_not_confirmed');
+select t.espera_error($$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2')$$, 'email_not_confirmed');
 reset role;
 
 select t.como('00000000-0000-0000-0000-00000000000a');
 set role authenticated;
 select t.espera_error($$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.0')$$, 'version_mismatch');
+select t.espera_error($$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1')$$, 'version_mismatch');
 do $$
 declare r jsonb;
 begin
-  r := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1');
+  r := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2');
   perform t.afirma(jsonb_array_length(r -> 'question_order') = 10, 'el intento tiene 10 preguntas');
   perform t.afirma(r::text !~* 'correct', 'la respuesta de inicio no contiene la clave');
   perform t.afirma(current_setting('response.headers', true) like '%no-store%', 'respuesta sin caché');
@@ -163,11 +164,11 @@ begin
   perform t.afirma((r2 ->> 'replayed')::boolean and (r2 ->> 'score')::int = 8, 'el reenvío es idempotente');
   perform t.afirma((select count(*) from public.episode_results) = 1, 'un solo registro tras el reenvío');
 
-  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1');
+  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2');
   r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'ok7'));
   perform t.afirma((r ->> 'score')::int = 7 and not (r ->> 'passed')::boolean and r ->> 'estado' = 'insuficiente', '7/10 no aprueba');
 
-  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1');
+  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2');
   r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'crit9'));
   perform t.afirma((r ->> 'score')::int = 9 and not (r ->> 'passed')::boolean and r ->> 'estado' = 'critico_fallido'
     and r -> 'failed_critical' = '["P3"]', '9/10 con crítica fallida no aprueba');
@@ -179,7 +180,7 @@ end $$;
 select t.afirma((select count(*) from public.episode_results) = 3, 'A ve sus tres resultados');
 select t.afirma((select count(*) from public.my_results()) = 3, 'my_results devuelve los de A');
 select t.espera_error($$insert into public.episode_results (user_id, attempt_id, episode_id, content_version, score, passed, status)
-  values (auth.uid(), gen_random_uuid(), 'x', '1.1', 10, true, 'aprobado')$$, 'permission denied');
+  values (auth.uid(), gen_random_uuid(), 'x', '1.2', 10, true, 'aprobado')$$, 'permission denied');
 select t.espera_error($$update public.episode_results set score = 10, passed = true$$, 'permission denied');
 select t.espera_error($$update public.episode_results set status = 'aprobado'$$, 'permission denied');
 select t.espera_error($$update public.episode_results set user_id = '00000000-0000-0000-0000-00000000000b'$$, 'permission denied');
@@ -222,7 +223,7 @@ set role authenticated;
 select t.afirma((select count(*) from public.admin_list_results()) = 3, 'el Punto Focal ve todos los registros');
 select t.afirma((select count(*) from public.admin_list_results(p_organization => 'Org Ficticia 2')) = 0, 'filtro por organización');
 select t.afirma((select count(*) from public.admin_list_results(p_status => 'aprobado')) = 1, 'filtro por estado');
-select t.afirma((select count(*) from public.admin_list_results(p_content_version => '1.1', p_from => current_date, p_to => current_date)) = 3,
+select t.afirma((select count(*) from public.admin_list_results(p_content_version => '1.2', p_from => current_date, p_to => current_date)) = 3,
   'filtro por versión y fecha');
 do $$
 declare csv text := public.admin_export_csv();
@@ -281,7 +282,7 @@ set role authenticated;
 do $$
 declare i jsonb;
 begin
-  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1');
+  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2');
   insert into t.ids values ('e1', (i ->> 'attempt_id')::uuid);
 end $$;
 reset role;
@@ -291,9 +292,9 @@ do $$ begin
   perform t.espera_error(format('select public.submit_attempt(%L, %L)', (select id from t.ids where nombre = 'e1'),
     (select v from t.r where nombre = 'todo')), 'attempt_expired');
   for k in 2..30 loop
-    perform public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1');
+    perform public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2');
   end loop;
-  perform t.espera_error($q$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1')$q$, 'rate_limited');
+  perform t.espera_error($q$select public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2')$q$, 'rate_limited');
 end $$;
 reset role;
 
@@ -301,7 +302,7 @@ reset role;
 select t.como('00000000-0000-0000-0000-00000000000b');
 set role authenticated;
 do $$ declare i jsonb; begin
-  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.1');
+  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2');
   insert into t.ids values ('b1', (i ->> 'attempt_id')::uuid);
 end $$;
 reset role;

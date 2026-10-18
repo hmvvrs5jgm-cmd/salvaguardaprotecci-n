@@ -1,4 +1,4 @@
-// Episodio 1 — «Una ayuda con condiciones». Guion versión de diseño 1.1.
+// Episodio 1 — «Una ayuda con condiciones». Guion versión de diseño 1.2.
 // Los diálogos marcados literal: true se copian sin parafrasear del guion.
 // Los textos con literal: false convierten indicaciones de pantalla en narración
 // y están registrados en docs/cambios-editoriales.md.
@@ -469,7 +469,7 @@ const E07: Scene = {
     id: 'D8',
     prompt: '¿Qué orientación corresponde?',
     complementaryNote:
-      'El apoyo no se condiciona a una denuncia penal. Cuando corresponda, la persona adulta decide si desea denunciar ante las autoridades.',
+      'El apoyo no se condiciona a una denuncia penal. La persona adulta decide sobre su atención; si existiera una obligación legal de denuncia, los roles competentes la valoran y se la explican.',
     options: [
       {
         id: 'D8-A',
@@ -553,7 +553,7 @@ export const episodio1: Episode = {
   id: 'ep1-una-ayuda-con-condiciones',
   number: 1,
   title: 'Una ayuda con condiciones',
-  version: '1.1',
+  version: '1.2',
   start: 'E01',
   scenes,
   order: ['E01', 'E02', 'E03', 'E04', 'E05', 'E05B', 'E06', 'E07', 'E08'],

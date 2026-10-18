@@ -19,7 +19,7 @@ describe('reglas de contenido (prompt, apartado 11)', () => {
   });
 
   it('cada herramienta muestra fuentes', () => {
-    expect(herramientas.map((h) => h.id)).toEqual(['escucha', 'seguridad', 'reporte', 'roles', 'apoyos']);
+    expect(herramientas.map((h) => h.id)).toEqual(['escucha', 'seguridad', 'no-hacer', 'reporte', 'ruta', 'roles', 'apoyos']);
     for (const h of herramientas) expect(h.sources.length).toBeGreaterThan(0);
   });
 
@@ -48,5 +48,20 @@ describe('reglas de contenido (prompt, apartado 11)', () => {
 
   it('las preguntas no llevan la clave incorporada', () => {
     expect(JSON.stringify(preguntas)).not.toMatch(/correct/i);
+  });
+});
+
+describe('contenido de las fuentes de la Oficina de País (v1.2)', () => {
+  const texto = todoElTexto();
+  it('no publica el mapeo de servicios de uso interno ni nombres de entidades del directorio', () => {
+    for (const t of ['CEPAM', 'Casa Matilde', 'DEVIF', 'DINAPEN', 'Centros Violeta', '1800', 'fiscalia.gob.ec']) expect(texto).not.toContain(t);
+  });
+  it('matiza la decisión de la persona adulta con las obligaciones legales que valoran los roles competentes', () => {
+    expect(texto).toContain('COIP (art. 276)');
+    expect(texto).not.toMatch(/esa decisión es tuya y el apoyo no depende de ella/);
+  });
+  it('incluye la herramienta de acciones no permitidas y la ruta de respuesta', () => {
+    expect(texto).toContain('Derivar sin coordinación con el PEP o el SIMT');
+    expect(texto).toContain('Tu participación en la ruta termina al comunicar');
   });
 });

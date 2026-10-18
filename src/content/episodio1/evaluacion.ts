@@ -1,4 +1,4 @@
-// Evaluación final independiente (guion v1.1, apartado 16).
+// Evaluación final independiente (guion v1.2, apartado 16).
 // Las preguntas no contienen la clave: está en ./clave.ts, que el frontend en modo registro no importa.
 // Los IDs de opción conservan la letra del guion solo para trazabilidad; la interfaz no muestra letras.
 
@@ -6,7 +6,7 @@ import type { AssessmentConfig, Question } from '../types';
 
 export const configEvaluacion: AssessmentConfig = {
   episodeId: 'ep1-una-ayuda-con-condiciones',
-  version: '1.1',
+  version: '1.2',
   passScore: 8,
   criticalQuestionIds: ['P2', 'P3', 'P4', 'P6'],
   isProvisional: true,
@@ -121,7 +121,7 @@ export const preguntas: Question[] = [
     critical: true,
     criterion: 'No desarrollar una investigación paralela ni trasladar esa carga a la persona.',
     explanation: 'No se desarrolla una investigación paralela ni se traslada esa carga a la persona.',
-    recovery: { decisionId: 'D8', sceneId: 'E07', toolId: 'roles' },
+    recovery: { decisionId: 'D8', sceneId: 'E07', toolId: 'no-hacer' },
   },
   {
     id: 'P7',
@@ -157,9 +157,9 @@ export const preguntas: Question[] = [
     critical: false,
     criterion: 'Separar la asistencia de exigencias indebidas.',
     explanation:
-      'El enfoque centrado en la persona separa asistencia de exigencias indebidas. La decisión de presentar una denuncia penal corresponde a la persona adulta.',
+      'El enfoque centrado en la persona separa asistencia de exigencias indebidas. La persona adulta decide sobre su atención; las obligaciones legales de denuncia que pudieran aplicar las valoran y explican los roles competentes.',
     complementaryNote:
-      'El apoyo no se condiciona a una denuncia penal. Cuando corresponda, la persona adulta decide si desea denunciar ante las autoridades.',
+      'El apoyo no se condiciona a una denuncia penal. La persona adulta decide sobre su atención; si existiera una obligación legal de denuncia, los roles competentes la valoran y se la explican.',
     recovery: { decisionId: 'D8', sceneId: 'E07', toolId: 'apoyos' },
   },
   {

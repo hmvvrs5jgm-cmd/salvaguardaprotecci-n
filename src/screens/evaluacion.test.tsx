@@ -38,7 +38,7 @@ describe('evaluación en modo demostración', () => {
     await user.click(screen.getByRole('button', { name: 'Iniciar evaluación' }));
     await responder(user, ['P1', 'P5']);
     expect(await screen.findByRole('heading', { name: 'Resultado de demostración (no registrado)' })).toBeInTheDocument();
-    expect(screen.getByText(/Has aprobado este episodio\. .*Resultado: 8\/10\. .*versión 1\.1\./)).toBeInTheDocument();
+    expect(screen.getByText(/Has aprobado este episodio\. .*Resultado: 8\/10\. .*versión 1\.2\./)).toBeInTheDocument();
   });
 
   it('9/10 con una crítica fallida: criterio esencial, caso de recuperación y práctica reforzada', async () => {

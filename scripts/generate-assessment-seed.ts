@@ -5,7 +5,13 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { configEvaluacion, preguntas } from '../src/content/episodio1';
 import { claveEp1 } from '../src/content/episodio1/clave';
 
-const destino = 'supabase/migrations/20261018000003_banco_ep1_v1_1.sql';
+// Cada versión del contenido tiene su propia migración; las anteriores no se editan.
+const destinos: Record<string, string> = {
+  '1.1': 'supabase/migrations/20261018000003_banco_ep1_v1_1.sql',
+  '1.2': 'supabase/migrations/20261018000004_banco_ep1_v1_2.sql',
+};
+const destino = destinos[configEvaluacion.version];
+if (!destino) throw new Error(`Añade el nombre de migración para la versión ${configEvaluacion.version}`);
 const q = (s: string) => `'${s.replace(/'/g, "''")}'`;
 
 const filas = preguntas.map((p, i) => {
@@ -22,6 +28,10 @@ const sql = `-- GENERADO por scripts/generate-assessment-seed.ts a partir de src
 insert into private.assessment_versions (episode_id, content_version, pass_score, active)
 values (${q(configEvaluacion.episodeId)}, ${q(configEvaluacion.version)}, ${configEvaluacion.passScore}, true)
 on conflict (episode_id, content_version) do update set pass_score = excluded.pass_score, active = excluded.active;
+
+-- Las versiones anteriores del episodio dejan de aceptar intentos nuevos y envíos.
+update private.assessment_versions set active = false
+ where episode_id = ${q(configEvaluacion.episodeId)} and content_version <> ${q(configEvaluacion.version)};
 
 delete from private.assessment_items where episode_id = ${q(configEvaluacion.episodeId)} and content_version = ${q(configEvaluacion.version)};
 

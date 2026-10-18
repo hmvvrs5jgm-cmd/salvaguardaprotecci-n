@@ -65,3 +65,47 @@ Estos ajustes se aplicaron en la versión 1.1 del guion (`referencias/Guion_Una_
 5. **Apartado 20:** añadir que el caso del episodio no es de nivel 1, porque ese nivel se refiere a protección infantil frente a actores externos, sin pedir a la persona jugadora que clasifique.
 6. **Explicación de P8:** añadir «La decisión de presentar una denuncia penal corresponde a la persona adulta».
 7. **Bibliografía de trabajo:** añadir Política 2.9.1 y 3.4.1, y Proc. 3.3, 5.1.12, 5.1.14.7, 5.2.4.4, 5.3.1.3.4 y 5.3.1.3.5.
+
+## 5. Contraste con los documentos de la Oficina de País (guion v1.2)
+
+Documentos revisados el 18/10/2026, que permanecen en `referencias/` y no se publican:
+- Plan de Salvaguarda FY2026 – ChildFund International Ecuador (50 páginas).
+- Protocolo de Asistencia y Derivación (56 páginas).
+- Ruta gráfica de respuesta y derivación (1 página).
+- Capítulo III: procedimientos para la denuncia y atención de la ESCNNA (3 páginas).
+
+### 5.1 Correspondencia con el caso de Mariela
+
+| Elemento del episodio | Sustento en los nuevos documentos | Estado |
+|---|---|---|
+| D1: escuchar en un espacio discreto, sin cuestionar | Protocolo 7.2 d) y e); 8 («Juzgar o cuestionar la credibilidad»); 8.2 | Coherente |
+| D1-D, D3-B, P6: no confrontar, no interrogar ni investigar | Protocolo 8 («Interrogar o investigar por cuenta propia»); 7.4 («Se evita investigación interna paralela») | Coherente |
+| D2, P3: no prometer secreto absoluto | Protocolo 3.3 (la confidencialidad no es absoluta); 8 | Coherente |
+| D3, P4: seguridad primero, sin actuar solo | Protocolo 3.5, 6.1 (fase 1) y 8 («Actuar solo/a ante riesgo grave») | Coherente |
+| D4-A, P2: no pedir pruebas | Protocolo 8 («Solicitar pruebas: fotos, capturas, audios») | Coherente |
+| D5-C: no difundir en grupos | Protocolo 8 (canales informales) y 10.2 | Coherente |
+| D5 variante socio | Protocolo 6: en socios, la ruta se activa por su punto focal, que informa al PEP; Plan, sección 6 | Coherente |
+| E05B, D6, P7: canal alternativo | Plan, anexo 4: PEP suplente; ruta gráfica b): cuatro vías de reporte | Coherente; se añade el PEP suplente como canal |
+| E07: el referente coordina; tú no derivas | Protocolo 6 y 8 («Derivar sin coordinación con el PEP/SIMT») | Coherente |
+| D8, P8: apoyos sin condiciones | Protocolo 4.1, 4.2 c), 5.1.2 (autonomía plena de la persona adulta) | Coherente, con el matiz legal de la sección 5.2 |
+| D7, P5: información mínima | Protocolo 10.1 (registro mínimo, sin juicios de valor ni detalles revictimizantes) | Coherente |
+
+### 5.2 Hallazgos y cambios aplicados
+
+1. **Obligación legal de denuncia en casos de personas adultas.** El Protocolo (5.3) cita el COIP, art. 276: quien, por su profesión u oficio, conoce hechos que posiblemente constituyan un delito contra las mujeres en ámbitos como educación, salud, recreación, religioso, deportivo o cultural tiene la obligación de denunciar. Las secciones 3.3 y 4.3 añaden que la confidencialidad y el consentimiento ceden ante un mandato legal de denuncia, y que esas excepciones se explican a la persona. Esto **matiza** la afirmación de la v1.1 («esa decisión es tuya»). En la v1.2, el panel de E07, la nota tras D8, la explicación de P8 y la herramienta de apoyos dicen que la persona adulta decide sobre su atención y que, si existiera una obligación legal de denuncia, los roles competentes la valoran y explican. La persona jugadora no decide sobre esa obligación. **Pendiente de confirmación con Asesoría Legal**: alcance del art. 276 en un caso como el del episodio.
+2. **Nuevas herramientas.** «Lo que no debes hacer» (Protocolo 8, 8.1 y 8.2) y «Ruta de respuesta y derivación» (ruta gráfica; Protocolo 6, 6.1 y 7.3; Plan, sección 6).
+3. **Herramientas ampliadas.**
+   - Guía de escucha: validar emociones, no cuestionar la credibilidad, evitar la repetición del relato.
+   - Seguridad: no actuar solo ante un riesgo grave.
+   - Reporte: canal del socio, prohibición de canales informales, registro sin juicios de valor.
+   - Roles: PEP, PEP suplente, SIMT y punto focal del socio.
+   - Apoyos: consentimiento informado de la persona adulta, excepciones y mapeo de uso interno.
+4. **Canales.** Se añaden, como pendientes de verificación, el PEP suplente (Plan, anexo 4) y el mecanismo comunitario de retroalimentación y quejas (Política 2.9.2.2; ruta gráfica). Se actualiza la descripción del punto focal del socio. La tabla de mecanismos de reporte de la ruta gráfica coincide con los canales ya verificados.
+5. **Número de emergencia.** El Protocolo (7.3) y el Capítulo III indican «911». Se configura como `verificado` con esas fuentes; se muestra en el panel de E03. No se publica la línea 1800-DELITO: es una vía de denuncia, y las derivaciones las coordina el PEP (Protocolo 8).
+6. **Mapeo de servicios.** El Protocolo (9) lo declara de «uso interno exclusivo», con revisión cada seis meses. No se publica ninguna entidad, dirección ni teléfono; una prueba automática lo comprueba.
+7. **Plan de Salvaguarda.** Contiene nombres de personas de la oficina: no se publican.
+
+### 5.3 Discrepancias nuevas
+- **Criterio de niveles 2 y 3.** La ruta gráfica distingue según si «la vida y/o integridad física, psicológica, emocional y/o sexual» de la persona está en riesgo. El Procedimiento 5.2.3 distingue según si se produjo un daño real. No afecta al juego, porque la persona jugadora no clasifica, pero conviene armonizar.
+- **Nombres de instituciones.** El Capítulo III menciona el «Ministerio de la Mujer y Derechos Humanos»; el Protocolo, el «Ministerio de Desarrollo Humano (MDH)» y el «Ministerio de Gobierno». Confirma la decisión de no publicar nombres de entidades sin verificación.
+- **Alcance del Capítulo III.** Trata la ESCNNA (niñas, niños y adolescentes). Su ruta de denuncia no se aplica directamente al caso de una persona adulta.

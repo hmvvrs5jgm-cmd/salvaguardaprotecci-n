@@ -159,7 +159,7 @@ export interface AssessmentConfig {
 
 // --- Herramientas ---
 
-export type ToolId = 'escucha' | 'seguridad' | 'reporte' | 'roles' | 'apoyos';
+export type ToolId = 'escucha' | 'seguridad' | 'no-hacer' | 'reporte' | 'ruta' | 'roles' | 'apoyos';
 
 export interface ToolSection {
   heading: string;

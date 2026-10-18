@@ -96,7 +96,7 @@ describe('D7 y canales', () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch');
     localStorage.setItem(
       'dqp:progreso',
-      JSON.stringify({ episodeId: 'ep1-una-ayuda-con-condiciones', contentVersion: '1.1', role: 'cf', node: 'E06', resolved: [], toolsViewed: [], badges: [] }),
+      JSON.stringify({ episodeId: 'ep1-una-ayuda-con-condiciones', contentVersion: '1.2', role: 'cf', node: 'E06', resolved: [], toolsViewed: [], badges: [] }),
     );
     localStorage.setItem('dqp:preferencias', JSON.stringify({ adultoConfirmado: true }));
     const user = userEvent.setup();
