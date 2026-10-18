@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { herramientas } from '../content/herramientas';
 import type { Tool, ToolId } from '../content/types';
 import { useApp } from '../state/AppState';
@@ -69,6 +69,9 @@ export function DialogoHerramientas({
   const { despachar } = useApp();
   const [actual, setActual] = useState<ToolId | null>(inicial ?? null);
   const tool = herramientas.find((h) => h.id === actual) ?? null;
+  useEffect(() => {
+    if (abierto && inicial) despachar({ type: 'VER_HERRAMIENTA', toolId: inicial });
+  }, [abierto, inicial, despachar]);
   const abrir = (id: ToolId) => {
     setActual(id);
     despachar({ type: 'VER_HERRAMIENTA', toolId: id });
