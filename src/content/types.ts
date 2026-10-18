@@ -9,6 +9,9 @@ export type RoleText = string | { cf: string; socio: string };
 
 export type Speaker = 'narracion' | 'mariela' | 'elena' | 'tu' | 'referente';
 
+/** Pose del personaje mientras habla (las ilustraciones tienen tres poses por personaje). */
+export type Pose = 'atenta' | 'pensativa' | 'explica';
+
 export interface Line {
   id: string;
   speaker: Speaker;
@@ -18,6 +21,8 @@ export interface Line {
    * false: indicación de pantalla convertida en narración o texto de interfaz (ver docs/cambios-editoriales.md).
    */
   literal: boolean;
+  /** Pose de quien habla; por defecto «explica». */
+  pose?: Pose;
 }
 
 export type SceneId = 'E01' | 'E02' | 'E03' | 'E04' | 'E05' | 'E05B' | 'E06' | 'E07' | 'E08';

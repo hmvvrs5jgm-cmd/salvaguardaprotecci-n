@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { portada } from '../content/episodio1';
 import { useApp } from '../state/AppState';
 import { BannerDemo, Encabezado } from '../ui/comunes';
+import { imagenPortada } from '../ui/ilustraciones';
 
 export function Portada() {
   const { ep, estado, carga, versionGuardada, borrar, descartarAviso, prefs, setPrefs } = useApp();
@@ -15,6 +16,13 @@ export function Portada() {
 
   return (
     <div className="pantalla portada">
+      <img
+        className="portada__imagen"
+        src={imagenPortada}
+        alt="Entrada de un centro comunitario con rampa de acceso, jardineras y montañas al fondo."
+        width={1600}
+        height={720}
+      />
       <p className="sobretitulo">Episodio {ep.number}</p>
       <Encabezado>{ep.title}</Encabezado>
       <p className="portada__lead">{portada.lead}</p>

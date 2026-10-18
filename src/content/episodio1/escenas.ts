@@ -3,14 +3,15 @@
 // Los textos con literal: false convierten indicaciones de pantalla en narración
 // y están registrados en docs/cambios-editoriales.md.
 
-import type { Episode, Line, Scene, SceneId, Speaker } from '../types';
+import type { Episode, Line, Pose, Scene, SceneId, Speaker } from '../types';
 
 let seq = 0;
-const l = (speaker: Speaker, text: Line['text'], literal = true): Line => ({
+const l = (speaker: Speaker, text: Line['text'], literal = true, pose?: Pose): Line => ({
   id: `L${++seq}`,
   speaker,
   text,
   literal,
+  ...(pose ? { pose } : {}),
 });
 
 const D2_B_TEXT =
@@ -29,13 +30,15 @@ const E01: Scene = {
   id: 'E01',
   title: 'Al terminar la jornada',
   background: 'centro',
-  backgroundAlt: 'Centro comunitario ilustrado al final de una reunión informativa. Algunas personas adultas se retiran.',
+  backgroundAlt: 'Entrada del centro comunitario al terminar la jornada, con una rampa de acceso, jardineras y montañas al fondo.',
   characters: ['mariela'],
   intro: [
     l('narracion', 'La jornada termina. Mariela espera a que el grupo se retire y se acerca a ti.'),
     l(
       'mariela',
       '¿Podemos hablar? Una persona que trabaja con el programa dijo que puede ayudarme a entrar si acepto salir con ella. Insinuó que esperaba algo íntimo. Me preocupa perder la ayuda.',
+      true,
+      'pensativa',
     ),
   ],
   decision: {
@@ -107,9 +110,9 @@ const E02: Scene = {
   id: 'E02',
   title: 'Lo que sí puedes prometer',
   background: 'conversacion',
-  backgroundAlt: 'Espacio discreto de conversación junto a la salida del centro comunitario.',
+  backgroundAlt: 'Zona discreta junto a la puerta de salida del centro comunitario.',
   characters: ['mariela'],
-  intro: [l('mariela', 'Por favor, que nadie se entere. Si cuento esto, quizás dejen de ayudarme.')],
+  intro: [l('mariela', 'Por favor, que nadie se entere. Si cuento esto, quizás dejen de ayudarme.', true, 'pensativa')],
   designNote:
     'Nunca prometer que Mariela obtendrá una plaza. El acceso depende de criterios del programa; rechazar una conducta sexual o comunicar una preocupación no debe utilizarse para perjudicarla.',
   decision: {
@@ -165,7 +168,7 @@ const E03: Scene = {
   id: 'E03',
   title: 'Seguridad y necesidades inmediatas',
   background: 'conversacion',
-  backgroundAlt: 'Espacio discreto de conversación. Mariela y la persona jugadora conversan sentadas.',
+  backgroundAlt: 'Zona discreta junto a la puerta de salida del centro comunitario, donde Mariela prefirió conversar.',
   characters: ['mariela'],
   intro: [
     l(
@@ -231,7 +234,7 @@ const E04: Scene = {
   id: 'E04',
   title: 'Una presión del equipo',
   background: 'oficina',
-  backgroundAlt: 'Oficina de coordinación con una mesa y dos sillas. No hay documentos identificables.',
+  backgroundAlt: 'Oficina de coordinación con un escritorio, dos sillas y archivadores. No hay documentos identificables.',
   characters: ['elena'],
   intro: [
     l(
@@ -461,6 +464,8 @@ const E07: Scene = {
     l(
       'mariela',
       'Quiero conocer las opciones de apoyo, pero no quiero que me obliguen a hablar con la persona señalada.',
+      true,
+      'pensativa',
     ),
   ],
   panel: 'apoyos',
@@ -507,9 +512,9 @@ const E08: Scene = {
   id: 'E08',
   title: 'Lo que puedes hacer después',
   background: 'centro',
-  backgroundAlt: 'Centro comunitario preparado para una nueva actividad. Elena ordena materiales informativos.',
+  backgroundAlt: 'Entrada del centro comunitario, preparada para una nueva actividad.',
   characters: ['elena'],
-  intro: [l('elena', '¿Qué hacemos para que las personas conozcan mejor sus derechos?')],
+  intro: [l('elena', '¿Qué hacemos para que las personas conozcan mejor sus derechos?', true, 'pensativa')],
   decision: {
     kind: 'choice',
     id: 'D9',

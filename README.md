@@ -85,4 +85,4 @@ El guion, la política, el procedimiento y la PPT **se quedan en `referencias/`*
 - El repositorio es público: la evaluación es formativa y sin supervisión, no un examen seguro. La aprobación corresponde solo al episodio y versión; no es un certificado.
 - Mientras no exista un banco alternativo revisado, los nuevos intentos repiten las mismas diez preguntas («práctica reforzada»).
 - Las personas que operan el proyecto Supabase tienen acceso técnico a los datos. «Único rol autorizado» se refiere a la aplicación.
-- Ilustraciones y color verde provisionales. No se usa el logotipo de ChildFund.
+- Ilustraciones proporcionadas por la institución (`docs/activos-graficos.md`); derechos de uso pendientes de confirmar. El color verde es provisional. No se usa el logotipo de ChildFund.

@@ -61,7 +61,8 @@ export function Juego({ modo }: { modo: ModoJuego }) {
 function EscenaVista({ escena, estado, modo }: { escena: Scene; estado: EstadoPractica; modo: ModoJuego }) {
   const rol = estado.role!;
   const titulo = useEnfocar<HTMLHeadingElement>(escena.id);
-  const hablante = estado.paso.kind === 'intro' ? escena.intro[estado.paso.index]?.speaker : undefined;
+  const lineaActual = estado.paso.kind === 'intro' ? escena.intro[estado.paso.index] : undefined;
+  const hablante = lineaActual?.speaker;
 
   return (
     <section className="escena" aria-labelledby="escena-titulo">
@@ -77,7 +78,7 @@ function EscenaVista({ escena, estado, modo }: { escena: Scene; estado: EstadoPr
           <Fondo id={escena.background} alt={escena.backgroundAlt} />
           <div className="escenario__personajes">
             {escena.characters.map((c) => (
-              <Retrato key={c} id={c} activo={hablante === c} />
+              <Retrato key={c} id={c} activo={hablante === c} pose={hablante === c ? (lineaActual?.pose ?? 'explica') : 'atenta'} />
             ))}
           </div>
         </div>

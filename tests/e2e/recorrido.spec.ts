@@ -96,7 +96,11 @@ test('D7 no realiza solicitudes de red', async ({ page }) => {
   await page.goto('./#/jugar');
   await expect(page.getByText('SIMULACIÓN. Este ejercicio no envía reportes')).toBeVisible();
   const solicitudes: string[] = [];
-  page.on('request', (r) => solicitudes.push(r.url()));
+  // Solo se permiten imágenes y fuentes locales del propio juego; nunca envíos de datos ni conexiones externas.
+  page.on('request', (r) => {
+    const recursoLocal = r.method() === 'GET' && ['image', 'font'].includes(r.resourceType()) && new URL(r.url()).origin === new URL(page.url()).origin;
+    if (!recursoLocal) solicitudes.push(`${r.method()} ${r.resourceType()} ${r.url()}`);
+  });
   await page.getByLabel(/Tarjeta 4/).check();
   await page.getByRole('button', { name: 'Comprobar selección' }).click();
   await page.getByLabel(/Tarjeta 4/).uncheck();
