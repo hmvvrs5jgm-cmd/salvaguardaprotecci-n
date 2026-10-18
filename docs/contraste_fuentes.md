@@ -56,7 +56,7 @@ Ninguno de estos plazos autoriza a demorar la seguridad, la atención ni la comu
 
 ## 4. Ajustes recomendados al guion (para su versión 1.1)
 
-No se modificó el guion. Se recomienda a quien lo mantiene:
+Estos ajustes se aplicaron en la versión 1.1 del guion (`referencias/Guion_Una_ayuda_con_condiciones_v1.1.md`, excluida del repositorio). Esa versión además actualiza a 1.1 la versión citada en el texto de aprobación (apartado 17) y añade un registro de cambios (apartado 23).
 
 1. **Apartado 2:** citar también las diapositivas 55, 63 y 66–68, y advertir sobre las diapositivas 64–65.
 2. **Apartado 4 y E05B:** añadir una nota de diseño que reconozca que «conflicto de interés» es una adaptación; en el panel de referencia, incluir «cualquier gerente de ChildFund», el Punto Focal (que registra en EthicsPoint) y el teléfono de país publicado en Speak Up.

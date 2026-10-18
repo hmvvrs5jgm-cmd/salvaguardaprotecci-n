@@ -1,6 +1,6 @@
 # Prompt para Claude Code: Decisiones que protegen
 
-Versión del prompt 1.2 (contrastada con el guion «Una ayuda con condiciones», versión de diseño 1.0, con la Política PRO-POL-080, el Procedimiento PRO-PRO-080 y la PPT «Salvaguarda actualizado»). El detalle del contraste está en `docs/contraste_fuentes.md`, que debes leer antes de escribir contenido.
+Versión del prompt 1.2 (contrastada con el guion «Una ayuda con condiciones», versión de diseño 1.1, con la Política PRO-POL-080, el Procedimiento PRO-PRO-080 y la PPT «Salvaguarda actualizado»). El detalle del contraste está en `docs/contraste_fuentes.md`, que debes leer antes de escribir contenido.
 
 Copia este documento completo en Claude Code. Coloca el guion y los tres documentos institucionales en una carpeta local `referencias/`. No publiques esa carpeta.
 
@@ -20,7 +20,7 @@ El juego será público, con práctica sin cuenta. Para registrar aprobación se
 
 Busca primero en el repositorio y en `referencias/`:
 
-- `Guion_Una_ayuda_con_condiciones.md`.
+- `Guion_Una_ayuda_con_condiciones_v1.1.md` (usa esta versión; la 1.0 queda reemplazada).
 - `ChildFund_Safeguarding_Policy_Spanish_June_13.2023-PRO-POL-080.pdf`.
 - `ChildFund_Safeguarding_Procedure_Spanish_June_13.2023_PRO-PRO-080.pdf`.
 - `PPT_Salvaguarda_actualizado.pptx`.
