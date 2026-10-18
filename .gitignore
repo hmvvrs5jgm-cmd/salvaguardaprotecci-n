@@ -1,4 +1,24 @@
+# Fuentes institucionales: permanecen locales (no publicar)
 referencias/
 *.pdf
 *.pptx
+*.ppt
+*.docx
 Guion_*.md
+
+# Dependencias y artefactos
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+.vite/
+*.log
+
+# Entorno y secretos
+.env
+.env.*
+!.env.example
+supabase/.temp/
+supabase/.branches/
+.tmp-pg/
