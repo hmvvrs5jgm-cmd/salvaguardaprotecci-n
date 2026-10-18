@@ -12,7 +12,7 @@ Marca cada punto solo cuando la institución lo haya verificado.
 
 ## Canales y contactos (`src/config/canales.ts`)
 - [ ] Punto Focal de Salvaguarda de ChildFund: verificar el canal y cambiar el estado a `verificado`. (Descripción ajustada por la institución el 18/10/2026: «Recibe la preocupación y la registra mediante el formulario de incidentes».)
-- [ ] Gerentes y dirección directa: verificar la redacción.
+- [x] Gerentes y dirección directa: confirmados por la institución el 18/10/2026 (Política 2.9.1; Procedimiento 5.2.2).
 - [x] `complaints@childfund.org`: confirmado por la institución el 18/10/2026; se muestra como enlace de correo.
 - [x] Speak Up: `http://speakup.childfund.org` confirmado por la institución el 18/10/2026; se muestra como enlace externo.
 - [ ] Teléfono de país: se consulta en el sitio de Speak Up; no copiarlo sin verificar.

@@ -35,8 +35,9 @@ export const canales: Canal[] = [
     id: 'gerente',
     nombre: 'Cualquier gerente de ChildFund',
     descripcion:
-      'Puede recibir la preocupación y debe contactar con Cumplimiento Global. Recibirla no traslada tu propio deber de comunicarla dentro de 24 horas.',
-    estado: 'pendiente',
+      'Puede recibir la preocupación y debe ponerse en contacto con Cumplimiento Global en un plazo de 5 días laborables. Recibirla no traslada tu propio deber de comunicarla dentro de 24 horas.',
+    estado: 'verificado',
+    verificacion: 'Confirmado por la institución el 18 de octubre de 2026; coincide con la fuente indicada.',
     fuente: 'Política 2.9.1',
     roles: ['cf'],
   },
@@ -44,8 +45,9 @@ export const canales: Canal[] = [
     id: 'direccion-directa',
     nombre: 'Dirección directa',
     descripcion:
-      'Director, Asesor Global de Salvaguardia y PSEA, Cumplimiento Global, Recursos Humanos Globales o Jurídico, verbalmente o por correo electrónico.',
-    estado: 'pendiente',
+      'Director, Asesor Global de Salvaguardia y PSEA, Cumplimiento Global, Recursos Humanos Globales o Jurídico, verbalmente o por correo electrónico (complaints@childfund.org).',
+    estado: 'verificado',
+    verificacion: 'Confirmado por la institución el 18 de octubre de 2026; coincide con la fuente indicada.',
     fuente: 'Procedimiento 5.2.2',
     roles: ['cf'],
   },
