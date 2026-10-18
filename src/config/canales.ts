@@ -143,7 +143,7 @@ export const serviciosPublicos: ServicioPublico[] = [
   {
     id: 'ecu-911',
     tipo: 'emergencia',
-    nombre: 'Línea 911',
+    nombre: 'Línea de emergencias',
     descripcion:
       'Atención inmediata de emergencias, incluidos casos de violencia y explotación sexual, para proteger la seguridad física de la persona.',
     contacto: '911',
@@ -153,9 +153,9 @@ export const serviciosPublicos: ServicioPublico[] = [
   {
     id: 'linea-1800-delito',
     tipo: 'denuncia',
-    nombre: 'Línea 1800-DELITO de la Fiscalía',
-    descripcion: 'Vía de denuncia de la Fiscalía que permite reportar delitos de manera anónima y segura (opción 4).',
-    contacto: '1800-335486 (1800-DELITO), opción 4',
+    nombre: 'Línea de denuncia de la Fiscalía',
+    descripcion: 'Vía de denuncia de la Fiscalía que permite reportar delitos de manera anónima y segura.',
+    contacto: '1800-DELITO (1800-335486), opción 4',
     estado: 'verificado',
     fuente: 'Capítulo III; Protocolo de asistencia y derivación, 7.3',
   },

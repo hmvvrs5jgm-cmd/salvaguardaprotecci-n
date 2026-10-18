@@ -127,7 +127,7 @@ describe('D7 y canales', () => {
     expect(screen.getByRole('link', { name: 'complaints@childfund.org' })).toHaveAttribute('href', 'mailto:complaints@childfund.org');
     expect(screen.getByText('Recibe la preocupación y la registra mediante el formulario de incidentes.')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Si hay peligro inmediato' })).toBeInTheDocument();
-    expect(screen.getByText('Línea 1800-DELITO de la Fiscalía')).toBeInTheDocument();
+    expect(screen.getByText('Línea de denuncia de la Fiscalía')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Abrir el sitio de la Fiscalía/ })).toHaveAttribute('href', 'https://www.fiscalia.gob.ec/');
     expect(screen.getByText('Cualquier gerente de ChildFund')).toBeInTheDocument();
     await user.click(screen.getByLabelText('Personal de una organización socia'));
