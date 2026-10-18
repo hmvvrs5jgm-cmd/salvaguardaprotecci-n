@@ -116,11 +116,16 @@ describe('D7 y canales', () => {
     fetchSpy.mockRestore();
   });
 
-  it('el panel institucional no muestra canales pendientes como enlaces y cambia según el rol', async () => {
+  it('el panel institucional enlaza solo canales verificados y cambia según el rol', async () => {
     const user = userEvent.setup();
     montar('/comunicar');
     expect(screen.getByText(/Este juego no es un sistema de denuncias/)).toBeInTheDocument();
-    expect(screen.queryAllByRole('link').filter((a) => /speakup|complaints/.test(a.getAttribute('href') ?? ''))).toHaveLength(0);
+    const speakUp = screen.getByRole('link', { name: /Abrir Speak Up/ });
+    expect(speakUp).toHaveAttribute('href', 'http://speakup.childfund.org');
+    expect(speakUp).toHaveAttribute('rel', 'noopener noreferrer');
+    // Correo verificado: enlace de correo simple, sin asunto ni cuerpo que transfieran datos del juego.
+    expect(screen.getByRole('link', { name: 'complaints@childfund.org' })).toHaveAttribute('href', 'mailto:complaints@childfund.org');
+    expect(screen.getByText('Recibe la preocupación y la registra mediante el formulario de incidentes.')).toBeInTheDocument();
     expect(screen.getByText('Cualquier gerente de ChildFund')).toBeInTheDocument();
     await user.click(screen.getByLabelText('Personal de una organización socia'));
     expect(screen.getByText('Punto focal de salvaguarda de tu organización')).toBeInTheDocument();

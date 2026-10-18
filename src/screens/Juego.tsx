@@ -483,7 +483,13 @@ export function ListaCanales({ rol }: { rol: RoleId }) {
             </span>
           </p>
           <p>{c.descripcion}</p>
-          {c.estado === 'verificado' && c.contacto && <p>Contacto: {c.contacto}</p>}
+          {c.estado === 'verificado' && c.contacto && (
+            <p>
+              Contacto:{' '}
+              {/* Enlace de correo sin asunto ni cuerpo: no se transfiere ningún dato del juego. */}
+              {c.contacto.includes('@') ? <a href={`mailto:${c.contacto}`}>{c.contacto}</a> : c.contacto}
+            </p>
+          )}
           {esEnlaceActivo(c) ? (
             <p>
               <a href={c.url} rel="noopener noreferrer" target="_blank">
@@ -491,10 +497,12 @@ export function ListaCanales({ rol }: { rol: RoleId }) {
               </a>
             </p>
           ) : (
+            c.estado === 'pendiente' &&
             (c.url || c.contacto) && (
               <p className="ayuda">Dato de contacto no publicado como enlace hasta que la institución lo verifique.</p>
             )
           )}
+          {c.estado === 'verificado' && c.verificacion && <p className="fuentes-linea">{c.verificacion}</p>}
           <p className="fuentes-linea">Fuente: {c.fuente}</p>
         </li>
       ))}

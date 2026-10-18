@@ -14,6 +14,8 @@ export interface Canal {
   url?: string;
   anonimo?: boolean;
   estado: EstadoVerificacion;
+  /** Quién y cuándo confirmó el dato (solo para canales verificados). */
+  verificacion?: string;
   fuente: string;
   /** Roles a los que aplica. */
   roles: Array<'cf' | 'socio'>;
@@ -24,7 +26,7 @@ export const canales: Canal[] = [
     id: 'punto-focal-cf',
     nombre: 'Punto Focal de Salvaguarda de ChildFund',
     descripcion:
-      'Recibe la preocupación y la registra mediante el formulario de incidentes en el sitio de EthicsPoint («Punto de Ética»).',
+      'Recibe la preocupación y la registra mediante el formulario de incidentes.',
     estado: 'pendiente',
     fuente: 'Política 2.9.2.1; Procedimiento 5.2.2',
     roles: ['cf', 'socio'],
@@ -53,7 +55,8 @@ export const canales: Canal[] = [
     descripcion: 'Puede usarse de forma anónima o indicando tu nombre.',
     contacto: 'complaints@childfund.org',
     anonimo: true,
-    estado: 'pendiente',
+    estado: 'verificado',
+    verificacion: 'Confirmado por la institución el 18 de octubre de 2026; coincide con la Política 2.9.2.1 y el Procedimiento 5.2.2.',
     fuente: 'Política 2.9.2.1; Procedimiento 5.2.2',
     roles: ['cf', 'socio'],
   },
@@ -62,10 +65,11 @@ export const canales: Canal[] = [
     nombre: 'Speak Up (sitio web o teléfono)',
     descripcion:
       'Mecanismo de denuncia por la web o por teléfono, de forma anónima o con nombre. El teléfono de cada país figura en el propio sitio.',
-    // Corregido respecto de la PPT (diapositiva 20). Las fuentes lo dan con http://; no se cambia el protocolo hasta verificar.
+    // Corregido respecto de la PPT (diapositiva 20). Dirección confirmada por la institución, con http:// como en las fuentes.
     url: 'http://speakup.childfund.org',
     anonimo: true,
-    estado: 'pendiente',
+    estado: 'verificado',
+    verificacion: 'Confirmado por la institución el 18 de octubre de 2026; coincide con la Política 2.9.2.1 y el Procedimiento 5.2.2.',
     fuente: 'Política 2.9.2.1; Procedimiento 5.2.2',
     roles: ['cf', 'socio'],
   },
