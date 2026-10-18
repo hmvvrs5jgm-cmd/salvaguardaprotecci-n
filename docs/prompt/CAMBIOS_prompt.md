@@ -35,3 +35,14 @@ Revisión hecha contrastando el prompt con el guion «Una ayuda con condiciones�
 - Fases ordenadas con commits pequeños, para asegurar una versión jugable antes del backend.
 - Archivos de seguimiento: `docs/discrepancias.md` y `docs/cambios-editoriales.md`.
 - Flujo de publicación en Pages separado y manual.
+
+# Cambios del prompt 1.1 → 1.2
+
+Contraste con la Política PRO-POL-080, el Procedimiento PRO-PRO-080 y la PPT. Detalle en `docs/contraste_fuentes.md`.
+
+- Nuevo apartado 2.2 con doce hallazgos obligatorios: definición de explotación sexual (incluye el intento y el intercambio de ayuda), decisión de la persona adulta sobre la denuncia penal, tabla de plazos (24 h, 5 días laborables, 24/48/72 h de escalamiento y 72 h de atención médica), escala errónea «menor/moderado/grave» de la diapositiva 58, canales del procedimiento 5.2.2 con Speak Up corregido, obligaciones de los socios, contenido mínimo del reporte, no revictimización, ruta estatal de las diapositivas 64–65, fechas y vigencia de las fuentes, citas erróneas de la PPT y la expresión «conflicto de interés», que no aparece en las fuentes.
+- Nombres reales de los archivos y diapositivas pertinentes corregidas (se añaden la 55, la 63 y las 66–68).
+- Cada herramienta de consulta tiene contenido y fuentes definidos.
+- Registro: finalidad apoyada en el procedimiento 5.1.6.5; vigencia configurable, sin caducidad automática.
+- Checklist ampliado y nuevas verificaciones de contenido.
+- Recomendaciones de ajuste al guion (no modificado) en `docs/contraste_fuentes.md`, sección 4.
