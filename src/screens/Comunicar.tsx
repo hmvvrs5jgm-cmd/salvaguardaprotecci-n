@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import type { RoleId } from '../content/types';
 import { useApp } from '../state/AppState';
 import { Encabezado } from '../ui/comunes';
-import { ListaCanales } from './Juego';
+import { ListaCanales, ListaServicios } from './Juego';
 
 /** Panel institucional separado del juego. No es un formulario y no transfiere datos del juego. */
 export function Comunicar() {
@@ -21,9 +21,16 @@ export function Comunicar() {
       </div>
       <p>
         Si conoces una preocupación real de salvaguarda, comunícala dentro de 24 horas por los mecanismos institucionales, con la
-        información disponible. No necesitas pruebas ni certeza. Si hay peligro inmediato, activa la respuesta de emergencia
-        según la ruta local, dentro de tu función.
+        información disponible. No necesitas pruebas ni certeza.
       </p>
+      <div className="aviso" role="note">
+        <h2>Si hay peligro inmediato</h2>
+        <p>
+          Llama al <strong>911</strong> para proteger la seguridad física de la persona y activa de inmediato al Punto Focal de
+          Salvaguarda. No actúes solo o sola.
+        </p>
+      </div>
+      <h2>Canales institucionales</h2>
       <fieldset className="selector-rol">
         <legend>Mostrar la ruta para</legend>
         <div>
@@ -47,6 +54,8 @@ export function Comunicar() {
         Los contactos se publicarán como enlaces solo después de que la institución los verifique. Mientras tanto, consulta a tu
         Punto Focal de Salvaguarda.
       </p>
+      <h2>Servicios públicos de protección y denuncia</h2>
+      <ListaServicios />
       <Link className="boton" to="/">
         Volver a la portada
       </Link>

@@ -109,3 +109,10 @@ Documentos revisados el 18/10/2026, que permanecen en `referencias/` y no se pub
 - **Criterio de niveles 2 y 3.** La ruta gráfica distingue según si «la vida y/o integridad física, psicológica, emocional y/o sexual» de la persona está en riesgo. El Procedimiento 5.2.3 distingue según si se produjo un daño real. No afecta al juego, porque la persona jugadora no clasifica, pero conviene armonizar.
 - **Nombres de instituciones.** El Capítulo III menciona el «Ministerio de la Mujer y Derechos Humanos»; el Protocolo, el «Ministerio de Desarrollo Humano (MDH)» y el «Ministerio de Gobierno». Confirma la decisión de no publicar nombres de entidades sin verificación.
 - **Alcance del Capítulo III.** Trata la ESCNNA (niñas, niños y adolescentes). Su ruta de denuncia no se aplica directamente al caso de una persona adulta.
+
+### 5.4 Decisión institucional sobre servicios públicos (18/10/2026)
+- **Emergencias:** la línea 911, según la ruta y los canales del Capítulo III. Se muestra en el panel de E03, en la tarjeta de seguridad y en «Cómo comunicar una preocupación real».
+- **Línea 1800-DELITO (1800-335486, opción 4):** vía de denuncia de la Fiscalía que puede informarse a las personas. Las derivaciones las coordina el Punto Focal.
+- **Servicios de protección como alternativas:** Unidades de Flagrancia; Fiscalía, juzgados y Juntas de Protección de Derechos; Servicios de Protección Integral y Centros Violeta. Se acompañan de la ruta orientativa del Capítulo III y de un aviso: la persona decide; el PEP coordina la derivación; las 48 horas no son un plazo de reporte. Se muestran en la herramienta de apoyos, en el panel de E07 y en «Cómo comunicar una preocupación real».
+- Sigue sin publicarse el mapeo detallado de uso interno del Protocolo (entidades, direcciones y teléfonos de Pichincha).
+

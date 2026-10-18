@@ -119,12 +119,92 @@ export const emergencia: ContactoEmergencia = {
   nombre: 'Número de emergencia',
   valor: '911',
   estado: 'verificado',
-  fuente: 'Protocolo de asistencia y derivación, 7.3; Capítulo III',
+  fuente: 'Capítulo III; Protocolo de asistencia y derivación, 7.3',
 };
+
+/**
+ * Servicios públicos de emergencia, denuncia y protección en Ecuador (Capítulo III; Protocolo de asistencia y derivación, 7.3).
+ * Se informan a la persona como alternativas: ella decide si acude. Las derivaciones las coordina el Punto Focal (PEP).
+ * No se nombran ministerios: los documentos institucionales difieren en sus nombres (ver docs/discrepancias.md, punto 18).
+ */
+export interface ServicioPublico {
+  id: string;
+  tipo: 'emergencia' | 'denuncia' | 'proteccion';
+  nombre: string;
+  descripcion: string;
+  contacto?: string;
+  url?: string;
+  etiquetaEnlace?: string;
+  estado: EstadoVerificacion;
+  fuente: string;
+}
+
+export const serviciosPublicos: ServicioPublico[] = [
+  {
+    id: 'ecu-911',
+    tipo: 'emergencia',
+    nombre: 'Línea 911',
+    descripcion:
+      'Atención inmediata de emergencias, incluidos casos de violencia y explotación sexual, para proteger la seguridad física de la persona.',
+    contacto: '911',
+    estado: 'verificado',
+    fuente: 'Capítulo III; Protocolo de asistencia y derivación, 7.3',
+  },
+  {
+    id: 'linea-1800-delito',
+    tipo: 'denuncia',
+    nombre: 'Línea 1800-DELITO de la Fiscalía',
+    descripcion: 'Vía de denuncia de la Fiscalía que permite reportar delitos de manera anónima y segura (opción 4).',
+    contacto: '1800-335486 (1800-DELITO), opción 4',
+    estado: 'verificado',
+    fuente: 'Capítulo III; Protocolo de asistencia y derivación, 7.3',
+  },
+  {
+    id: 'flagrancia',
+    tipo: 'denuncia',
+    nombre: 'Unidades de Flagrancia',
+    descripcion:
+      'Si se trata de violencia de género y el hecho ocurrió hace menos de 48 horas: unidades en todo el país para atención inmediata y legal.',
+    estado: 'verificado',
+    fuente: 'Capítulo III; Protocolo de asistencia y derivación, 7.3',
+  },
+  {
+    id: 'fiscalia',
+    tipo: 'denuncia',
+    nombre: 'Fiscalía, juzgados o Juntas de Protección de Derechos',
+    descripcion:
+      'Si el hecho ocurrió hace más de 48 horas: denuncia presencial en la Fiscalía o en las unidades judiciales, o en línea. No se requiere abogado y el trámite es gratuito. El sitio de la Fiscalía incluye el directorio de fiscalías.',
+    url: 'https://www.fiscalia.gob.ec/',
+    etiquetaEnlace: 'Abrir el sitio de la Fiscalía General del Estado',
+    estado: 'verificado',
+    fuente: 'Capítulo III; Protocolo de asistencia y derivación, 7.3',
+  },
+  {
+    id: 'juntas',
+    tipo: 'proteccion',
+    nombre: 'Juntas de Protección de Derechos',
+    descripcion:
+      'Reciben denuncias y dictan medidas de protección, en especial para niñas, niños y adolescentes. Conviene acudir a la más cercana al lugar de residencia.',
+    estado: 'verificado',
+    fuente: 'Capítulo III',
+  },
+  {
+    id: 'proteccion-integral',
+    tipo: 'proteccion',
+    nombre: 'Servicios de Protección Integral y Centros Violeta',
+    descripcion:
+      'Orientación e información sobre los servicios de atención; atención psicológica, legal y de trabajo social a sobrevivientes de violencia.',
+    estado: 'verificado',
+    fuente: 'Capítulo III; Protocolo de asistencia y derivación, 7.3',
+  },
+];
+
+export const avisoServicios =
+  'Estos servicios pueden comunicarse a la persona como alternativas: ella decide si acude y cuándo. Las derivaciones las coordina el Punto Focal de Salvaguarda (PEP), con consentimiento informado; no derives por tu cuenta. Las 48 horas indican a qué servicio acudir según el tiempo transcurrido: no son un plazo para reportar ni para esperar.';
 
 /** Directorio local de servicios que mantiene la oficina de país (Procedimiento 5.3.1.3.1–5.3.1.3.2). */
 export const directorioLocal: { descripcion: string; url?: string; estado: EstadoVerificacion } = {
-  descripcion: 'Directorio local vigente de proveedores de servicios mantenido por la oficina de país.',
+  descripcion: 'El mapeo detallado de servicios de la oficina de país es de uso interno: se consulta a través del Punto Focal de Salvaguarda.',
   estado: 'pendiente',
 };
 

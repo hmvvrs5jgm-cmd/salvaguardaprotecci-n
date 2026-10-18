@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { canales, esEnlaceActivo } from '../config/canales';
+import { canales, esEnlaceActivo, serviciosPublicos } from '../config/canales';
 import { herramientas } from './herramientas';
 import { preguntas, configEvaluacion } from './episodio1';
 import { claveEp1 } from './episodio1/clave';
@@ -34,9 +34,12 @@ describe('reglas de contenido (prompt, apartado 11)', () => {
     expect(t).toContain('no es de nivel 1');
   });
 
-  it('no hay teléfonos en el contenido publicado', () => {
-    expect(texto).not.toMatch(/\b\d{3}[\s-]?\d{3,4}[\s-]?\d{3,4}\b/);
-    expect(texto).not.toMatch(/ECU\s*911/i);
+  it('solo aparecen los números de servicios públicos verificados', () => {
+    const permitidos = serviciosPublicos.filter((s) => s.estado === 'verificado').map((s) => s.contacto ?? '');
+    const sinPermitidos = permitidos.reduce((t, p) => t.split(p).join(''), texto);
+    expect(sinPermitidos).not.toMatch(/\b\d{3}[\s-]?\d{3,4}[\s-]?\d{3,4}\b/);
+    // «1800» solo puede figurar en la línea de denuncia de la Fiscalía.
+    expect(sinPermitidos.replace(/1800-DELITO/g, '')).not.toMatch(/1800/);
   });
 
   it('diez preguntas con clave completa; críticas 2, 3, 4 y 6; umbral 8', () => {
@@ -54,7 +57,7 @@ describe('reglas de contenido (prompt, apartado 11)', () => {
 describe('contenido de las fuentes de la Oficina de País (v1.2)', () => {
   const texto = todoElTexto();
   it('no publica el mapeo de servicios de uso interno ni nombres de entidades del directorio', () => {
-    for (const t of ['CEPAM', 'Casa Matilde', 'DEVIF', 'DINAPEN', 'Centros Violeta', '1800', 'fiscalia.gob.ec']) expect(texto).not.toContain(t);
+    for (const t of ['CEPAM', 'Casa Matilde', 'DEVIF', 'DINAPEN', 'Warmi', 'Enrique Garc', 'Danumis', 'HIAS']) expect(texto).not.toContain(t);
   });
   it('matiza la decisión de la persona adulta con las obligaciones legales que valoran los roles competentes', () => {
     expect(texto).toContain('COIP (art. 276)');
@@ -63,5 +66,16 @@ describe('contenido de las fuentes de la Oficina de País (v1.2)', () => {
   it('incluye la herramienta de acciones no permitidas y la ruta de respuesta', () => {
     expect(texto).toContain('Derivar sin coordinación con el PEP o el SIMT');
     expect(texto).toContain('Tu participación en la ruta termina al comunicar');
+  });
+});
+
+describe('servicios públicos del Capítulo III', () => {
+  it('911 para emergencias; 1800-DELITO como vía de denuncia de la Fiscalía; derivación coordinada por el PEP', () => {
+    const porId = Object.fromEntries(serviciosPublicos.map((s) => [s.id, s]));
+    expect(porId['ecu-911']).toMatchObject({ tipo: 'emergencia', contacto: '911', estado: 'verificado' });
+    expect(porId['linea-1800-delito']).toMatchObject({ tipo: 'denuncia' });
+    expect(porId['linea-1800-delito']!.descripcion).toContain('Fiscalía');
+    expect(todoElTexto()).toContain('Las derivaciones las coordina el Punto Focal de Salvaguarda (PEP)');
+    expect(todoElTexto()).toContain('no son un plazo para reportar ni para esperar');
   });
 });

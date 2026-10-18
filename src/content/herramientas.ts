@@ -2,7 +2,11 @@
 // Cada herramienta cita sus fuentes. No contienen teléfonos de servicios, autoridades ni personas inventadas.
 // El mapeo de servicios del Protocolo de asistencia y derivación es de uso interno: no se publica aquí.
 
+import { avisoServicios, serviciosPublicos } from '../config/canales';
 import type { Tool, ToolId } from './types';
+
+const lineaServicio = (s: (typeof serviciosPublicos)[number]) =>
+  `${s.nombre}${s.contacto ? ` (${s.contacto})` : ''}: ${s.descripcion}`;
 
 export const herramientas: Tool[] = [
   {
@@ -59,7 +63,7 @@ export const herramientas: Tool[] = [
       {
         heading: 'Dentro de tu función',
         bullets: [
-          'Si hubiera peligro inmediato o necesidad urgente de atención, activa la respuesta de emergencia y los servicios competentes según la ruta local. La seguridad y la atención no esperan una clasificación ni la conclusión de una investigación.',
+          'Si hubiera peligro inmediato o necesidad urgente de atención, activa la respuesta de emergencia (911) y los servicios competentes según la ruta local. La seguridad y la atención no esperan una clasificación ni la conclusión de una investigación.',
           'No actúes solo o sola ante un riesgo grave: activa de inmediato al Punto Focal de Salvaguarda (PEP) y sigue los protocolos de emergencia.',
           'No improvises medidas mediante confrontación: no contactes a la persona señalada.',
           'Explica con honestidad los límites de la protección disponible.',
@@ -69,7 +73,8 @@ export const herramientas: Tool[] = [
     ],
     sources: [
       'Procedimiento 5.3.1.3.4.1 (seguridad y límites de la protección)',
-      'Protocolo de asistencia y derivación, 3.5, 6.1 (fase 1) y 8',
+      'Protocolo de asistencia y derivación, 3.5, 6.1 (fase 1), 7.3 y 8',
+      'Capítulo III (línea 911)',
       'Guion, escena E03 y panel de transferencia',
     ],
   },
@@ -343,16 +348,31 @@ export const herramientas: Tool[] = [
         ],
       },
       {
-        heading: 'Directorio de servicios',
+        heading: 'Servicios de protección que pueden comunicarse a la persona',
+        paragraphs: [avisoServicios],
+        bullets: serviciosPublicos.filter((s) => s.estado === 'verificado').map(lineaServicio),
+      },
+      {
+        heading: 'Ruta orientativa para la persona',
+        bullets: [
+          '¿Está en peligro inmediato? Llamar al 911.',
+          '¿Es violencia de género y el hecho ocurrió hace menos de 48 horas? Unidades de Flagrancia.',
+          '¿El hecho ocurrió hace más de 48 horas? Fiscalía, juzgado o Junta de Protección más cercana; también se puede denunciar en línea.',
+          '¿Busca orientación o información sobre servicios de atención? Servicios de Protección Integral y Centros Violeta.',
+        ],
+      },
+      {
+        heading: 'Directorio interno',
         paragraphs: [
-          'La oficina de país mantiene un mapeo de servicios de uso interno, revisado al menos cada seis meses. Toda derivación la coordina el Punto Focal de Salvaguarda (PEP), con consentimiento informado: no derives por tu cuenta. Los nombres y contactos de entidades no se publican aquí.',
+          'La oficina de país mantiene además un mapeo detallado de servicios de uso interno, revisado al menos cada seis meses. Se consulta a través del PEP y no se publica aquí.',
         ],
       },
     ],
     sources: [
       'Política 2.10.3, 2.10.4 y 2.10.5',
       'Procedimiento 5.3.1.3.1 a 5.3.1.3.5',
-      'Protocolo de asistencia y derivación, 3.3, 4.1–4.3, 5.1.2, 5.3 y 9',
+      'Protocolo de asistencia y derivación, 3.3, 4.1–4.3, 5.1.2, 5.3, 7.3 y 9',
+      'Capítulo III: vías de denuncia y servicios de protección en Ecuador',
       'PPT, diapositivas 32, 55 y 66–67',
       'Guion, escena E07 y panel de apoyos',
     ],

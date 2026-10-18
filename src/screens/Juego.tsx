@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { canalesParaRol, directorioLocal, emergencia, esEnlaceActivo } from '../config/canales';
+import { avisoServicios, canalesParaRol, directorioLocal, emergencia, esEnlaceActivo, serviciosPublicos } from '../config/canales';
 import { panelTransferencia } from '../content/episodio1';
 import { panelApoyos } from '../content/herramientas';
 import type { CardsDecision, ChoiceDecision, Option, PanelId, RoleId, Scene } from '../content/types';
@@ -460,14 +460,44 @@ export function PanelContextual({ id, rol }: { id: PanelId; rol: RoleId }) {
           <p>
             {panelApoyos.medica} {panelApoyos.medicaAclaracion}
           </p>
-          <p>
-            {directorioLocal.descripcion}{' '}
-            {directorioLocal.estado === 'pendiente' && <em>(pendiente de configuración)</em>}
+          <h3>Servicios de protección que pueden comunicarse a la persona</h3>
+          <ListaServicios />
+          <p>{directorioLocal.descripcion}</p>
+          <p className="fuentes-linea">
+            Fuentes: Política 2.10.3–2.10.5; Procedimiento 5.3.1.3.4 y 5.3.1.3.5; Protocolo de asistencia y derivación; Capítulo III.
           </p>
-          <p className="fuentes-linea">Fuentes: Política 2.10.3–2.10.5; Procedimiento 5.3.1.3.4 y 5.3.1.3.5.</p>
         </>
       )}
     </details>
+  );
+}
+
+/** Servicios públicos informativos (Capítulo III). Solo se muestran los verificados. */
+export function ListaServicios() {
+  const visibles = serviciosPublicos.filter((s) => s.estado === 'verificado');
+  return (
+    <>
+      <p className="aviso aviso--info">{avisoServicios}</p>
+      <ul className="canales">
+        {visibles.map((s) => (
+          <li key={s.id} className="canal">
+            <p className="canal__nombre">
+              <strong>{s.nombre}</strong>
+              {s.contacto && <> — {s.contacto}</>}
+            </p>
+            <p>{s.descripcion}</p>
+            {s.url && esEnlaceActivo(s) && (
+              <p>
+                <a href={s.url} rel="noopener noreferrer" target="_blank">
+                  {s.etiquetaEnlace ?? s.nombre} (se abre en una pestaña nueva)
+                </a>
+              </p>
+            )}
+            <p className="fuentes-linea">Fuente: {s.fuente}</p>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

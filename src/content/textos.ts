@@ -1,5 +1,5 @@
 // Recolección de todos los textos publicados del episodio, para comprobaciones automáticas.
-import { canales } from '../config/canales';
+import { avisoServicios, canales, serviciosPublicos } from '../config/canales';
 import { herramientas, panelApoyos } from './herramientas';
 import { episodio1, panelTransferencia, portada, preguntas } from './episodio1';
 import type { Line, RoleText } from './types';
@@ -70,5 +70,7 @@ export function todoElTexto(): string {
   partes.push(...Object.values(panelApoyos));
   for (const p of preguntas) partes.push(p.stem, p.explanation, ...p.options.map((o) => o.text), p.criterion);
   for (const c of canales) partes.push(c.nombre, c.descripcion, c.contacto ?? '', c.url ?? '');
+  for (const s of serviciosPublicos) partes.push(s.nombre, s.descripcion, s.contacto ?? '', s.url ?? '');
+  partes.push(avisoServicios);
   return partes.join('\n');
 }

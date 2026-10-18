@@ -18,7 +18,7 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [x] Speak Up: `http://speakup.childfund.org` confirmado por la institución el 18/10/2026; se muestra como enlace externo.
 - [ ] Teléfono de país: se consulta en el sitio de Speak Up; no copiarlo sin verificar.
 - [ ] Punto focal de las organizaciones socias: redacción genérica, sin nombrar intermediarios.
-- [x] Número de emergencia: 911, según el Protocolo de asistencia y derivación (7.3) y el Capítulo III. Confirmar con el Punto Focal.
+- [x] Número de emergencia 911 y servicios públicos del Capítulo III (`serviciosPublicos` en `src/config/canales.ts`): confirmados por la institución el 18/10/2026. Revisar periódicamente su vigencia.
 - [ ] PEP suplente: verificar el canal de contacto (Plan de Salvaguarda FY2026, anexo 4).
 - [ ] Mecanismo comunitario de retroalimentación y quejas: verificar cómo se accede.
 - [ ] Directorio local de servicios: el mapeo del Protocolo es de uso interno; definir cómo se consulta a través del PEP.
