@@ -1,0 +1,41 @@
+# Configuración de Supabase CLI para desarrollo local (supabase start) y referencia de la configuración remota.
+# Revisa cada valor con la documentación oficial vigente antes de aplicarlo: los nombres de claves cambian entre versiones.
+project_id = "decisiones-que-protegen"
+
+[api]
+enabled = true
+# Solo se expone el esquema public. El esquema private (banco, intentos, Punto Focal, auditoría) no se publica.
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+major_version = 15
+
+[auth]
+enabled = true
+# URL pública del sitio en GitHub Pages (ajustar al publicar). La verificación es por código: no hay retorno con tokens en la URL.
+site_url = "http://localhost:5173"
+additional_redirect_urls = []
+jwt_expiry = 3600
+enable_signup = true
+enable_anonymous_sign_ins = false
+
+[auth.email]
+enable_signup = true
+enable_confirmations = true
+# Código de un solo uso de 6 dígitos. La plantilla de correo debe incluir {{ .Token }}.
+otp_length = 6
+otp_expiry = 600
+max_frequency = "60s"
+
+[auth.mfa]
+max_enrolled_factors = 10
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[auth.rate_limit]
+email_sent = 10
+token_verifications = 30
