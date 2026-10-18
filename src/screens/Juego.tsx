@@ -493,7 +493,7 @@ export function ListaCanales({ rol }: { rol: RoleId }) {
           {esEnlaceActivo(c) ? (
             <p>
               <a href={c.url} rel="noopener noreferrer" target="_blank">
-                Abrir {c.nombre} (sitio externo)
+                {c.etiquetaEnlace ?? `Abrir ${c.nombre}`} (se abre en una pestaña nueva)
               </a>
             </p>
           ) : (

@@ -120,7 +120,7 @@ describe('D7 y canales', () => {
     const user = userEvent.setup();
     montar('/comunicar');
     expect(screen.getByText(/Este juego no es un sistema de denuncias/)).toBeInTheDocument();
-    const speakUp = screen.getByRole('link', { name: /Abrir Speak Up/ });
+    const speakUp = screen.getByRole('link', { name: /Abrir el sitio de Speak Up/ });
     expect(speakUp).toHaveAttribute('href', 'http://speakup.childfund.org');
     expect(speakUp).toHaveAttribute('rel', 'noopener noreferrer');
     // Correo verificado: enlace de correo simple, sin asunto ni cuerpo que transfieran datos del juego.

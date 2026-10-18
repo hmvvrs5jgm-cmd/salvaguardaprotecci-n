@@ -14,6 +14,8 @@ export interface Canal {
   url?: string;
   anonimo?: boolean;
   estado: EstadoVerificacion;
+  /** Texto del enlace, si el canal tiene URL. */
+  etiquetaEnlace?: string;
   /** Quién y cuándo confirmó el dato (solo para canales verificados). */
   verificacion?: string;
   fuente: string;
@@ -69,6 +71,7 @@ export const canales: Canal[] = [
       'Mecanismo de denuncia por la web o por teléfono, de forma anónima o con nombre. El teléfono de cada país figura en el propio sitio.',
     // Corregido respecto de la PPT (diapositiva 20). Dirección confirmada por la institución, con http:// como en las fuentes.
     url: 'http://speakup.childfund.org',
+    etiquetaEnlace: 'Abrir el sitio de Speak Up',
     anonimo: true,
     estado: 'verificado',
     verificacion: 'Confirmado por la institución el 18 de octubre de 2026; coincide con la Política 2.9.2.1 y el Procedimiento 5.2.2.',
