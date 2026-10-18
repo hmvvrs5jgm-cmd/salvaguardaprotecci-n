@@ -82,7 +82,7 @@ export function Marco({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <HashRouter future={{ v7_relativeSplatPath: true }}>
       <AppStateProvider>
         <AnuncioProvider>
           <TituloDocumento />

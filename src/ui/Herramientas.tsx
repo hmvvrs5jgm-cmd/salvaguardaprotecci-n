@@ -21,7 +21,7 @@ export function VistaHerramienta({ tool }: { tool: Tool }) {
             </ul>
           )}
           {sec.table && (
-            <div className="tabla-contenedor">
+            <div className="tabla-contenedor" tabIndex={0} role="region" aria-label="Tabla desplazable">
               <table>
                 <thead>
                   <tr>

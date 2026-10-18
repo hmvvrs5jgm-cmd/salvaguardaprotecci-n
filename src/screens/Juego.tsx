@@ -93,6 +93,13 @@ function PasoVista({ escena, estado, rol, modo }: { escena: Scene; estado: Estad
   const anunciar = useAnunciar();
   const p = estado.paso;
   const botonContinuar = useRef<HTMLButtonElement>(null);
+  // El encabezado de la decisión solo recibe el foco al volver desde la retroalimentación;
+  // al entrar en una escena, el foco va al encabezado de la escena.
+  const pasoAnterior = useRef(p.kind);
+  const volviendo = pasoAnterior.current === 'feedback' && p.kind === 'decision';
+  useEffect(() => {
+    pasoAnterior.current = p.kind;
+  }, [p.kind]);
 
   if (p.kind === 'intro') {
     const linea = escena.intro[p.index];
@@ -140,7 +147,7 @@ function PasoVista({ escena, estado, rol, modo }: { escena: Scene; estado: Estad
       )}
       {escena.panel && <PanelContextual id={escena.panel} rol={rol} />}
       {p.kind === 'decision' && escena.decision.kind === 'choice' && (
-        <DecisionVista decision={escena.decision} rol={rol} modo={modo} />
+        <DecisionVista decision={escena.decision} rol={rol} modo={modo} enfocar={volviendo} />
       )}
       {p.kind === 'feedback' && escena.decision.kind === 'choice' && (
         <RetroalimentacionVista decision={escena.decision} estado={estado} rol={rol} />
@@ -163,9 +170,22 @@ function OutroVista({ escena, rol }: { escena: Scene; rol: RoleId }) {
   );
 }
 
-function DecisionVista({ decision, rol, modo }: { decision: ChoiceDecision; rol: RoleId; modo: ModoJuego }) {
+function DecisionVista({
+  decision,
+  rol,
+  modo,
+  enfocar,
+}: {
+  decision: ChoiceDecision;
+  rol: RoleId;
+  modo: ModoJuego;
+  enfocar: boolean;
+}) {
   const { despachar } = useApp();
-  const ref = useEnfocar<HTMLHeadingElement>(decision.id);
+  const ref = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (enfocar) ref.current?.focus();
+  }, [enfocar]);
   const [seleccion, setSeleccion] = useState<string | null>(null);
 
   if (modo === 'lectura') {
@@ -323,7 +343,6 @@ function TarjetasVista({
   checked: { missing: boolean; extra: boolean; ok: boolean } | null;
 }) {
   const { despachar } = useApp();
-  const ref = useEnfocar<HTMLHeadingElement>(decision.id);
   const resultado = useEnfocar<HTMLDivElement>(checked ? `${checked.missing}-${checked.extra}-${checked.ok}` : null);
 
   return (
@@ -340,9 +359,7 @@ function TarjetasVista({
       >
         <fieldset disabled={checked?.ok}>
           <legend>
-            <h2 ref={ref} tabIndex={-1} className="decision__pregunta">
-              {decision.prompt}
-            </h2>
+            <h2 className="decision__pregunta">{decision.prompt}</h2>
           </legend>
           {decision.cards.map((c) => (
             <div className={`tarjeta${selected.includes(c.id) ? ' tarjeta--marcada' : ''}`} key={c.id}>

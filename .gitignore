@@ -22,3 +22,4 @@ test-results/
 supabase/.temp/
 supabase/.branches/
 .tmp-pg/
+dist-pages/

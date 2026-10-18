@@ -39,7 +39,7 @@ export function PuntoFocal() {
 function Tabla({ filas, onAnular }: { filas: RegistroAdmin[]; onAnular?: (r: RegistroAdmin) => void }) {
   if (filas.length === 0) return <p>No hay registros con estos filtros.</p>;
   return (
-    <div className="tabla-contenedor">
+    <div className="tabla-contenedor" tabIndex={0} role="region" aria-label="Tabla de registros">
       <table>
         <caption className="solo-lector">Registros de evaluación</caption>
         <thead>

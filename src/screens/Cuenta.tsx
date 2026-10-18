@@ -177,7 +177,7 @@ function CuentaRegistro() {
       {resultados.length === 0 ? (
         <p>Aún no tienes resultados registrados.</p>
       ) : (
-        <div className="tabla-contenedor">
+        <div className="tabla-contenedor" tabIndex={0} role="region" aria-label="Tabla de tus resultados">
           <table>
             <thead>
               <tr><th scope="col">Fecha</th><th scope="col">Episodio</th><th scope="col">Versión</th><th scope="col">Puntaje</th><th scope="col">Estado</th></tr>

@@ -9,7 +9,7 @@ import { AppStateProvider } from '../state/AppState';
 
 function montar() {
   return render(
-    <MemoryRouter initialEntries={['/evaluacion']} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <MemoryRouter initialEntries={['/evaluacion']} future={{ v7_relativeSplatPath: true }}>
       <AppStateProvider>
         <Rutas />
       </AppStateProvider>

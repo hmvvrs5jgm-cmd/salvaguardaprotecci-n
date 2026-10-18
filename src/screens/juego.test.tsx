@@ -8,7 +8,7 @@ import { AnuncioProvider } from '../ui/comunes';
 
 function montar(ruta = '/') {
   return render(
-    <MemoryRouter initialEntries={[ruta]} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <MemoryRouter initialEntries={[ruta]} future={{ v7_relativeSplatPath: true }}>
       <AppStateProvider>
         <AnuncioProvider>
           <Rutas />
