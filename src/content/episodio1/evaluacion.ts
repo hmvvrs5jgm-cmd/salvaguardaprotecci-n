@@ -2,7 +2,7 @@
 // Las preguntas no contienen la clave: está en ./clave.ts, que el frontend en modo registro no importa.
 // Los IDs de opción conservan la letra del guion solo para trazabilidad; la interfaz no muestra letras.
 
-import type { AssessmentConfig, Question } from '../types';
+import type { AssessmentConfig, Question, TextosResultado } from '../types';
 
 export const configEvaluacion: AssessmentConfig = {
   episodeId: 'ep1-una-ayuda-con-condiciones',
@@ -202,7 +202,7 @@ export const preguntas: Question[] = [
 ];
 
 /** Textos de resultado (guion v1.1, apartado 17). */
-export const textosResultado = {
+export const textosResultado: TextosResultado = {
   aprobado: (score: number, version: string) =>
     `Has aprobado este episodio. Demostraste los criterios evaluados para reconocer una preocupación y activar una respuesta desde tu rol. Resultado: ${score}/10. Esta aprobación corresponde al episodio Una ayuda con condiciones, versión ${version}.`,
   criticoFallido: (score: number) =>

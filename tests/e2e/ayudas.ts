@@ -1,8 +1,13 @@
 import { expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-export async function entrar(page: Page, rol: 'cf' | 'socio', modo: 'Comenzar' | 'Versión de lectura' = 'Comenzar') {
-  await page.goto('./');
+export async function entrar(
+  page: Page,
+  rol: 'cf' | 'socio',
+  modo: 'Comenzar' | 'Versión de lectura' = 'Comenzar',
+  modulo: 'm1' | 'm2' = 'm1',
+) {
+  await page.goto(`./#/${modulo}`);
   await page.getByLabel('Confirmo que soy una persona mayor de 18 años.').check();
   await page.getByRole('button', { name: modo, exact: true }).click();
   await page
@@ -24,7 +29,7 @@ export async function elegir(page: Page, texto: RegExp) {
   await page.locator('.opciones').getByRole('button', { name: texto }).click();
   const reparar = page.getByRole('button', { name: 'Reparar respuesta' });
   if (await reparar.isVisible().catch(() => false)) await reparar.click();
-  const salida = page.getByRole('button', { name: /^(Continuar|Volver a intentar|Elegir otra alternativa)$/ }).last();
+  const salida = page.getByRole('button', { name: /^(Continuar|Volver a intentar|Elegir otra alternativa|Ir a la reparación)$/ }).last();
   await salida.click();
 }
 

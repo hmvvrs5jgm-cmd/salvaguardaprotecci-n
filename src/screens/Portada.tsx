@@ -1,22 +1,23 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { portada } from '../content/episodio1';
 import { useApp } from '../state/AppState';
 import { BannerDemo, Encabezado } from '../ui/comunes';
 
 export function Portada() {
-  const { ep, estado, carga, versionGuardada, borrar, descartarAviso, prefs, setPrefs } = useApp();
+  const { ep, estado, carga, versionGuardada, borrar, descartarAviso, prefs, setPrefs, enlace } = useApp();
+  const portada = ep.portada;
   const navegar = useNavigate();
   const hayProgreso = estado.role !== null && carga !== 'version_distinta';
 
-  const comenzar = (destino: '/jugar' | '/lectura') => {
+  const comenzar = (destino: 'jugar' | 'lectura') => {
     if (!prefs.adultoConfirmado) return;
-    navegar(estado.role ? destino : `/rol?modo=${destino === '/lectura' ? 'lectura' : 'grafico'}`);
+    navegar(estado.role ? enlace(destino) : `${enlace('rol')}?modo=${destino === 'lectura' ? 'lectura' : 'grafico'}`);
   };
 
   return (
     <div className="pantalla portada">
-      <p className="sobretitulo">Episodio {ep.number}</p>
+      <p className="sobretitulo">{ep.rotulo}</p>
       <Encabezado>{ep.title}</Encabezado>
+      {ep.subtitle && <p className="portada__subtitulo">{ep.subtitle}</p>}
       <p className="portada__lead">{portada.lead}</p>
 
       <section className="aviso" aria-labelledby="aviso-titulo">
@@ -28,7 +29,7 @@ export function Portada() {
         <section className="aviso aviso--info" aria-labelledby="version-titulo">
           <h2 id="version-titulo">El contenido se actualizó</h2>
           <p>
-            Tu progreso guardado corresponde a la versión {versionGuardada} del episodio y la actual es la {ep.version}. Para
+            Tu progreso guardado corresponde a la versión {versionGuardada} del módulo y la actual es la {ep.version}. Para
             evitar errores, el recorrido empieza de nuevo.
           </p>
           <div className="acciones">
@@ -63,7 +64,7 @@ export function Portada() {
           className="boton boton--principal"
           disabled={!prefs.adultoConfirmado}
           aria-describedby={!prefs.adultoConfirmado ? 'ayuda-adulto' : undefined}
-          onClick={() => comenzar('/jugar')}
+          onClick={() => comenzar('jugar')}
         >
           {hayProgreso ? 'Continuar donde lo dejaste' : 'Comenzar'}
         </button>
@@ -72,7 +73,7 @@ export function Portada() {
           className="boton"
           disabled={!prefs.adultoConfirmado}
           aria-describedby={!prefs.adultoConfirmado ? 'ayuda-adulto' : undefined}
-          onClick={() => comenzar('/lectura')}
+          onClick={() => comenzar('lectura')}
         >
           Versión de lectura
         </button>
@@ -85,8 +86,8 @@ export function Portada() {
       </div>
 
       <p className="portada__extra">
-        <Link to="/evaluacion">Ir a la evaluación</Link> · <Link to="/cuenta">Mi cuenta y resultados</Link> ·{' '}
-        <Link to="/acerca">Acerca de este juego</Link>
+        <Link to={enlace('evaluacion')}>Ir a la evaluación del módulo</Link> · <Link to="/">Todos los módulos</Link> ·{' '}
+        <Link to="/cuenta">Mi cuenta y resultados</Link> · <Link to="/acerca">Acerca de este juego</Link>
       </p>
       <BannerDemo />
     </div>

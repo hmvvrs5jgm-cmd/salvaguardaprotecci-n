@@ -15,11 +15,12 @@ import {
   type FiltrosAdmin,
   type RegistroAdmin,
 } from '../services/registro';
+import { episodioPorId, episodios } from '../content/episodios';
 import { Encabezado } from '../ui/comunes';
 
 // La interfaz no concede permisos: el servidor comprueba rol de Punto Focal activo y MFA (aal2) en cada llamada.
 
-const ENCABEZADOS = ['Nombre', 'Correo', 'Organización', 'Episodio', 'Versión', 'Fecha', 'Puntaje', 'Estado'];
+const ENCABEZADOS = ['Nombre', 'Correo', 'Organización', 'Módulo', 'Versión', 'Fecha', 'Puntaje', 'Estado'];
 
 function descargar(contenido: string, nombre: string) {
   const blob = new Blob(['﻿' + contenido], { type: 'text/csv;charset=utf-8' });
@@ -56,7 +57,7 @@ function Tabla({ filas, onAnular }: { filas: RegistroAdmin[]; onAnular?: (r: Reg
               <td>{r.display_name}</td>
               <td>{r.email}</td>
               <td>{r.organization}</td>
-              <td>Una ayuda con condiciones</td>
+              <td>{episodioPorId(r.episode_id)?.title ?? r.episode_id}</td>
               <td>{r.content_version}</td>
               <td>{new Date(r.created_at).toLocaleDateString('es-EC')}</td>
               <td>{r.score}/10</td>
@@ -82,6 +83,15 @@ function Filtros({ valor, onCambio }: { valor: FiltrosAdmin; onCambio: (f: Filtr
   return (
     <fieldset className="filtros">
       <legend>Filtros</legend>
+      <label htmlFor="f-mod">Módulo</label>
+      <select id="f-mod" value={valor.episode_id ?? ''} onChange={(e) => onCambio({ ...valor, episode_id: e.target.value })}>
+        <option value="">Todos</option>
+        {episodios.map((ep) => (
+          <option key={ep.id} value={ep.id}>
+            {ep.rotulo}: {ep.title}
+          </option>
+        ))}
+      </select>
       <label htmlFor="f-org">Organización</label>
       <input id="f-org" value={valor.organization ?? ''} onChange={(e) => onCambio({ ...valor, organization: e.target.value })} />
       <label htmlFor="f-ver">Versión</label>
@@ -107,6 +117,7 @@ function PanelDemo() {
     (r) =>
       (!f.organization || r.organization.toLowerCase().includes(f.organization.toLowerCase())) &&
       (!f.status || r.status === f.status) &&
+      (!f.episode_id || r.episode_id === f.episode_id) &&
       (!f.content_version || r.content_version === f.content_version),
   );
   return (

@@ -3,14 +3,14 @@ import { useApp } from '../state/AppState';
 import { Linea, useEnfocar } from '../ui/comunes';
 
 export function Cierre({ onHerramientas }: { onHerramientas: () => void }) {
-  const { ep, estado } = useApp();
+  const { ep, estado, enlace } = useApp();
   const ref = useEnfocar<HTMLHeadingElement>('CIERRE');
   const obtenidas = ep.badges.filter((b) => estado.badges.includes(b.id));
 
   return (
     <section className="cierre" aria-labelledby="cierre-titulo">
       <h1 id="cierre-titulo" ref={ref} tabIndex={-1}>
-        Cierre del episodio
+        Cierre del módulo
       </h1>
       {ep.closing.lines.map((l) => (
         <Linea key={l.id} linea={l} rol={estado.role} />
@@ -29,7 +29,7 @@ export function Cierre({ onHerramientas }: { onHerramientas: () => void }) {
 
       <section aria-labelledby="insignias-titulo" className="insignias">
         <h2 id="insignias-titulo">Insignias de práctica</h2>
-        <p className="ayuda">Las insignias reconocen tu práctica. No equivalen a la aprobación del episodio.</p>
+        <p className="ayuda">Las insignias reconocen tu práctica. No equivalen a la aprobación del módulo.</p>
         {obtenidas.length === 0 ? (
           <p>Aún no tienes insignias.</p>
         ) : (
@@ -44,16 +44,16 @@ export function Cierre({ onHerramientas }: { onHerramientas: () => void }) {
       </section>
 
       <div className="acciones">
-        <Link className="boton" to="/repaso">
-          Revisar decisiones
+        <Link className="boton" to={enlace('repaso')}>
+          {ep.closing.reviewLabel ?? 'Revisar decisiones'}
         </Link>
         <button type="button" className="boton" onClick={onHerramientas}>
           Herramientas
         </button>
-        <Link className="boton boton--principal" to="/evaluacion">
-          Ir a evaluación
+        <Link className="boton boton--principal" to={enlace('evaluacion')}>
+          {ep.number > 1 ? 'Evaluación del módulo' : 'Ir a evaluación'}
         </Link>
-        <Link className="boton boton--secundario" to="/">
+        <Link className="boton boton--secundario" to={enlace()}>
           Salir
         </Link>
       </div>

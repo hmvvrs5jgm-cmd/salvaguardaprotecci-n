@@ -18,3 +18,26 @@ Todos los diálogos y textos entre comillas del guion se copian literalmente. `n
 | Opciones | Letras A, B, C, D | Sin letras visibles. | Evita ligar posiciones a la clave; en la evaluación, las opciones se mezclan. |
 | Evaluación | Solo explicaciones | Se añade «Respuesta adecuada: …» en las preguntas falladas, tras el envío. | Retroalimentación completa después de enviar. |
 | Recuperación tras error crítico | «Breve caso de recuperación con explicación» (sin texto en el guion) | Remite a la escena de práctica relacionada, con su respuesta adecuada y su retroalimentación literales, y a la herramienta correspondiente. | Evita inventar casos nuevos sin revisión institucional. |
+
+## Módulo 2 — «Gracias por escucharme» (guion v1.0)
+
+Los diálogos, opciones, retroalimentaciones, reparaciones, preguntas, claves y textos de resultado se copian literalmente. `npm run check:guion` comprueba 187 textos contra el guion local. Los cambios siguientes están marcados como `literal: false` o `feedbackEditorial: true` en `src/content/episodio2/escenas.ts`.
+
+| Lugar | Guion (indicación) | Texto en el juego | Motivo |
+|---|---|---|---|
+| Pausas preventivas (D01-C, D02-C, D03-C, D04-B, DURG-B/C, D05-A, D08-C, D09-A, D10-C) | «Pausa: …» | El texto del guion se muestra como retroalimentación, con la narración «El ejercicio se detiene antes de ejecutar esta acción.» y la nota «Pausa pedagógica: esta acción no se ejecuta. Elige otra alternativa.» | Hace visible que la acción no ocurre, como en el módulo 1. |
+| D01-B | «Lucía mira al grupo y calla.» | Narración. | La consecuencia se muestra como narración. |
+| D03-D | «Mostrar explicación B como reparación, con confirmación de lectura.» | La reparación muestra el texto B; la confirmación es el botón «Reparar respuesta» y una narración que pide leerla antes de continuar. | Equivale a la confirmación de lectura sin un control adicional. |
+| D05-C, D07-C, D09-C | «Reparación B.» | La reparación muestra el texto de la opción B (y, en D05 y D07, la respuesta del Referente). | Idem. |
+| URGENTE, A | Consecuencia sin retroalimentación | Narración de la consecuencia y retroalimentación editorial: «Respondes ahora y dentro de tu rol…» | El guion no define la retroalimentación de la opción adecuada. |
+| URGENTE | Nota de producción sobre emergencias | Panel «Si hubiera peligro inmediato» con el 911 y el texto «Si el peligro es inminente, activa la respuesta de emergencia disponible…» | Hace operativa la nota sin convertir la escena en una prueba de rapidez. |
+| E05, intro | «El Referente toma la coordinación. En la variante socio…» | Narración con variante por rol. | La indicación se convierte en narración. |
+| E05, salida | Transición narrativa | Se muestra literal al salir de la escena. | — |
+| E06, D06 | «Clasifica cinco tarjetas como “Compartir por canal restringido” o “Excluir”.» | Selección múltiple: las tarjetas marcadas se comparten y las demás quedan excluidas. El resultado usa ambos rótulos. | Interacción accesible sin arrastrar. |
+| D08-A | «El juego muestra una ficha con “Recepción no confirmada” y “Barreras sin resolver”.» | Narración con ambos estados. | Idem. |
+| D08-B | Consecuencia sin retroalimentación | Narración de la consecuencia y retroalimentación editorial. | El guion no define la retroalimentación. |
+| M2_VERIFICAR | Interacción con seis campos | Lista de casillas con estado «En coordinación» / «Alternativa confirmada»; botón «Ver la contingencia» para M2_SIN_SERVICIO. | Ficha accesible por teclado (guion, apartado 23). |
+| M2_SIN_SERVICIO | Descripción de la rama | Narraciones con el estado «Derivación pendiente» y nota bajo el botón «Volver al ejemplo principal». | El guion pide no presentar la vuelta como una solución real de la falta de cupo. |
+| Rol | «Variante ChildFund / Variante socio» | Aclaraciones bajo cada opción de rol. | — |
+| Evaluación | Textos de resultado | El texto de aprobado añade la versión del módulo. | Trazabilidad de la versión aprobada. |
+

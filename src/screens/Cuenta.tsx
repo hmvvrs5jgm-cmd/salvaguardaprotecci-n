@@ -14,6 +14,7 @@ import {
   verificarCodigo,
   type MiResultado,
 } from '../services/registro';
+import { episodioPorId } from '../content/episodios';
 import { Encabezado } from '../ui/comunes';
 
 export function Cuenta() {
@@ -38,7 +39,7 @@ function CuentaDemo() {
       <p>{finalidadRegistro}</p>
       <AvisoPrivacidad />
       <Link className="boton" to="/">
-        Volver a la portada
+        Volver al inicio
       </Link>
     </div>
   );
@@ -180,13 +181,13 @@ function CuentaRegistro() {
         <div className="tabla-contenedor" tabIndex={0} role="region" aria-label="Tabla de tus resultados">
           <table>
             <thead>
-              <tr><th scope="col">Fecha</th><th scope="col">Episodio</th><th scope="col">Versión</th><th scope="col">Puntaje</th><th scope="col">Estado</th></tr>
+              <tr><th scope="col">Fecha</th><th scope="col">Módulo</th><th scope="col">Versión</th><th scope="col">Puntaje</th><th scope="col">Estado</th></tr>
             </thead>
             <tbody>
               {resultados.map((r) => (
                 <tr key={r.id}>
                   <td>{new Date(r.created_at).toLocaleDateString('es-EC')}</td>
-                  <td>Una ayuda con condiciones</td>
+                  <td>{episodioPorId(r.episode_id)?.title ?? r.episode_id}</td>
                   <td>{r.content_version}</td>
                   <td>{r.score}/10</td>
                   <td>{r.status === 'aprobado' ? 'Aprobado' : r.status === 'anulado' ? 'Anulado' : 'No aprobado'}</td>
@@ -198,7 +199,7 @@ function CuentaRegistro() {
       )}
       <AvisoPrivacidad />
       <div className="acciones">
-        <Link className="boton" to="/evaluacion">Ir a la evaluación</Link>
+        <Link className="boton" to="/">Ir a los módulos</Link>
         <button
           type="button"
           className="boton boton--secundario"

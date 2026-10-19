@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { config } from '../config/modo';
-import { configEvaluacion, notaUmbral, preguntas, textosResultado } from '../content/episodio1';
 import type { Question, ToolId } from '../content/types';
 import { crearOrden, rngSeguro, type OrdenIntento } from '../engine/mezcla';
+import { escenaDe } from '../engine/practica';
 import { puntuar } from '../engine/puntuacion';
 import { cargarClaveDemo } from '../services/demo';
 import {
@@ -36,9 +36,10 @@ type Fase =
   | { kind: 'revision'; orden: OrdenIntento; attemptId: string | null }
   | { kind: 'resultado'; resultado: ResultadoVista };
 
-const porId = (id: string) => preguntas.find((p) => p.id === id)!;
-
 export function Evaluacion() {
+  const { ep, enlace } = useApp();
+  const { config: configEvaluacion, preguntas, textos: textosResultado, notaUmbral } = ep.evaluacion;
+  const porId = (id: string) => preguntas.find((p) => p.id === id)!;
   const [fase, setFase] = useState<Fase>({ kind: 'intro' });
   const [respuestas, setRespuestas] = useState<Record<string, string>>({});
   const [intentos, setIntentos] = useState(0);
@@ -100,7 +101,7 @@ export function Evaluacion() {
     setOcupado(true);
     try {
       if (!modoRegistro) {
-        const clave = await cargarClaveDemo();
+        const clave = await cargarClaveDemo(configEvaluacion.episodeId);
         const r = puntuar(respuestas, clave, configEvaluacion);
         setFase({ kind: 'resultado', resultado: { ...r, version: configEvaluacion.version, registrado: false } });
       } else {
@@ -197,6 +198,9 @@ export function Evaluacion() {
 
   return (
     <div className="pantalla evaluacion">
+      <p className="sobretitulo">
+        {ep.rotulo} · {ep.title}
+      </p>
       <Encabezado>Evaluación final</Encabezado>
       <BannerDemo contexto="En esta versión la evaluación se puntúa en tu dispositivo y no se registra en ningún servidor." />
       <ul>
@@ -204,7 +208,11 @@ export function Evaluacion() {
         <li>Las soluciones se muestran solo después de enviar todo el intento.</li>
         <li>{notaUmbral}</li>
         <li>Es una evaluación formativa: no es un examen supervisado ni un certificado.</li>
+        <li>El resultado corresponde solo a este módulo y versión; no sustituye el de otros módulos.</li>
       </ul>
+      <p>
+        <Link to={enlace()}>Volver a la portada del módulo</Link>
+      </p>
       {intentos > 0 && <p className="aviso aviso--info">{textosResultado.practicaReforzada}</p>}
       {modoRegistro && requisito === 'sesion' && (
         <p className="aviso">
@@ -305,7 +313,8 @@ function PreguntaVista({
 }
 
 export function Resultado({ resultado, onNuevoIntento }: { resultado: ResultadoVista; onNuevoIntento: () => void }) {
-  const { ep, estado } = useApp();
+  const { ep, estado, enlace } = useApp();
+  const { preguntas, textos: textosResultado } = ep.evaluacion;
   const ref = useEnfocar<HTMLHeadingElement>('resultado');
   const [herramienta, setHerramienta] = useState<ToolId | null>(null);
   const botonNuevo = useRef<HTMLButtonElement>(null);
@@ -342,7 +351,7 @@ export function Resultado({ resultado, onNuevoIntento }: { resultado: ResultadoV
         <section aria-labelledby="criticos-titulo">
           <h2 id="criticos-titulo">Criterio esencial a reforzar</h2>
           {criticasFallidas.map((p) => {
-            const s = ep.scenes[p.recovery.sceneId];
+            const s = escenaDe(ep, p.recovery.sceneId);
             const d = s.decision;
             const adecuada = d.kind === 'choice' ? d.options.find((o) => o.outcome.type === 'avanza') : undefined;
             return (
@@ -392,7 +401,7 @@ export function Resultado({ resultado, onNuevoIntento }: { resultado: ResultadoV
         <button ref={botonNuevo} type="button" className="boton boton--principal" onClick={onNuevoIntento}>
           Realizar un nuevo intento
         </button>
-        <Link className="boton" to="/jugar">
+        <Link className="boton" to={enlace('jugar')}>
           Volver a practicar
         </Link>
         {resultado.registrado && (

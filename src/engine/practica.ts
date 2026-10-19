@@ -4,6 +4,7 @@
 
 import type {
   CardsDecision,
+  ChecklistDecision,
   ChoiceDecision,
   DecisionId,
   Episode,
@@ -19,6 +20,7 @@ export type Paso =
   | { kind: 'decision' }
   | { kind: 'feedback'; optionId: string; repairShown: boolean }
   | { kind: 'cards'; selected: string[]; checked: CardsCheck | null }
+  | { kind: 'checklist'; marcados: string[]; comprobado: boolean }
   | { kind: 'outro'; next: NodeId };
 
 export interface CardsCheck {
@@ -47,6 +49,9 @@ export type Accion =
   | { type: 'MOSTRAR_REPARACION' }
   | { type: 'ALTERNAR_TARJETA'; cardId: string }
   | { type: 'COMPROBAR_TARJETAS' }
+  | { type: 'ALTERNAR_ITEM'; itemId: string }
+  | { type: 'COMPROBAR_FICHA' }
+  | { type: 'ALTERNATIVA' }
   | { type: 'VER_HERRAMIENTA'; toolId: ToolId }
   | { type: 'REINICIAR' };
 
@@ -63,8 +68,15 @@ export function estadoInicial(ep: Episode): EstadoPractica {
   };
 }
 
+/** Escena por ID; el grafo validado garantiza que existe. */
+export function escenaDe(ep: Episode, id: NodeId): Scene {
+  const sc = ep.scenes[id];
+  if (!sc) throw new Error(`Escena inexistente: ${id}`);
+  return sc;
+}
+
 export function escenaActual(ep: Episode, s: EstadoPractica): Scene | null {
-  return s.node === 'CIERRE' ? null : ep.scenes[s.node];
+  return s.node === 'CIERRE' ? null : escenaDe(ep, s.node);
 }
 
 export function opcionElegida(ep: Episode, s: EstadoPractica): Option | null {
@@ -77,13 +89,15 @@ export function opcionElegida(ep: Episode, s: EstadoPractica): Option | null {
 /** Paso inicial al entrar en una escena: intro si hay líneas; si no, decisión directamente. */
 function pasoDeEntrada(ep: Episode, node: NodeId): Paso {
   if (node === 'CIERRE') return { kind: 'intro', index: 0 };
-  const sc = ep.scenes[node];
+  const sc = escenaDe(ep, node);
   if (sc.intro.length > 0) return { kind: 'intro', index: 0 };
   return pasoDecision(sc);
 }
 
-function pasoDecision(sc: Scene): Paso {
-  return sc.decision.kind === 'cards' ? { kind: 'cards', selected: [], checked: null } : { kind: 'decision' };
+export function pasoDecision(sc: Scene): Paso {
+  if (sc.decision.kind === 'cards') return { kind: 'cards', selected: [], checked: null };
+  if (sc.decision.kind === 'checklist') return { kind: 'checklist', marcados: [], comprobado: false };
+  return { kind: 'decision' };
 }
 
 function conInsignias(ep: Episode, s: EstadoPractica): EstadoPractica {
@@ -105,6 +119,10 @@ export function comprobarTarjetas(d: CardsDecision, selected: string[]): CardsCh
   const missing = requeridas.some((id) => !selected.includes(id));
   const extra = selected.some((id) => !requeridas.includes(id));
   return { missing, extra, ok: !missing && !extra };
+}
+
+export function fichaCompleta(d: ChecklistDecision, marcados: string[]): boolean {
+  return d.items.every((i) => marcados.includes(i.id));
 }
 
 export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPractica {
@@ -138,6 +156,7 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
         switch (o.outcome.type) {
           case 'avanza':
           case 'complementa_y_avanza':
+          case 'redirige_a_reparacion':
             return resolverYSalir(ep, s, o.outcome.next);
           case 'repara_y_avanza':
             // La reparación es obligatoria antes de avanzar.
@@ -152,6 +171,11 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
         if (sc.decision.kind !== 'cards' || !p.checked?.ok) return s;
         return resolverYSalir(ep, s, sc.decision.next);
       }
+      if (p.kind === 'checklist') {
+        if (sc.decision.kind !== 'checklist' || !p.comprobado || !fichaCompleta(sc.decision, p.marcados)) return s;
+        return resolverYSalir(ep, s, sc.decision.next);
+      }
+      if (p.kind === 'decision' && sc.decision.kind === 'continuar') return resolverYSalir(ep, s, sc.decision.next);
       return s;
     }
     case 'SALTAR_INTRO': {
@@ -180,6 +204,24 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
     case 'COMPROBAR_TARJETAS': {
       if (s.paso.kind !== 'cards' || sc.decision.kind !== 'cards') return s;
       return { ...s, paso: { ...s.paso, checked: comprobarTarjetas(sc.decision, s.paso.selected) } };
+    }
+    case 'ALTERNAR_ITEM': {
+      if (s.paso.kind !== 'checklist' || sc.decision.kind !== 'checklist') return s;
+      if (!sc.decision.items.some((i) => i.id === a.itemId)) return s;
+      const marcados = s.paso.marcados.includes(a.itemId)
+        ? s.paso.marcados.filter((x) => x !== a.itemId)
+        : [...s.paso.marcados, a.itemId];
+      return { ...s, paso: { kind: 'checklist', marcados, comprobado: false } };
+    }
+    case 'COMPROBAR_FICHA': {
+      if (s.paso.kind !== 'checklist' || sc.decision.kind !== 'checklist') return s;
+      return { ...s, paso: { ...s.paso, comprobado: true } };
+    }
+    case 'ALTERNATIVA': {
+      // Rama de contingencia: se visita sin resolver la decisión.
+      if (s.paso.kind !== 'checklist' || sc.decision.kind !== 'checklist' || !sc.decision.alternative) return s;
+      const next = sc.decision.alternative.next;
+      return { ...s, node: next, paso: pasoDeEntrada(ep, next) };
     }
   }
 }

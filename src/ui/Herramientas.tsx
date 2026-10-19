@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { herramientas } from '../content/herramientas';
+import { herramienta } from '../content/herramientas';
 import type { Tool, ToolId } from '../content/types';
 import { useApp } from '../state/AppState';
 import { Dialogo } from './comunes';
@@ -66,9 +66,10 @@ export function DialogoHerramientas({
   onCerrar: () => void;
   inicial?: ToolId | null;
 }) {
-  const { despachar } = useApp();
+  const { ep, despachar } = useApp();
+  const herramientas = ep.herramientas.map(herramienta);
   const [actual, setActual] = useState<ToolId | null>(inicial ?? null);
-  const tool = herramientas.find((h) => h.id === actual) ?? null;
+  const tool = herramientas.find((h) => h.id === actual) ?? (actual ? herramienta(actual) : null);
   useEffect(() => {
     if (abierto && inicial) despachar({ type: 'VER_HERRAMIENTA', toolId: inicial });
   }, [abierto, inicial, despachar]);

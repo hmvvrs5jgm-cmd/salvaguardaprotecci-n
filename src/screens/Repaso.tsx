@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Option } from '../content/types';
+import { escenaDe } from '../engine/practica';
 import { useApp } from '../state/AppState';
 import { Encabezado, textoRol } from '../ui/comunes';
 
@@ -7,16 +8,17 @@ const adecuada = (o: Option) => o.outcome.type === 'avanza';
 
 /** Repaso de las decisiones: muestra la respuesta adecuada y su explicación (no guarda el historial personal). */
 export function Repaso() {
-  const { ep, estado } = useApp();
+  const { ep, estado, enlace } = useApp();
   const rol = estado.role ?? 'cf';
   return (
     <div className="pantalla repaso">
       <Encabezado>Revisar decisiones</Encabezado>
-      <p>Respuesta adecuada y explicación de cada decisión del episodio{estado.role ? '' : ' (textos para personal de ChildFund)'}.</p>
+      <p>Respuesta adecuada y explicación de cada decisión del módulo{estado.role ? '' : ' (textos para personal de ChildFund)'}.</p>
       <ol className="repaso__lista">
         {ep.order.map((id) => {
-          const s = ep.scenes[id];
+          const s = escenaDe(ep, id);
           const d = s.decision;
+          if (d.kind === 'continuar') return null;
           return (
             <li key={id}>
               <h2>
@@ -35,6 +37,16 @@ export function Repaso() {
                   ))}
                   {d.complementaryNote && <p className="nota-complementaria">{d.complementaryNote}</p>}
                 </>
+              ) : d.kind === 'checklist' ? (
+                <>
+                  <p className="repaso__pregunta">{d.prompt}</p>
+                  <ul>
+                    {d.items.map((i) => (
+                      <li key={i.id}>{i.label}</li>
+                    ))}
+                  </ul>
+                  <p>{d.incompleteMessage}</p>
+                </>
               ) : (
                 <>
                   <p className="repaso__pregunta">{d.prompt}</p>
@@ -42,12 +54,13 @@ export function Repaso() {
                     {d.cards.map((c) => (
                       <li key={c.id}>
                         <strong>
-                          Tarjeta {c.number} — {c.include ? 'Incluir' : 'Excluir'}:
+                          Tarjeta {c.number} — {c.include ? (d.includeLabel ?? 'Incluir') : 'Excluir'}:
                         </strong>{' '}
                         {c.explanation}
                       </li>
                     ))}
                   </ul>
+                  {d.successTitle && <p className="repaso__subtitulo">{d.successTitle}</p>}
                   <p>{d.successText}</p>
                 </>
               )}
@@ -56,10 +69,10 @@ export function Repaso() {
         })}
       </ol>
       <div className="acciones">
-        <Link className="boton" to="/jugar">
+        <Link className="boton" to={enlace('jugar')}>
           Volver al juego
         </Link>
-        <Link className="boton boton--principal" to="/evaluacion">
+        <Link className="boton boton--principal" to={enlace('evaluacion')}>
           Ir a evaluación
         </Link>
       </div>

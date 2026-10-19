@@ -11,7 +11,7 @@ function memoria(): Almacen & { data: Map<string, string> } {
 describe('almacenamiento local', () => {
   it('recupera rol, escena, herramientas e insignias y no guarda opciones elegidas', () => {
     const m = memoria();
-    guardarProgreso({ ...estadoInicial(episodio1), role: 'socio', node: 'E04', paso: { kind: 'feedback', optionId: 'D4-A', repairShown: false }, toolsViewed: ['roles'], badges: ['escucha-respetuosa'], resolved: ['D1', 'D2', 'D3'] }, m);
+    guardarProgreso(episodio1, { ...estadoInicial(episodio1), role: 'socio', node: 'E04', paso: { kind: 'feedback', optionId: 'D4-A', repairShown: false }, toolsViewed: ['roles'], badges: ['escucha-respetuosa'], resolved: ['D1', 'D2', 'D3'] }, m);
     expect(m.data.get('dqp:progreso')).not.toContain('D4-A');
     const r = cargarProgreso(episodio1, m);
     expect(r.estado).toBe('recuperado');
@@ -31,13 +31,13 @@ describe('almacenamiento local', () => {
     expect(cargarProgreso(episodio1, null).estado).toBe('nuevo');
     const roto: Almacen = { getItem: () => { throw new Error('bloqueado'); }, setItem: () => { throw new Error('x'); }, removeItem: () => { throw new Error('x'); } };
     expect(cargarProgreso(episodio1, roto).estado).toBe('nuevo');
-    expect(() => guardarProgreso(estadoInicial(episodio1), roto)).not.toThrow();
-    expect(() => borrarProgreso(roto)).not.toThrow();
+    expect(() => guardarProgreso(episodio1, estadoInicial(episodio1), roto)).not.toThrow();
+    expect(() => borrarProgreso(episodio1, roto)).not.toThrow();
   });
   it('borra el progreso', () => {
     const m = memoria();
-    guardarProgreso(estadoInicial(episodio1), m);
-    borrarProgreso(m);
+    guardarProgreso(episodio1, estadoInicial(episodio1), m);
+    borrarProgreso(episodio1, m);
     expect(m.data.size).toBe(0);
   });
 });

@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { avisoServicios, canalesParaRol, directorioLocal, emergencia, esEnlaceActivo, serviciosPublicos } from '../config/canales';
-import { panelTransferencia } from '../content/episodio1';
 import { panelApoyos } from '../content/herramientas';
-import type { CardsDecision, ChoiceDecision, Option, PanelId, RoleId, Scene } from '../content/types';
-import { opcionElegida, progreso, type EstadoPractica } from '../engine/practica';
+import type { CardsDecision, ChecklistDecision, ChoiceDecision, ContinueDecision, Option, PanelId, RoleId, Scene } from '../content/types';
+import { escenaDe, fichaCompleta, opcionElegida, progreso, type EstadoPractica } from '../engine/practica';
 import { useApp } from '../state/AppState';
 import { Dialogo, Linea, textoRol, useAnunciar, useEnfocar } from '../ui/comunes';
 import { DialogoHerramientas } from '../ui/Herramientas';
@@ -14,7 +13,7 @@ import { Cierre } from './Cierre';
 export type ModoJuego = 'grafico' | 'lectura';
 
 export function Juego({ modo }: { modo: ModoJuego }) {
-  const { ep, estado, despachar, prefs } = useApp();
+  const { ep, estado, despachar, prefs, enlace } = useApp();
   const [herramientasAbiertas, setHerramientasAbiertas] = useState(false);
   const [pausa, setPausa] = useState(false);
 
@@ -23,17 +22,17 @@ export function Juego({ modo }: { modo: ModoJuego }) {
     if (modo === 'lectura' && estado.paso.kind === 'intro' && estado.node !== 'CIERRE') despachar({ type: 'SALTAR_INTRO' });
   }, [modo, estado.paso.kind, estado.node, despachar]);
 
-  if (!prefs.adultoConfirmado) return <Navigate to="/" replace />;
-  if (!estado.role) return <Navigate to={`/rol?modo=${modo}`} replace />;
+  if (!prefs.adultoConfirmado) return <Navigate to={enlace()} replace />;
+  if (!estado.role) return <Navigate to={`${enlace('rol')}?modo=${modo}`} replace />;
 
   const { actual, total } = progreso(ep, estado);
-  const escena = estado.node === 'CIERRE' ? null : ep.scenes[estado.node];
+  const escena = estado.node === 'CIERRE' ? null : escenaDe(ep, estado.node);
 
   return (
     <div className={`pantalla juego juego--${modo}`}>
       <div className="barra-juego">
         <div className="progreso">
-          <span id="progreso-etiqueta">{escena ? `Escena ${actual} de ${total}` : 'Cierre del episodio'}</span>
+          <span id="progreso-etiqueta">{escena ? `Escena ${actual} de ${total}` : 'Cierre del módulo'}</span>
           <progress max={total} value={actual} aria-labelledby="progreso-etiqueta" />
         </div>
         <div className="barra-juego__acciones">
@@ -69,7 +68,7 @@ function EscenaVista({ escena, estado, modo }: { escena: Scene; estado: EstadoPr
       <header className="escena__cabecera">
         {escena.variationLabel && <p className="rotulo-variacion">{escena.variationLabel}</p>}
         <h1 id="escena-titulo" ref={titulo} tabIndex={-1}>
-          <span className="escena__codigo">{escena.id}</span> {escena.title}
+          <span className="escena__codigo">{escena.id.replace(/^M\d+_/, '')}</span> {escena.title}
         </h1>
       </header>
 
@@ -159,6 +158,12 @@ function PasoVista({ escena, estado, rol, modo }: { escena: Scene; estado: Estad
       )}
       {p.kind === 'cards' && escena.decision.kind === 'cards' && (
         <TarjetasVista decision={escena.decision} selected={p.selected} checked={p.checked} />
+      )}
+      {p.kind === 'checklist' && escena.decision.kind === 'checklist' && (
+        <FichaVista decision={escena.decision} marcados={p.marcados} comprobado={p.comprobado} />
+      )}
+      {p.kind === 'decision' && escena.decision.kind === 'continuar' && (
+        <ContinuarVista decision={escena.decision} enfocar={escena.intro.length === 0} />
       )}
     </>
   );
@@ -253,6 +258,7 @@ const rotulos: Record<Option['outcome']['type'], { icono: 'ok' | 'mejora' | 'pau
   repara_y_avanza: { icono: 'mejora', texto: 'Puedes reparar tu respuesta' },
   reintenta: { icono: 'mejora', texto: 'Puedes mejorar esta respuesta' },
   pausa_y_vuelve: { icono: 'pausa', texto: 'Pausa pedagógica' },
+  redirige_a_reparacion: { icono: 'mejora', texto: 'Puedes mejorar esta respuesta' },
 };
 
 function RetroalimentacionVista({ decision, estado, rol }: { decision: ChoiceDecision; estado: EstadoPractica; rol: RoleId }) {
@@ -297,6 +303,14 @@ function RetroalimentacionVista({ decision, estado, rol }: { decision: ChoiceDec
         <button type="button" className="boton boton--principal" onClick={continuar}>
           Continuar
         </button>
+      )}
+      {o.outcome.type === 'redirige_a_reparacion' && (
+        <>
+          <p className="ayuda">Antes de continuar, revisarás cómo reparar esta respuesta.</p>
+          <button type="button" className="boton boton--principal" onClick={continuar}>
+            Ir a la reparación
+          </button>
+        </>
       )}
       {o.outcome.type === 'complementa_y_avanza' && (
         <>
@@ -398,12 +412,13 @@ function TarjetasVista({
                 {decision.cards.map((c) => (
                   <li key={c.id}>
                     <strong>
-                      Tarjeta {c.number} — {c.include ? 'Incluir' : 'Excluir'}:
+                      Tarjeta {c.number} — {c.include ? (decision.includeLabel ?? 'Incluir') : 'Excluir'}:
                     </strong>{' '}
                     {c.explanation}
                   </li>
                 ))}
               </ul>
+              {decision.successTitle && <h3>{decision.successTitle}</h3>}
               <p>{decision.successText}</p>
             </>
           ) : (
@@ -427,7 +442,94 @@ function TarjetasVista({
   );
 }
 
+function ContinuarVista({ decision, enfocar }: { decision: ContinueDecision; enfocar: boolean }) {
+  const { despachar } = useApp();
+  const ref = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (enfocar) ref.current?.focus();
+  }, [enfocar]);
+  return (
+    <div className="decision">
+      {decision.note && <p className="continuar-nota">{decision.note}</p>}
+      <button ref={ref} type="button" className="boton boton--principal" onClick={() => despachar({ type: 'CONTINUAR' })}>
+        {decision.label}
+      </button>
+    </div>
+  );
+}
+
+function FichaVista({ decision, marcados, comprobado }: { decision: ChecklistDecision; marcados: string[]; comprobado: boolean }) {
+  const { despachar } = useApp();
+  const completa = fichaCompleta(decision, marcados);
+  const resultado = useEnfocar<HTMLDivElement>(comprobado ? `ficha-${completa}` : null);
+  const listo = comprobado && completa;
+  return (
+    <div className="decision ficha">
+      <p className="rotulo-simulacion" role="note">
+        {decision.simulationLabel}
+      </p>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          despachar({ type: 'COMPROBAR_FICHA' });
+        }}
+        noValidate
+      >
+        <fieldset disabled={listo}>
+          <legend>
+            <h2 className="decision__pregunta">{decision.prompt}</h2>
+          </legend>
+          {decision.items.map((i) => (
+            <div className={`tarjeta${marcados.includes(i.id) ? ' tarjeta--marcada' : ''}`} key={i.id}>
+              <input
+                type="checkbox"
+                id={`f-${i.id}`}
+                checked={marcados.includes(i.id)}
+                onChange={() => despachar({ type: 'ALTERNAR_ITEM', itemId: i.id })}
+              />
+              <label htmlFor={`f-${i.id}`}>{i.label}</label>
+            </div>
+          ))}
+        </fieldset>
+        <p>
+          Estado de la derivación:{' '}
+          <span className={`ficha__estado ficha__estado--${listo ? 'ok' : 'pendiente'}`}>
+            {listo ? decision.doneState : decision.pendingState}
+          </span>{' '}
+          ({marcados.length} de {decision.items.length} condiciones comprobadas)
+        </p>
+        {!listo && (
+          <button type="submit" className="boton boton--principal">
+            Comprobar la ficha
+          </button>
+        )}
+      </form>
+      {comprobado && (
+        <div className={`retro__caja${listo ? ' retro__caja--ok' : ''}`} ref={resultado} tabIndex={-1}>
+          <p className="retro__titulo">
+            <IconoResultado tipo={listo ? 'ok' : 'mejora'} /> {listo ? 'Ficha completa' : 'Ficha incompleta'}
+          </p>
+          <p>{listo ? decision.successText : decision.incompleteMessage}</p>
+        </div>
+      )}
+      {listo && (
+        <button type="button" className="boton boton--principal" onClick={() => despachar({ type: 'CONTINUAR' })}>
+          Continuar
+        </button>
+      )}
+      {decision.alternative && !listo && (
+        <p>
+          <button type="button" className="boton boton--secundario" onClick={() => despachar({ type: 'ALTERNATIVA' })}>
+            {decision.alternative.label}
+          </button>
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function PanelContextual({ id, rol }: { id: PanelId; rol: RoleId }) {
+  const { ep } = useApp();
   const titulos: Record<PanelId, string> = {
     transferencia: 'Si hubiera peligro inmediato',
     canales: 'Vías institucionales de referencia',
@@ -438,7 +540,7 @@ export function PanelContextual({ id, rol }: { id: PanelId; rol: RoleId }) {
       <summary>{titulos[id]}</summary>
       {id === 'transferencia' && (
         <>
-          <p>{panelTransferencia}</p>
+          <p>{ep.panelTransferencia}</p>
           <p>
             {emergencia.nombre}:{' '}
             {emergencia.estado === 'verificado' && emergencia.valor ? (
@@ -460,11 +562,17 @@ export function PanelContextual({ id, rol }: { id: PanelId; rol: RoleId }) {
       )}
       {id === 'apoyos' && (
         <>
-          <p>{panelApoyos.intro}</p>
-          <p>{panelApoyos.denuncia}</p>
-          <p>
-            {panelApoyos.medica} {panelApoyos.medicaAclaracion}
-          </p>
+          {ep.panelApoyos ? (
+            ep.panelApoyos.map((t) => <p key={t}>{t}</p>)
+          ) : (
+            <>
+              <p>{panelApoyos.intro}</p>
+              <p>{panelApoyos.denuncia}</p>
+              <p>
+                {panelApoyos.medica} {panelApoyos.medicaAclaracion}
+              </p>
+            </>
+          )}
           <h3>Servicios de protección que pueden comunicarse a la persona</h3>
           <ListaServicios />
           <p>{directorioLocal.descripcion}</p>
@@ -556,7 +664,7 @@ function MenuPausa({
   modo: ModoJuego;
   onHerramientas: () => void;
 }) {
-  const { borrar } = useApp();
+  const { borrar, enlace } = useApp();
   const navegar = useNavigate();
   const [confirmarBorrado, setConfirmarBorrado] = useState(false);
   return (
@@ -569,12 +677,12 @@ function MenuPausa({
           </button>
         </li>
         <li>
-          <Link className="boton" to={modo === 'grafico' ? '/lectura' : '/jugar'} onClick={onCerrar}>
+          <Link className="boton" to={enlace(modo === 'grafico' ? 'lectura' : 'jugar')} onClick={onCerrar}>
             {modo === 'grafico' ? 'Cambiar a la versión de lectura' : 'Cambiar a la versión gráfica'}
           </Link>
         </li>
         <li>
-          <Link className="boton" to="/rol" onClick={onCerrar}>
+          <Link className="boton" to={enlace('rol')} onClick={onCerrar}>
             Cambiar de rol
           </Link>
         </li>
@@ -586,14 +694,14 @@ function MenuPausa({
         <li>
           {confirmarBorrado ? (
             <div className="confirmar">
-              <p>¿Borrar el progreso de práctica de este dispositivo? Se reiniciará el episodio.</p>
+              <p>¿Borrar el progreso de práctica de este dispositivo? Se reiniciará este módulo.</p>
               <button
                 type="button"
                 className="boton"
                 onClick={() => {
                   borrar();
                   onCerrar();
-                  navegar('/');
+                  navegar(enlace());
                 }}
               >
                 Sí, borrar progreso
@@ -614,10 +722,10 @@ function MenuPausa({
             className="boton"
             onClick={() => {
               onCerrar();
-              navegar('/');
+              navegar(enlace());
             }}
           >
-            Salir a la portada
+            Salir a la portada del módulo
           </button>
         </li>
       </ul>

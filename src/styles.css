@@ -445,6 +445,65 @@ progress {
   transform: translateY(-1.5%);
   filter: drop-shadow(0 12px 10px rgb(60 50 40 / 0.28));
 }
+/* Silueta provisional para personajes sin ilustración */
+.retrato--silueta {
+  fill: #9aa49f;
+}
+.retrato--silueta.retrato--lucia {
+  height: 88%;
+  fill: #8f9c8a;
+}
+.retrato--silueta.retrato--activo {
+  fill: #6f7b75;
+}
+.retrato--silueta.retrato--lucia.retrato--activo {
+  fill: #66785f;
+}
+
+/* Inicio: lista de módulos */
+.modulos {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.modulo {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 16px;
+  box-shadow: var(--sombra);
+}
+.modulo h2 {
+  margin: 0.1em 0 0.2em;
+}
+.modulo__estado {
+  color: var(--texto-suave);
+  font-size: 0.95em;
+}
+.portada__subtitulo {
+  color: var(--texto-suave);
+  margin-top: -0.4em;
+}
+.rol__nota {
+  color: var(--texto-suave);
+  font-size: 0.95em;
+  margin: 0.3em 0 0.8em;
+}
+
+/* Ficha de verificación (módulo 2) */
+.ficha__estado {
+  font-weight: 600;
+}
+.ficha__estado--pendiente {
+  color: var(--mejora);
+}
+.ficha__estado--ok {
+  color: var(--acento-fuerte);
+}
+.continuar-nota {
+  color: var(--texto-suave);
+}
 
 .dialogo-caja,
 .decision,

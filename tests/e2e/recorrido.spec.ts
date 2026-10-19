@@ -44,7 +44,7 @@ for (const rol of ['cf', 'socio'] as const) {
     await hastaDecision(page);
     await elegir(page, /Excluimos a Mariela/);
     await elegir(page, /Compartimos criterios de acceso/);
-    await expect(page.getByRole('heading', { level: 1, name: 'Cierre del episodio' })).toBeFocused();
+    await expect(page.getByRole('heading', { level: 1, name: 'Cierre del módulo' })).toBeFocused();
     await expect(page.getByText('Escucha respetuosa.')).toBeVisible();
     await expect(page.getByText('Reporte responsable.')).toBeVisible();
     await expect(page.getByText('Respuesta centrada en la persona.')).toBeVisible();
@@ -93,7 +93,7 @@ test('D7 no realiza solicitudes de red', async ({ page }) => {
       JSON.stringify({ episodeId: 'ep1-una-ayuda-con-condiciones', contentVersion: '1.2', role: 'cf', node: 'E06', resolved: [], toolsViewed: [], badges: [] }),
     );
   });
-  await page.goto('./#/jugar');
+  await page.goto('./#/m1/jugar');
   await expect(page.getByText('SIMULACIÓN. Este ejercicio no envía reportes')).toBeVisible();
   const solicitudes: string[] = [];
   // Solo se permiten imágenes y fuentes locales del propio juego; nunca envíos de datos ni conexiones externas.
@@ -131,7 +131,7 @@ test('movimiento reducido desactiva transiciones', async ({ page }) => {
 });
 
 test('sin desplazamiento horizontal y pantallas accesibles', async ({ page }) => {
-  for (const ruta of ['./', './#/comunicar', './#/accesibilidad', './#/acerca', './#/evaluacion', './#/cuenta', './#/punto-focal']) {
+  for (const ruta of ['./', './#/m1', './#/m2', './#/comunicar', './#/accesibilidad', './#/acerca', './#/m1/evaluacion', './#/m2/evaluacion', './#/cuenta', './#/punto-focal']) {
     await page.goto(ruta);
     await expect(page.locator('h1')).toBeVisible();
     const ancho = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
@@ -145,7 +145,7 @@ test('evaluación demo: oculta soluciones, rotula «no registrado» y no hace so
   page.on('request', (r) => {
     if (!r.url().startsWith('http://localhost:4173')) externas.push(r.url());
   });
-  await page.goto('./#/evaluacion');
+  await page.goto('./#/m1/evaluacion');
   await page.getByRole('button', { name: 'Iniciar evaluación' }).click();
   for (let i = 0; i < 10; i++) {
     await expect(page.locator('.retro__caja')).toHaveCount(0);

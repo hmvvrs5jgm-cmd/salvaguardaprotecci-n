@@ -1,21 +1,21 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { portada } from '../content/episodio1';
 import type { RoleId } from '../content/types';
 import { useApp } from '../state/AppState';
 import { Encabezado } from '../ui/comunes';
 
 export function Rol() {
-  const { estado, despachar, prefs } = useApp();
+  const { ep, estado, despachar, prefs, enlace } = useApp();
+  const portada = ep.portada;
   const navegar = useNavigate();
   const [params] = useSearchParams();
-  const destino = params.get('modo') === 'lectura' ? '/lectura' : '/jugar';
+  const destino = enlace(params.get('modo') === 'lectura' ? 'lectura' : 'jugar');
 
   if (!prefs.adultoConfirmado) {
     return (
       <div className="pantalla">
         <Encabezado>Antes de comenzar</Encabezado>
         <p>Confirma en la portada que eres una persona mayor de 18 años.</p>
-        <button type="button" className="boton" onClick={() => navegar('/')}>
+        <button type="button" className="boton" onClick={() => navegar(enlace())}>
           Ir a la portada
         </button>
       </div>
@@ -40,6 +40,7 @@ export function Rol() {
             <button type="button" className="opcion" onClick={() => elegir(r)} aria-current={estado.role === r ? 'true' : undefined}>
               {portada.roles[r]}
             </button>
+            {portada.rolNotas && <p className="rol__nota">{portada.rolNotas[r]}</p>}
           </li>
         ))}
       </ul>

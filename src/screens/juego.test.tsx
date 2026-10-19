@@ -6,7 +6,7 @@ import { Rutas } from '../App';
 import { AppStateProvider } from '../state/AppState';
 import { AnuncioProvider } from '../ui/comunes';
 
-function montar(ruta = '/') {
+function montar(ruta = '/m1') {
   return render(
     <MemoryRouter initialEntries={[ruta]} future={{ v7_relativeSplatPath: true }}>
       <AppStateProvider>

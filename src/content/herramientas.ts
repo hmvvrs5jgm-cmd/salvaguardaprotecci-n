@@ -3,6 +3,7 @@
 // El mapeo de servicios del Protocolo de asistencia y derivación es de uso interno: no se publica aquí.
 
 import { avisoServicios, serviciosPublicos } from '../config/canales';
+import { herramientasM2 } from './episodio2/herramientas';
 import type { Tool, ToolId } from './types';
 
 const lineaServicio = (s: (typeof serviciosPublicos)[number]) =>
@@ -379,8 +380,11 @@ export const herramientas: Tool[] = [
   },
 ];
 
+/** Herramientas comunes y del módulo 1, seguidas de las del módulo 2. */
+export const todasLasHerramientas: Tool[] = [...herramientas, ...herramientasM2];
+
 export function herramienta(id: ToolId): Tool {
-  const t = herramientas.find((h) => h.id === id);
+  const t = todasLasHerramientas.find((h) => h.id === id);
   if (!t) throw new Error(`Herramienta desconocida: ${id}`);
   return t;
 }

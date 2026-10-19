@@ -1,5 +1,6 @@
 // Tipos del contenido narrativo y de evaluación.
 // El contenido vive en datos tipados (un único origen) y los componentes solo lo presentan.
+// Cada módulo (episodio) es un objeto Episode independiente con IDs propios (M1 sin prefijo, M2 con «M2_»).
 
 export type RoleId = 'cf' | 'socio';
 export const ROLES: readonly RoleId[] = ['cf', 'socio'];
@@ -7,7 +8,7 @@ export const ROLES: readonly RoleId[] = ['cf', 'socio'];
 /** Texto común o variante condicionada por rol. */
 export type RoleText = string | { cf: string; socio: string };
 
-export type Speaker = 'narracion' | 'mariela' | 'elena' | 'tu' | 'referente';
+export type Speaker = 'narracion' | 'tu' | 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional';
 
 /** Pose del personaje mientras habla (las ilustraciones tienen tres poses por personaje). */
 export type Pose = 'atenta' | 'pensativa' | 'explica';
@@ -25,17 +26,21 @@ export interface Line {
   pose?: Pose;
 }
 
-export type SceneId = 'E01' | 'E02' | 'E03' | 'E04' | 'E05' | 'E05B' | 'E06' | 'E07' | 'E08';
-export type NodeId = SceneId | 'CIERRE';
-export type DecisionId = 'D1' | 'D2' | 'D3' | 'D4' | 'D5' | 'D6' | 'D7' | 'D8' | 'D9';
+export type SceneId = string;
+export type DecisionId = string;
+/** Nodo del grafo: una escena o el cierre del módulo. */
+export type NodeId = string;
+export const CIERRE = 'CIERRE';
 
-/** Tipos de resultado de una opción, tomados del guion (prompt, apartado 5.1). */
+/** Tipos de resultado de una opción, tomados de los guiones (prompt, apartado 5.1). */
 export type Outcome =
   | { type: 'avanza'; next: NodeId }
   | { type: 'repara_y_avanza'; next: NodeId; repair: Line[]; repairFollowUp?: Line[] }
   | { type: 'pausa_y_vuelve'; pauseNote: string }
   | { type: 'reintenta' }
-  | { type: 'complementa_y_avanza'; next: NodeId; complementOptionId: string; complement: Line[] };
+  | { type: 'complementa_y_avanza'; next: NodeId; complementOptionId: string; complement: Line[] }
+  /** Respuesta inadecuada que conduce a una escena de reparación obligatoria (módulo 2, M2_REPARAR_DERIVACION). */
+  | { type: 'redirige_a_reparacion'; next: NodeId };
 
 export type OutcomeType = Outcome['type'];
 
@@ -50,6 +55,8 @@ export interface Option {
   /** Refuerzo con fuentes, añadido sin modificar el texto del guion (prompt, apartado 2.2). */
   sourceNote?: string;
   outcome: Outcome;
+  /** true si la retroalimentación es un texto editorial (el guion no la define); no se compara con el guion. */
+  feedbackEditorial?: true;
 }
 
 export interface ChoiceDecision {
@@ -76,23 +83,53 @@ export interface CardsDecision {
   simulationLabel: string;
   cards: Card[];
   messages: { missing: string; extra: string };
+  /** Rótulo de las tarjetas que se incluyen (por defecto «Incluir»). */
+  includeLabel?: string;
+  /** Título opcional del texto final (p. ej., «Registro simulado»). */
+  successTitle?: string;
   successText: string;
   next: NodeId;
 }
 
-export type Decision = ChoiceDecision | CardsDecision;
+/** Escena sin elección: un botón para continuar (p. ej., la reparación de la derivación en el módulo 2). */
+export interface ContinueDecision {
+  kind: 'continuar';
+  id: DecisionId;
+  label: string;
+  note?: string;
+  next: NodeId;
+}
 
-export type BackgroundId = 'centro' | 'conversacion' | 'salida' | 'oficina';
-export type CharacterId = 'mariela' | 'elena' | 'referente';
+/** Ficha de verificación: todas las condiciones deben quedar marcadas para continuar. */
+export interface ChecklistDecision {
+  kind: 'checklist';
+  id: DecisionId;
+  prompt: string;
+  simulationLabel: string;
+  items: { id: string; label: string }[];
+  /** Estado mostrado antes de completar la ficha. */
+  pendingState: string;
+  /** Estado mostrado al completar la ficha. */
+  doneState: string;
+  incompleteMessage: string;
+  successText: string;
+  next: NodeId;
+  /** Rama opcional de contingencia (no resuelve la decisión). */
+  alternative?: { label: string; next: NodeId };
+}
+
+export type Decision = ChoiceDecision | CardsDecision | ContinueDecision | ChecklistDecision;
+
+export type CharacterId = 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional';
 export type PanelId = 'transferencia' | 'canales' | 'apoyos';
 
 export interface Scene {
   id: SceneId;
   title: string;
-  background: BackgroundId;
-  backgroundAlt: string;
+  /** Descripción del entorno para la versión de lectura y la documentación. */
+  setting: string;
   characters: CharacterId[];
-  /** Rótulo visible para escenas hipotéticas (E05B). */
+  /** Rótulo visible para escenas hipotéticas o de contingencia. */
   variationLabel?: string;
   intro: Line[];
   decision: Decision;
@@ -107,6 +144,8 @@ export interface Closing {
   lines: Line[];
   contribution: string;
   reflection: string[];
+  /** Etiqueta del botón de repaso (p. ej., «Ver mis aprendizajes»). */
+  reviewLabel?: string;
 }
 
 export interface Badge {
@@ -116,16 +155,57 @@ export interface Badge {
   decisions: DecisionId[];
 }
 
+/** Textos de portada y elección de rol de cada módulo. */
+export interface Portada {
+  lead: string;
+  aviso: string;
+  rolPregunta: string;
+  roles: Record<RoleId, string>;
+  rolMensaje: string;
+  /** Aclaraciones por rol que se muestran bajo cada opción. */
+  rolNotas?: Record<RoleId, string>;
+}
+
+export interface TextosResultado {
+  aprobado: (score: number, version: string) => string;
+  criticoFallido: (score: number) => string;
+  insuficiente: string;
+  practicaReforzada: string;
+}
+
+export interface EvaluacionEpisodio {
+  config: AssessmentConfig;
+  preguntas: Question[];
+  textos: TextosResultado;
+  notaUmbral: string;
+}
+
 export interface Episode {
   id: string;
+  /** Segmento de ruta del módulo (p. ej., «m1»). */
+  ruta: string;
+  /** Rótulo del tipo de unidad (p. ej., «Episodio 1», «Módulo 2»). */
+  rotulo: string;
   number: number;
   title: string;
+  subtitle?: string;
   version: string;
+  /** Clave de almacenamiento local del progreso. */
+  claveAlmacen: string;
+  /** Expresión regular del nombre del guion local en referencias/. */
+  guionArchivo: string;
   start: SceneId;
   scenes: Record<SceneId, Scene>;
   order: SceneId[];
   closing: Closing;
   badges: Badge[];
+  portada: Portada;
+  herramientas: ToolId[];
+  evaluacion: EvaluacionEpisodio;
+  /** Párrafos del panel «Posibles apoyos»; si falta, se usa el del módulo 1 (persona adulta). */
+  panelApoyos?: string[];
+  /** Texto del panel «Si hubiera peligro inmediato». */
+  panelTransferencia?: string;
 }
 
 // --- Evaluación ---
@@ -164,7 +244,7 @@ export interface AssessmentConfig {
 
 // --- Herramientas ---
 
-export type ToolId = 'escucha' | 'seguridad' | 'no-hacer' | 'reporte' | 'ruta' | 'roles' | 'apoyos';
+export type ToolId = string;
 
 export interface ToolSection {
   heading: string;

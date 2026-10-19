@@ -2,7 +2,11 @@
 
 Juego web formativo en español para personas adultas del personal técnico de ChildFund Ecuador y de organizaciones socias. Es una novela gráfica interactiva de decisiones ramificadas con consecuencias explicadas.
 
-**Episodio 1 — «Una ayuda con condiciones»** (guion v1.1): reconocer una posible explotación sexual vinculada con una ayuda, escuchar sin culpabilizar, atender la seguridad sin investigar, explicar los límites de la confidencialidad, activar el mecanismo institucional, compartir información mínima y distinguir reporte, asistencia e investigación.
+**Módulo 1 — «Una ayuda con condiciones»** (guion v1.2): reconocer una posible explotación sexual vinculada con una ayuda, escuchar sin culpabilizar, atender la seguridad sin investigar, explicar los límites de la confidencialidad, activar el mecanismo institucional, compartir información mínima y distinguir reporte, asistencia e investigación.
+
+**Módulo 2 — «Gracias por escucharme»** (guion v1.0): escuchar a una adolescente sin investigar ni culpabilizar, explicar la confidencialidad con lenguaje adecuado a la edad, atender un riesgo inmediato dentro del rol, no contactar automáticamente a la familia, comunicar con información mínima y contribuir a una derivación segura, verificada y con seguimiento.
+
+Cada módulo tiene su ruta (`#/m1`, `#/m2`), su progreso local, su evaluación y su resultado en el registro (por `episode_id` y versión). Las rutas anteriores (`#/jugar`, `#/evaluacion`…) llevan al módulo 1.
 
 > Todas las personas y situaciones del juego son ficticias. El juego no es un sistema de denuncias: no envía información a ningún canal.
 
@@ -36,8 +40,8 @@ npm run lint && npm run typecheck
 npm test                       # unidades y componentes (Vitest + Testing Library)
 npm run test:e2e               # Playwright + axe (escritorio, móvil 320 px, subruta de Pages)
 npm run test:db                # migraciones y pruebas SQL en PostgreSQL local (sin Docker)
-npm run validate:content       # grafo narrativo
-npm run check:guion            # textos literales frente al guion local (omite si no está)
+npm run validate:content       # grafo narrativo de cada módulo
+npm run check:guion            # textos literales frente a los guiones locales (omite si no están)
 npm run gen:assessment-sql -- --check   # banco del servidor sincronizado con el contenido
 ```
 
@@ -54,7 +58,7 @@ El modo se fija en la compilación, nunca según la disponibilidad de la red.
 
 ```
 src/
-  content/            contenido tipado (único origen): escenas, herramientas, evaluación, clave
+  content/            contenido tipado (único origen): episodio1/ y episodio2/ (escenas, evaluación, clave), herramientas, registro de módulos
   config/             canales y contactos (verificado/pendiente), privacidad, fuentes, modo
   engine/             motor de práctica (reductor puro), grafo, puntuación, mezcla, almacenamiento
   screens/ ui/        pantallas y componentes (modo gráfico y versión de lectura)
@@ -81,8 +85,9 @@ El guion, la política, el procedimiento y la PPT **se quedan en `referencias/`*
 
 ## Límites conocidos
 
-- La regla de aprobación (8/10 y críticas 2, 3, 4 y 6) es un **criterio pedagógico provisional**, no un requisito de la política.
-- El repositorio es público: la evaluación es formativa y sin supervisión, no un examen seguro. La aprobación corresponde solo al episodio y versión; no es un certificado.
+- La regla de aprobación de cada módulo (8/10 y críticas 2, 3, 4 y 6) es un **criterio pedagógico provisional**, no un requisito de la política.
+- El repositorio es público: la evaluación es formativa y sin supervisión, no un examen seguro. La aprobación corresponde solo al módulo y la versión; no es un certificado.
+- Lucía y la profesional de atención (módulo 2) se muestran con una silueta provisional hasta contar con sus ilustraciones.
 - Mientras no exista un banco alternativo revisado, los nuevos intentos repiten las mismas diez preguntas («práctica reforzada»).
 - Las personas que operan el proyecto Supabase tienen acceso técnico a los datos. «Único rol autorizado» se refiere a la aplicación.
 - Personajes generados con IA, de cuerpo entero sobre un fondo neutro (`docs/activos-graficos.md`); términos de uso pendientes de confirmar. El color verde es provisional. No se usa el logotipo de ChildFund.

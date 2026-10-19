@@ -2,9 +2,8 @@
 // Toda lectura y escritura tolera que el almacenamiento no esté disponible.
 
 import type { Episode } from '../content/types';
-import { estadoInicial, type EstadoPractica } from './practica';
+import { escenaDe, estadoInicial, pasoDecision, type EstadoPractica } from './practica';
 
-const CLAVE = 'dqp:progreso';
 const CLAVE_PREFS = 'dqp:preferencias';
 
 export interface Almacen {
@@ -31,7 +30,7 @@ export function cargarProgreso(ep: Episode, store: Almacen | null = almacenPorDe
   if (!store) return { estado: 'nuevo', progreso: inicial };
   let raw: string | null = null;
   try {
-    raw = store.getItem(CLAVE);
+    raw = store.getItem(ep.claveAlmacen);
   } catch {
     return { estado: 'nuevo', progreso: inicial };
   }
@@ -53,9 +52,8 @@ export function cargarProgreso(ep: Episode, store: Almacen | null = almacenPorDe
       toolsViewed: Array.isArray(data.toolsViewed) ? data.toolsViewed : [],
       badges: Array.isArray(data.badges) ? data.badges : [],
     };
-    if (progreso.node !== 'CIERRE' && ep.scenes[progreso.node].intro.length === 0) {
-      const d = ep.scenes[progreso.node].decision;
-      progreso.paso = d.kind === 'cards' ? { kind: 'cards', selected: [], checked: null } : { kind: 'decision' };
+    if (progreso.node !== 'CIERRE' && escenaDe(ep, progreso.node).intro.length === 0) {
+      progreso.paso = pasoDecision(escenaDe(ep, progreso.node));
     }
     return { estado: 'recuperado', progreso };
   } catch {
@@ -63,19 +61,19 @@ export function cargarProgreso(ep: Episode, store: Almacen | null = almacenPorDe
   }
 }
 
-export function guardarProgreso(s: EstadoPractica, store: Almacen | null = almacenPorDefecto()): void {
+export function guardarProgreso(ep: Episode, s: EstadoPractica, store: Almacen | null = almacenPorDefecto()): void {
   if (!store) return;
   const { episodeId, contentVersion, role, node, resolved, toolsViewed, badges } = s;
   try {
-    store.setItem(CLAVE, JSON.stringify({ episodeId, contentVersion, role, node, resolved, toolsViewed, badges }));
+    store.setItem(ep.claveAlmacen, JSON.stringify({ episodeId, contentVersion, role, node, resolved, toolsViewed, badges }));
   } catch {
     /* almacenamiento no disponible: el juego sigue funcionando sin guardar */
   }
 }
 
-export function borrarProgreso(store: Almacen | null = almacenPorDefecto()): void {
+export function borrarProgreso(ep: Episode, store: Almacen | null = almacenPorDefecto()): void {
   try {
-    store?.removeItem(CLAVE);
+    store?.removeItem(ep.claveAlmacen);
   } catch {
     /* sin almacenamiento */
   }
@@ -87,6 +85,8 @@ export interface Preferencias {
   altoContraste: boolean;
   sonido: boolean;
   adultoConfirmado: boolean;
+  /** Último rol elegido en cualquier módulo (para el panel de comunicación real). */
+  ultimoRol: 'cf' | 'socio' | null;
 }
 
 export const preferenciasPorDefecto: Preferencias = {
@@ -95,6 +95,7 @@ export const preferenciasPorDefecto: Preferencias = {
   altoContraste: false,
   sonido: false,
   adultoConfirmado: false,
+  ultimoRol: null,
 };
 
 export function cargarPreferencias(store: Almacen | null = almacenPorDefecto()): Preferencias {

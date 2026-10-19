@@ -38,7 +38,7 @@ Cada consulta, exportación y anulación se registra en `private.admin_access_lo
 ## Qué tener en cuenta
 
 - Nombre y organización son **autodeclarados**: la app no los verifica.
-- Una aprobación corresponde solo al episodio y versión indicados. No es un certificado oficial ni habilita para investigar o gestionar casos.
+- Una aprobación corresponde solo al módulo y la versión indicados (columna «Módulo»; filtro por módulo en el panel). Cada módulo tiene su propio resultado: aprobar el módulo 2 no sustituye al módulo 1. No es un certificado oficial ni habilita para investigar o gestionar casos.
 - El registro de formación es independiente de cualquier sistema de denuncias. Nunca registres aquí información de casos.
 - El apoyo formativo a quien no aprueba se ofrece sin publicar resultados. No hay rankings.
 - Las personas que administran técnicamente el proyecto Supabase pueden acceder a los datos. Limita su número.

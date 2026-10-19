@@ -11,6 +11,10 @@ export function nombreHablante(s: Speaker, rol: RoleId | null): string | null {
       return 'Mariela';
     case 'elena':
       return 'Elena';
+    case 'lucia':
+      return 'Lucía';
+    case 'profesional':
+      return 'Profesional de atención';
     case 'tu':
       return 'Tú';
     case 'referente':

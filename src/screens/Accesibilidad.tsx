@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Preferencias } from '../engine/almacen';
-import { useApp } from '../state/AppState';
+import { usePrefs } from '../state/AppState';
 import { Encabezado } from '../ui/comunes';
 
 const opciones: Array<{ clave: keyof Preferencias; etiqueta: string; ayuda: string }> = [
@@ -11,11 +11,11 @@ const opciones: Array<{ clave: keyof Preferencias; etiqueta: string; ayuda: stri
     etiqueta: 'Reducir movimiento',
     ayuda: 'Desactiva transiciones. También se aplica si tu sistema lo solicita.',
   },
-  { clave: 'sonido', etiqueta: 'Sonido', ayuda: 'Este episodio no usa sonido; la opción queda desactivada por defecto.' },
+  { clave: 'sonido', etiqueta: 'Sonido', ayuda: 'El juego no usa sonido; la opción queda desactivada por defecto.' },
 ];
 
 export function Accesibilidad() {
-  const { prefs, setPrefs } = useApp();
+  const { prefs, setPrefs } = usePrefs();
   return (
     <div className="pantalla">
       <Encabezado>Accesibilidad</Encabezado>
@@ -41,13 +41,14 @@ export function Accesibilidad() {
       <h2>Otras formas de jugar</h2>
       <ul>
         <li>
-          La <Link to="/lectura">versión de lectura</Link> presenta las mismas decisiones y retroalimentación sin ilustraciones.
+          Cada módulo tiene una versión de lectura equivalente, que se elige en su portada: presenta las mismas decisiones,
+          reparaciones y retroalimentación sin ilustraciones. <Link to="/">Elegir un módulo</Link>.
         </li>
         <li>Todo se puede usar con teclado: Tab para moverse, Enter o Espacio para elegir y Escape para cerrar paneles.</li>
         <li>Puedes pausar en cualquier momento: el progreso se conserva en este dispositivo.</li>
       </ul>
       <Link className="boton" to="/">
-        Volver a la portada
+        Volver al inicio
       </Link>
     </div>
   );

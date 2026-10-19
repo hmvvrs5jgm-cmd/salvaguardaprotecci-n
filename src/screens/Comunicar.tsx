@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { RoleId } from '../content/types';
-import { useApp } from '../state/AppState';
+import { usePrefs } from '../state/AppState';
 import { Encabezado } from '../ui/comunes';
 import { ListaCanales, ListaServicios } from './Juego';
 
 /** Panel institucional separado del juego. No es un formulario y no transfiere datos del juego. */
 export function Comunicar() {
-  const { estado } = useApp();
-  const [rol, setRol] = useState<RoleId>(estado.role ?? 'cf');
+  const { prefs } = usePrefs();
+  const [rol, setRol] = useState<RoleId>(prefs.ultimoRol ?? 'cf');
   return (
     <div className="pantalla comunicar">
       <p className="rotulo-institucional">Información institucional</p>
@@ -57,7 +57,7 @@ export function Comunicar() {
       <h2>Servicios públicos de protección y denuncia</h2>
       <ListaServicios />
       <Link className="boton" to="/">
-        Volver a la portada
+        Volver al inicio
       </Link>
     </div>
   );

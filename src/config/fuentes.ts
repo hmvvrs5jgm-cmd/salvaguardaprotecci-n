@@ -35,4 +35,8 @@ export const fuentes = [
     nombre: 'Guion «Una ayuda con condiciones»',
     detalle: 'Versión de diseño 1.2 (18 de octubre de 2026). Adaptación pedagógica; personas y situaciones ficticias.',
   },
+  {
+    nombre: 'Guion «Gracias por escucharme» (módulo 2)',
+    detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Personas y situaciones ficticias.',
+  },
 ] as const;

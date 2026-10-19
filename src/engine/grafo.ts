@@ -3,6 +3,7 @@
 
 import type { ChoiceDecision, Episode, NodeId, Option, RoleId, SceneId } from '../content/types';
 import { ROLES } from '../content/types';
+import { escenaDe } from './practica';
 
 export interface ProblemaGrafo {
   tipo:
@@ -25,6 +26,7 @@ export function destinosDeOpcion(o: Option): NodeId[] {
     case 'avanza':
     case 'repara_y_avanza':
     case 'complementa_y_avanza':
+    case 'redirige_a_reparacion':
       return [o.outcome.next];
     default:
       return [];
@@ -32,9 +34,16 @@ export function destinosDeOpcion(o: Option): NodeId[] {
 }
 
 export function destinosDeEscena(ep: Episode, id: SceneId): NodeId[] {
-  const d = ep.scenes[id].decision;
-  if (d.kind === 'cards') return [d.next];
-  return d.options.flatMap(destinosDeOpcion);
+  const d = escenaDe(ep, id).decision;
+  switch (d.kind) {
+    case 'cards':
+    case 'continuar':
+      return [d.next];
+    case 'checklist':
+      return d.alternative ? [d.next, d.alternative.next] : [d.next];
+    case 'choice':
+      return d.options.flatMap(destinosDeOpcion);
+  }
 }
 
 export function textoParaRol(t: Option['label'], rol: RoleId): string {
@@ -68,8 +77,10 @@ export function validarGrafo(ep: Episode): ProblemaGrafo[] {
           o.outcome.complement.forEach((l) => registrar(l.id, `complemento de ${o.id}`));
         }
       }
-    } else {
+    } else if (s.decision.kind === 'cards') {
       s.decision.cards.forEach((c) => registrar(c.id, `tarjeta de ${s.decision.id}`));
+    } else if (s.decision.kind === 'checklist') {
+      s.decision.items.forEach((i) => registrar(i.id, `condición de ${s.decision.id}`));
     }
   }
   ep.closing.lines.forEach((l) => registrar(l.id, 'cierre'));
@@ -88,7 +99,7 @@ export function validarGrafo(ep: Episode): ProblemaGrafo[] {
   for (const s of Object.values(ep.scenes)) {
     const d = s.decision;
     if (d.kind === 'choice') {
-      if (!d.options.some((o) => destinosDeOpcion(o).length > 0)) {
+      if (!d.options.some((o) => o.outcome.type === 'avanza')) {
         problemas.push({ tipo: 'sin_opcion_adecuada', detalle: d.id });
       }
       for (const o of d.options) {
@@ -106,7 +117,9 @@ export function validarGrafo(ep: Episode): ProblemaGrafo[] {
           }
         }
       }
-    } else if (!d.cards.some((c) => c.include)) {
+    } else if (d.kind === 'cards' && !d.cards.some((c) => c.include)) {
+      problemas.push({ tipo: 'sin_opcion_adecuada', detalle: d.id });
+    } else if (d.kind === 'checklist' && d.items.length === 0) {
       problemas.push({ tipo: 'sin_opcion_adecuada', detalle: d.id });
     }
   }
@@ -152,9 +165,9 @@ export function recorridoAdecuado(ep: Episode, rol: RoleId): Array<{ scene: Scen
   const guard = new Set<string>();
   while (n !== 'CIERRE' && !guard.has(n)) {
     guard.add(n);
-    const s: Episode['scenes'][SceneId] = ep.scenes[n as SceneId];
-    if (s.decision.kind === 'cards') {
-      out.push({ scene: s.id, label: 'tarjetas' });
+    const s = escenaDe(ep, n);
+    if (s.decision.kind !== 'choice') {
+      out.push({ scene: s.id, label: s.decision.kind === 'continuar' ? s.decision.label : s.decision.kind });
       n = s.decision.next;
       continue;
     }

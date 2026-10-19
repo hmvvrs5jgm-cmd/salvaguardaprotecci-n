@@ -4,6 +4,7 @@
 // y están registrados en docs/cambios-editoriales.md.
 
 import type { Episode, Line, Pose, Scene, SceneId, Speaker } from '../types';
+import { configEvaluacion, notaUmbral, preguntas, textosResultado } from './evaluacion';
 
 let seq = 0;
 const l = (speaker: Speaker, text: Line['text'], literal = true, pose?: Pose): Line => ({
@@ -29,8 +30,7 @@ const NO_REVICTIMIZACION =
 const E01: Scene = {
   id: 'E01',
   title: 'Al terminar la jornada',
-  background: 'centro',
-  backgroundAlt: 'Entrada del centro comunitario al terminar la jornada, con una rampa de acceso, jardineras y montañas al fondo.',
+  setting: 'Entrada del centro comunitario al terminar la jornada, con una rampa de acceso, jardineras y montañas al fondo.',
   characters: ['mariela'],
   intro: [
     l('narracion', 'La jornada termina. Mariela espera a que el grupo se retire y se acerca a ti.'),
@@ -109,8 +109,7 @@ const E01: Scene = {
 const E02: Scene = {
   id: 'E02',
   title: 'Lo que sí puedes prometer',
-  background: 'conversacion',
-  backgroundAlt: 'Zona discreta junto a la puerta de salida del centro comunitario.',
+  setting: 'Zona discreta junto a la puerta de salida del centro comunitario.',
   characters: ['mariela'],
   intro: [l('mariela', 'Por favor, que nadie se entere. Si cuento esto, quizás dejen de ayudarme.', true, 'pensativa')],
   designNote:
@@ -167,8 +166,7 @@ const E02: Scene = {
 const E03: Scene = {
   id: 'E03',
   title: 'Seguridad y necesidades inmediatas',
-  background: 'conversacion',
-  backgroundAlt: 'Zona discreta junto a la puerta de salida del centro comunitario, donde Mariela prefirió conversar.',
+  setting: 'Zona discreta junto a la puerta de salida del centro comunitario, donde Mariela prefirió conversar.',
   characters: ['mariela'],
   intro: [
     l(
@@ -233,8 +231,7 @@ const E03: Scene = {
 const E04: Scene = {
   id: 'E04',
   title: 'Una presión del equipo',
-  background: 'oficina',
-  backgroundAlt: 'Oficina de coordinación con un escritorio, dos sillas y archivadores. No hay documentos identificables.',
+  setting: 'Oficina de coordinación con un escritorio, dos sillas y archivadores. No hay documentos identificables.',
   characters: ['elena'],
   intro: [
     l(
@@ -287,8 +284,7 @@ const E04: Scene = {
 const E05: Scene = {
   id: 'E05',
   title: 'Elegir el mecanismo',
-  background: 'oficina',
-  backgroundAlt: 'Oficina de coordinación. La persona jugadora revisa en silencio las vías institucionales.',
+  setting: 'Oficina de coordinación. La persona jugadora revisa en silencio las vías institucionales.',
   characters: [],
   intro: [],
   decision: {
@@ -341,8 +337,7 @@ const E05: Scene = {
 const E05B: Scene = {
   id: 'E05B',
   title: 'Canal alternativo',
-  background: 'oficina',
-  backgroundAlt: 'Oficina de coordinación. Un rótulo indica que se trata de una variación ficticia.',
+  setting: 'Oficina de coordinación. Un rótulo indica que se trata de una variación ficticia.',
   characters: [],
   variationLabel: 'Variación ficticia',
   intro: [
@@ -389,8 +384,7 @@ const E05B: Scene = {
 const E06: Scene = {
   id: 'E06',
   title: 'Información mínima',
-  background: 'oficina',
-  backgroundAlt: 'Oficina de coordinación con un formulario ficticio rotulado como simulación.',
+  setting: 'Oficina de coordinación con un formulario ficticio rotulado como simulación.',
   characters: [],
   intro: [],
   decision: {
@@ -448,8 +442,7 @@ const E06: Scene = {
 const E07: Scene = {
   id: 'E07',
   title: 'Reporte y apoyo',
-  background: 'oficina',
-  backgroundAlt: 'Oficina de coordinación. El Referente conversa con la persona jugadora.',
+  setting: 'Oficina de coordinación. El Referente conversa con la persona jugadora.',
   characters: ['referente', 'mariela'],
   intro: [
     l(
@@ -511,8 +504,7 @@ const E07: Scene = {
 const E08: Scene = {
   id: 'E08',
   title: 'Lo que puedes hacer después',
-  background: 'centro',
-  backgroundAlt: 'Entrada del centro comunitario, preparada para una nueva actividad.',
+  setting: 'Entrada del centro comunitario, preparada para una nueva actividad.',
   characters: ['elena'],
   intro: [l('elena', '¿Qué hacemos para que las personas conozcan mejor sus derechos?', true, 'pensativa')],
   decision: {
@@ -556,9 +548,14 @@ const scenes: Record<SceneId, Scene> = { E01, E02, E03, E04, E05, E05B, E06, E07
 
 export const episodio1: Episode = {
   id: 'ep1-una-ayuda-con-condiciones',
+  ruta: 'm1',
+  rotulo: 'Módulo 1',
   number: 1,
   title: 'Una ayuda con condiciones',
+  subtitle: 'Explotación sexual vinculada a una ayuda: escuchar, reportar y no investigar',
   version: '1.2',
+  claveAlmacen: 'dqp:progreso',
+  guionArchivo: '^Guion_Una_ayuda_con_condiciones.*\\.md$',
   start: 'E01',
   scenes,
   order: ['E01', 'E02', 'E03', 'E04', 'E05', 'E05B', 'E06', 'E07', 'E08'],
@@ -598,22 +595,26 @@ export const episodio1: Episode = {
       decisions: ['D3', 'D8', 'D9'],
     },
   ],
+  portada: {
+    lead: 'Una conversación puede abrir una oportunidad para proteger. Practica cómo responder desde tu rol cuando una persona comunica una preocupación.',
+    aviso:
+      'Este episodio aborda una posible explotación sexual y abuso de poder, sin contenido explícito. Puedes pausar, salir o utilizar la versión de lectura equivalente. Trabajaremos únicamente con situaciones ficticias. No ingreses datos ni relatos reales.',
+    rolPregunta: '¿Desde qué rol practicarás?',
+    roles: {
+      cf: 'Personal técnico de ChildFund Ecuador',
+      socio: 'Personal técnico de una organización socia',
+    },
+    rolMensaje:
+      'Tu responsabilidad es escuchar, atender riesgos dentro de tu función y comunicar la preocupación. La clasificación, investigación y gestión especializada corresponden a los roles designados.',
+  },
+  herramientas: ['escucha', 'seguridad', 'no-hacer', 'reporte', 'ruta', 'roles', 'apoyos'],
+  evaluacion: { config: configEvaluacion, preguntas, textos: textosResultado, notaUmbral },
+  panelTransferencia:
+    'Si hubiera peligro inmediato o necesidad urgente de atención, activa la respuesta de emergencia y los servicios competentes según la ruta local, dentro de tu función. La seguridad y atención no esperan una clasificación ni la conclusión de una investigación.',
 };
 
 /** Textos de la portada, aviso y rol (guion, apartados 3 y 4). */
-export const portada = {
-  lead: 'Una conversación puede abrir una oportunidad para proteger. Practica cómo responder desde tu rol cuando una persona comunica una preocupación.',
-  aviso:
-    'Este episodio aborda una posible explotación sexual y abuso de poder, sin contenido explícito. Puedes pausar, salir o utilizar la versión de lectura equivalente. Trabajaremos únicamente con situaciones ficticias. No ingreses datos ni relatos reales.',
-  rolPregunta: '¿Desde qué rol practicarás?',
-  roles: {
-    cf: 'Personal técnico de ChildFund Ecuador',
-    socio: 'Personal técnico de una organización socia',
-  },
-  rolMensaje:
-    'Tu responsabilidad es escuchar, atender riesgos dentro de tu función y comunicar la preocupación. La clasificación, investigación y gestión especializada corresponden a los roles designados.',
-};
+export const portada = episodio1.portada;
 
 /** Texto del panel de transferencia de E03 (guion, apartado 7). */
-export const panelTransferencia =
-  'Si hubiera peligro inmediato o necesidad urgente de atención, activa la respuesta de emergencia y los servicios competentes según la ruta local, dentro de tu función. La seguridad y atención no esperan una clasificación ni la conclusión de una investigación.';
+export const panelTransferencia = episodio1.panelTransferencia!;
