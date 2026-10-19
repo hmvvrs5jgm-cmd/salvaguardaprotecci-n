@@ -50,7 +50,7 @@ describe('módulo 5', () => {
     expect(screen.getByText(/relación relevante del receptor habitual/)).toBeInTheDocument();
   });
 
-  it('Paula se muestra con una silueta provisional accesible', () => {
+  it('Paula se muestra con su ilustración y una descripción accesible', () => {
     sembrar('M5_E01', ['M5_E01']);
     montar('/m5/jugar');
     expect(screen.getByRole('img', { name: /Paula, colaboradora adulta/ })).toBeInTheDocument();

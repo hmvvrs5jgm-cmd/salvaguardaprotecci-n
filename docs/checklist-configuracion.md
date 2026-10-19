@@ -37,7 +37,7 @@ Marca cada punto solo cuando la institución lo haya verificado.
 ### Módulo 5 — «Es alguien importante»
 - [ ] Revisión del guion v1.0 por el Punto Focal (guion, apartado 24): canales alternativos existentes, articulación socio–ChildFund, manejo de un posible conflicto sin inventar una estructura de recusación, protección de NNA y denunciantes, y distinción entre prevención, investigación y decisiones laborales.
 - [ ] Resolver los puntos 39 a 42 de `docs/discrepancias.md`.
-- [ ] Ilustraciones de Paula (colaboradora adulta del equipo territorial, tres poses) (`docs/activos-graficos.md`).
+- [x] Ilustraciones de Paula (tres poses), 19/10/2026.
 - [ ] Adoptar o ajustar el umbral provisional del módulo 5 (8/10 y críticas 2, 4, 6 y 8) en `src/content/episodio5/evaluacion.ts` y regenerar el banco.
 - [ ] Aplicar la migración `20261019000008_banco_m5_v1_0.sql` en el proyecto Supabase.
 - [ ] Piloto: comprobar que se entiende que no hace falta probar un hecho para reportar, que el conflicto se informa sin presumir culpabilidad y que prevenir represalias no significa prometer resultados laborales.
