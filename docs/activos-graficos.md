@@ -9,16 +9,13 @@ Imágenes **generadas con IA**, proporcionadas por la institución el 18/10/2026
 | `src/assets/personajes/referente-*.webp` | Referente (camisa verde y credencial) | atenta, pensativa, explica |
 | `src/assets/personajes/lucia-*.webp` | Lucía, 15 años (chaqueta azul con capucha y jeans), módulo 2 | atenta, pensativa, explica |
 | `src/assets/personajes/camila-*.webp` | Camila, 14 años (suéter granate), módulo 3 | atenta, pensativa, explica |
-| `src/assets/personajes/diego-*.webp` | Diego, 11 años (suéter mostaza), módulo 3 | atenta, explica (pensativa pendiente) |
+| `src/assets/personajes/diego-*.webp` | Diego, 11 años (suéter mostaza), módulo 3 | atenta, pensativa, explica |
+| `src/assets/personajes/nicolas-*.webp` | Nicolás, logística y transporte (polo azul marino y credencial), módulo 3 | atenta, pensativa, explica |
 | `src/assets/personajes/profesional-*.webp` | Profesional de atención (chaqueta de punto verde, gafas y credencial), módulo 2 | atenta, pensativa, explica |
 
 **Módulo 2.** Lucía y la profesional de atención fueron proporcionadas por la institución el 19/10/2026 (también generadas con IA). Lucía se muestra algo más baja que las personas adultas. La persona señalada no tiene retrato.
 
-**Módulo 3.** Camila (tres poses) y Diego (atenta y explica; la pose pensativa usa la atenta) se incorporaron el 19/10/2026. Nicolás aún no tiene ilustración: se muestra una **silueta neutra provisional** (SVG en `src/ui/ilustraciones.tsx`), sin rasgos y con una descripción accesible. Elena reutiliza sus imágenes. La persona visitante no tiene retrato (guion: no se la caracteriza por su aspecto). Para sustituir las siluetas, en el mismo estilo, de cuerpo entero y en tres poses (`atenta`, `pensativa`, `explica`):
-- `nicolas-*.webp`: colega a cargo de logística y transporte, persona adulta del equipo técnico.
-- `diego-pensativa.webp` (pendiente). Diego: participante de 11 años que necesita una adaptación de acceso al espacio. No debe presumirse una condición clínica ni representarse como objeto de ayuda; si se muestra una ayuda técnica, que sea con naturalidad y que la institución lo decida.
-
-Después, añade las importaciones en `personajes` (`src/ui/ilustraciones.tsx`).
+**Módulo 3.** Camila, Diego y Nicolás fueron proporcionados por la institución el 19/10/2026, también generados con IA, con tres poses cada uno. Las personas adolescentes y Diego se muestran algo más bajos que las adultas. La persona visitante no tiene retrato (guion: no se la caracteriza por su aspecto).
 
 Los personajes se muestran **de cuerpo entero sobre un fondo neutro**, sin escenarios (decisión de la institución del 19/10/2026). Las escenas sin personajes (E05, E05B y E06) no muestran escenario. La portada no lleva imagen.
 

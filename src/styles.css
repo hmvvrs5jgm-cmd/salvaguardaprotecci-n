@@ -453,13 +453,6 @@ progress {
 .retrato--diego {
   height: 86%;
 }
-/* Silueta provisional para personajes sin ilustración */
-.retrato--silueta {
-  fill: #9aa49f;
-}
-.retrato--silueta.retrato--activo {
-  fill: #6f7b75;
-}
 
 /* Ficha de condiciones (módulo 3): el estado siempre se indica con texto */
 .ficha-condiciones caption {
