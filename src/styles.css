@@ -445,19 +445,9 @@ progress {
   transform: translateY(-1.5%);
   filter: drop-shadow(0 12px 10px rgb(60 50 40 / 0.28));
 }
-/* Silueta provisional para personajes sin ilustración */
-.retrato--silueta {
-  fill: #9aa49f;
-}
-.retrato--silueta.retrato--lucia {
-  height: 88%;
-  fill: #8f9c8a;
-}
-.retrato--silueta.retrato--activo {
-  fill: #6f7b75;
-}
-.retrato--silueta.retrato--lucia.retrato--activo {
-  fill: #66785f;
+/* Lucía es adolescente: se muestra algo más baja que las personas adultas. */
+.retrato--lucia {
+  height: 93%;
 }
 
 /* Inicio: lista de módulos */

@@ -15,7 +15,7 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [ ] Validación del guion v1.0 por el Punto Focal (guion, apartado 24): roles y articulación socio–ChildFund, excepciones de contacto con representantes, consentimiento por intervención y no cierre automático.
 - [ ] Resolver los puntos 19, 20 y 23 de `docs/discrepancias.md` (nivel 1 con agresor en el hogar, liderazgo del nivel 1 y consentimiento de adolescentes).
 - [ ] Aprobar o ajustar el umbral provisional del módulo 2 (`src/content/episodio2/evaluacion.ts`) y regenerar el banco con `npm run gen:assessment-sql`.
-- [ ] Ilustraciones de Lucía (adolescente, cuerpo entero, tres poses) y, opcionalmente, de la profesional de atención (`docs/activos-graficos.md`).
+- [x] Ilustraciones de Lucía (tres poses) y de la profesional de atención (atenta y explica), 19/10/2026. Falta la pose pensativa de la profesional (opcional).
 - [ ] Aplicar la migración `20261019000005_banco_m2_v1_0.sql` en el proyecto Supabase.
 - [ ] Piloto del módulo 2 con personal de ChildFund y socios, sin relatos reales.
 

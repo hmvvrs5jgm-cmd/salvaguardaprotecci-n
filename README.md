@@ -87,7 +87,6 @@ El guion, la política, el procedimiento y la PPT **se quedan en `referencias/`*
 
 - La regla de aprobación de cada módulo (8/10 y críticas 2, 3, 4 y 6) es un **criterio pedagógico provisional**, no un requisito de la política.
 - El repositorio es público: la evaluación es formativa y sin supervisión, no un examen seguro. La aprobación corresponde solo al módulo y la versión; no es un certificado.
-- Lucía y la profesional de atención (módulo 2) se muestran con una silueta provisional hasta contar con sus ilustraciones.
 - Mientras no exista un banco alternativo revisado, los nuevos intentos repiten las mismas diez preguntas («práctica reforzada»).
 - Las personas que operan el proyecto Supabase tienen acceso técnico a los datos. «Único rol autorizado» se refiere a la aplicación.
 - Personajes generados con IA, de cuerpo entero sobre un fondo neutro (`docs/activos-graficos.md`); términos de uso pendientes de confirmar. El color verde es provisional. No se usa el logotipo de ChildFund.
