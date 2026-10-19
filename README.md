@@ -88,7 +88,7 @@ El guion, la política, el procedimiento y la PPT **se quedan en `referencias/`*
 ## Límites conocidos
 
 - La regla de aprobación de cada módulo (8/10 y críticas 2, 3, 4 y 6 en los módulos 1 y 2; 2, 4, 6 y 8 en el módulo 3) es un **criterio pedagógico provisional**, no un requisito de la política.
-- Nicolás, Camila y Diego (módulo 3) se muestran con una silueta provisional hasta contar con sus ilustraciones.
+- Nicolás (módulo 3) se muestra con una silueta provisional hasta contar con sus ilustraciones.
 - El repositorio es público: la evaluación es formativa y sin supervisión, no un examen seguro. La aprobación corresponde solo al módulo y la versión; no es un certificado.
 - Mientras no exista un banco alternativo revisado, los nuevos intentos repiten las mismas diez preguntas («práctica reforzada»).
 - Las personas que operan el proyecto Supabase tienen acceso técnico a los datos. «Único rol autorizado» se refiere a la aplicación.

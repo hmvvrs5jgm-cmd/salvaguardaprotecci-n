@@ -1,6 +1,6 @@
 // Personajes de cuerpo entero sobre un fondo neutro (imágenes locales optimizadas en src/assets/personajes).
 // Imágenes generadas con IA que representan a personas ficticias. La persona señalada no tiene retrato.
-// Los personajes sin ilustración (módulo 3: Nicolás, Camila y Diego) usan una silueta neutra provisional
+// Los personajes sin ilustración (módulo 3: Nicolás) usan una silueta neutra provisional
 // (docs/activos-graficos.md).
 
 import type { CharacterId, Pose } from '../content/types';
@@ -19,6 +19,11 @@ import luciaExplica from '../assets/personajes/lucia-explica.webp';
 import profesionalAtenta from '../assets/personajes/profesional-atenta.webp';
 import profesionalPensativa from '../assets/personajes/profesional-pensativa.webp';
 import profesionalExplica from '../assets/personajes/profesional-explica.webp';
+import camilaAtenta from '../assets/personajes/camila-atenta.webp';
+import camilaPensativa from '../assets/personajes/camila-pensativa.webp';
+import camilaExplica from '../assets/personajes/camila-explica.webp';
+import diegoAtenta from '../assets/personajes/diego-atenta.webp';
+import diegoExplica from '../assets/personajes/diego-explica.webp';
 
 const personajes: Partial<Record<CharacterId, Record<Pose, string>>> = {
   mariela: { atenta: marielaAtenta, pensativa: marielaPensativa, explica: marielaExplica },
@@ -26,6 +31,9 @@ const personajes: Partial<Record<CharacterId, Record<Pose, string>>> = {
   referente: { atenta: referenteAtenta, pensativa: referentePensativa, explica: referenteExplica },
   lucia: { atenta: luciaAtenta, pensativa: luciaPensativa, explica: luciaExplica },
   profesional: { atenta: profesionalAtenta, pensativa: profesionalPensativa, explica: profesionalExplica },
+  camila: { atenta: camilaAtenta, pensativa: camilaPensativa, explica: camilaExplica },
+  // Diego aún no tiene pose pensativa: se usa la atenta.
+  diego: { atenta: diegoAtenta, pensativa: diegoAtenta, explica: diegoExplica },
 };
 
 const descripciones: Record<CharacterId, string> = {
@@ -35,8 +43,8 @@ const descripciones: Record<CharacterId, string> = {
   lucia: 'Lucía, adolescente participante del taller, con chaqueta azul con capucha y jeans.',
   profesional: 'Profesional de un servicio de atención, con chaqueta de punto verde, gafas y credencial.',
   nicolas: 'Nicolás, colega a cargo de logística y transporte (silueta provisional).',
-  camila: 'Camila, participante adolescente (silueta provisional).',
-  diego: 'Diego, participante de 11 años (silueta provisional).',
+  camila: 'Camila, participante adolescente, con suéter granate y jeans.',
+  diego: 'Diego, participante de 11 años, con suéter mostaza y jeans.',
 };
 
 const gestos: Record<Pose, string> = {
