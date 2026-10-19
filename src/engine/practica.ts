@@ -7,6 +7,7 @@ import type {
   ChecklistDecision,
   ChoiceDecision,
   DecisionId,
+  SolicitudesDecision,
   Episode,
   Line,
   NodeId,
@@ -22,6 +23,7 @@ export type Paso =
   | { kind: 'feedback'; optionId: string; repairShown: boolean }
   | { kind: 'cards'; selected: string[]; checked: CardsCheck | null }
   | { kind: 'checklist'; marcados: string[]; comprobado: boolean }
+  | { kind: 'solicitudes'; elecciones: Record<string, string>; comprobado: boolean }
   | { kind: 'outro'; next: NodeId };
 
 export interface CardsCheck {
@@ -55,6 +57,8 @@ export type Accion =
   | { type: 'ALTERNAR_ITEM'; itemId: string }
   | { type: 'COMPROBAR_FICHA' }
   | { type: 'ALTERNATIVA' }
+  | { type: 'ELEGIR_SOLICITUD'; solicitudId: string; optionId: string }
+  | { type: 'COMPROBAR_SOLICITUDES' }
   | { type: 'VER_HERRAMIENTA'; toolId: ToolId }
   | { type: 'REINICIAR' };
 
@@ -126,6 +130,7 @@ function pasoDeEntrada(ep: Episode, node: NodeId): Paso {
 export function pasoDecision(sc: Scene): Paso {
   if (sc.decision.kind === 'cards') return { kind: 'cards', selected: [], checked: null };
   if (sc.decision.kind === 'checklist') return { kind: 'checklist', marcados: [], comprobado: false };
+  if (sc.decision.kind === 'solicitudes') return { kind: 'solicitudes', elecciones: {}, comprobado: false };
   return { kind: 'decision' };
 }
 
@@ -148,6 +153,13 @@ export function comprobarTarjetas(d: CardsDecision, selected: string[]): CardsCh
   const missing = requeridas.some((id) => !selected.includes(id));
   const extra = selected.some((id) => !requeridas.includes(id));
   return { missing, extra, ok: !missing && !extra };
+}
+
+/** IDs de las solicitudes sin responder o resueltas con una opción no autorizable. */
+export function solicitudesPendientes(d: SolicitudesDecision, elecciones: Record<string, string>): string[] {
+  return d.solicitudes
+    .filter((s) => !s.opciones.some((o) => o.correcta && o.id === elecciones[s.id]))
+    .map((s) => s.id);
 }
 
 export function fichaCompleta(d: ChecklistDecision, marcados: string[]): boolean {
@@ -204,6 +216,11 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
         if (sc.decision.kind !== 'checklist' || !p.comprobado || !fichaCompleta(sc.decision, p.marcados)) return s;
         return resolverYSalir(ep, s, sc.decision.next);
       }
+      if (p.kind === 'solicitudes') {
+        if (sc.decision.kind !== 'solicitudes' || !p.comprobado) return s;
+        if (solicitudesPendientes(sc.decision, p.elecciones).length > 0) return s;
+        return resolverYSalir(ep, s, sc.decision.next);
+      }
       if (p.kind === 'decision' && sc.decision.kind === 'continuar') return resolverYSalir(ep, s, sc.decision.next);
       return s;
     }
@@ -244,6 +261,16 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
     }
     case 'COMPROBAR_FICHA': {
       if (s.paso.kind !== 'checklist' || sc.decision.kind !== 'checklist') return s;
+      return { ...s, paso: { ...s.paso, comprobado: true } };
+    }
+    case 'ELEGIR_SOLICITUD': {
+      if (s.paso.kind !== 'solicitudes' || sc.decision.kind !== 'solicitudes') return s;
+      const sol = sc.decision.solicitudes.find((x) => x.id === a.solicitudId);
+      if (!sol || !sol.opciones.some((o) => o.id === a.optionId)) return s;
+      return { ...s, paso: { kind: 'solicitudes', elecciones: { ...s.paso.elecciones, [a.solicitudId]: a.optionId }, comprobado: false } };
+    }
+    case 'COMPROBAR_SOLICITUDES': {
+      if (s.paso.kind !== 'solicitudes' || sc.decision.kind !== 'solicitudes') return s;
       return { ...s, paso: { ...s.paso, comprobado: true } };
     }
     case 'ALTERNATIVA': {

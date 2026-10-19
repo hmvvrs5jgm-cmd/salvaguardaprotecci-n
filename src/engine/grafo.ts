@@ -39,6 +39,7 @@ export function destinosDeEscena(ep: Episode, id: SceneId): NodeId[] {
   switch (d.kind) {
     case 'cards':
     case 'continuar':
+    case 'solicitudes':
       return [d.next];
     case 'checklist':
       return d.alternative ? [d.next, d.alternative.next] : [d.next];
@@ -82,6 +83,11 @@ export function validarGrafo(ep: Episode): ProblemaGrafo[] {
       s.decision.cards.forEach((c) => registrar(c.id, `tarjeta de ${s.decision.id}`));
     } else if (s.decision.kind === 'checklist') {
       s.decision.items.forEach((i) => registrar(i.id, `condición de ${s.decision.id}`));
+    } else if (s.decision.kind === 'solicitudes') {
+      for (const sol of s.decision.solicitudes) {
+        registrar(sol.id, `solicitud de ${s.decision.id}`);
+        sol.opciones.forEach((o) => registrar(o.id, `opción de ${sol.id}`));
+      }
     }
   }
   ep.closing.lines.forEach((l) => registrar(l.id, 'cierre'));
@@ -135,6 +141,10 @@ export function validarGrafo(ep: Episode): ProblemaGrafo[] {
       problemas.push({ tipo: 'sin_opcion_adecuada', detalle: d.id });
     } else if (d.kind === 'checklist' && d.items.length === 0) {
       problemas.push({ tipo: 'sin_opcion_adecuada', detalle: d.id });
+    } else if (d.kind === 'solicitudes') {
+      for (const sol of d.solicitudes) {
+        if (sol.opciones.filter((o) => o.correcta).length !== 1) problemas.push({ tipo: 'sin_opcion_adecuada', detalle: sol.id });
+      }
     }
   }
 

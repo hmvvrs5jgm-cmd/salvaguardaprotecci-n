@@ -21,7 +21,10 @@ export type Speaker =
   | 'diego'
   | 'visitante'
   | 'comunicaciones'
-  | 'colega';
+  | 'colega'
+  | 'simt'
+  | 'soporte'
+  | 'documento';
 
 /** Pose del personaje mientras habla (las ilustraciones tienen tres poses por personaje). */
 export type Pose = 'atenta' | 'pensativa' | 'explica';
@@ -131,13 +134,46 @@ export interface ChecklistDecision {
   alternative?: { label: string; next: NodeId };
 }
 
-export type Decision = ChoiceDecision | CardsDecision | ContinueDecision | ChecklistDecision;
+/** Varias solicitudes, cada una con su propia elección (módulo 4, D04). Todas deben quedar bien resueltas. */
+export interface SolicitudesDecision {
+  kind: 'solicitudes';
+  id: DecisionId;
+  prompt: string;
+  simulationLabel: string;
+  solicitudes: {
+    id: string;
+    titulo: string;
+    opciones: { id: string; guionLetter: string; texto: string; correcta: boolean }[];
+    explicacion: string;
+  }[];
+  incorrectMessage: string;
+  successText: string;
+  next: NodeId;
+}
+
+export type Decision = ChoiceDecision | CardsDecision | ContinueDecision | ChecklistDecision | SolicitudesDecision;
 
 export type CharacterId = 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional' | 'nicolas' | 'camila' | 'diego';
 export type PanelId = 'transferencia' | 'canales' | 'apoyos';
 
 /** Estados de planificación de la ficha de condiciones (módulo 3). Siempre se muestran con texto. */
-export type EstadoCondicion = 'pendiente_de_verificar' | 'verificado' | 'no_viable' | 'suspendido';
+export type EstadoCondicion =
+  | 'pendiente_de_verificar'
+  | 'verificado'
+  | 'no_viable'
+  | 'suspendido'
+  // Estados ficticios de una exposición de información (módulo 4)
+  | 'detectada'
+  | 'comunicada'
+  | 'contencion_en_curso'
+  | 'riesgo_en_evaluacion'
+  | 'seguimiento_asignado';
+
+/** Chat simulado: los datos sensibles se representan solo por su tipo, nunca con contenido. */
+export interface ChatSimulado {
+  titulo: string;
+  mensajes: { autor: string; partes: Array<string | { oculto: string }> }[];
+}
 
 /** Consulta opcional dentro de una escena (no cambia el recorrido). */
 export interface Consulta {
@@ -164,6 +200,7 @@ export interface Scene {
   consultas?: Consulta[];
   /** Ficha de condiciones de la simulación, mostrada antes de la decisión. */
   ficha?: { titulo: string; filas: { aspecto: string; estado: EstadoCondicion }[] };
+  chat?: ChatSimulado;
 }
 
 export interface Closing {

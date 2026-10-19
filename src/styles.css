@@ -473,6 +473,57 @@ progress {
 .estado-condicion--suspendido {
   color: var(--pausa);
 }
+.estado-condicion--detectada,
+.estado-condicion--riesgo_en_evaluacion {
+  color: var(--mejora);
+}
+.estado-condicion--comunicada,
+.estado-condicion--contencion_en_curso,
+.estado-condicion--seguimiento_asignado {
+  color: var(--info);
+}
+
+/* Chat simulado (módulo 4): los datos ocultos solo muestran su tipo */
+.chat-simulado {
+  background: var(--superficie-2);
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio);
+  padding: 12px 16px;
+  margin: 12px 0;
+}
+.chat-simulado ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.chat-simulado__mensaje {
+  margin: 0.4em 0;
+}
+.dato-oculto {
+  display: inline-block;
+  background: var(--texto);
+  color: var(--superficie);
+  border-radius: 4px;
+  padding: 0 0.4em;
+  margin: 0.1em 0.15em;
+  font-size: 0.9em;
+}
+
+/* Solicitudes del módulo 4 */
+.solicitud {
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 10px 14px;
+  margin: 10px 0;
+}
+.solicitud legend {
+  font-weight: 700;
+  padding: 0 0.3em;
+}
+.solicitud--revisar {
+  border-color: var(--mejora);
+  border-width: 2px;
+}
 
 /* Inicio: lista de módulos */
 .modulos {

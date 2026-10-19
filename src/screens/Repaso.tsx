@@ -37,6 +37,19 @@ export function Repaso() {
                   ))}
                   {d.complementaryNote && <p className="nota-complementaria">{d.complementaryNote}</p>}
                 </>
+              ) : d.kind === 'solicitudes' ? (
+                <>
+                  <p className="repaso__pregunta">{d.prompt}</p>
+                  <ul>
+                    {d.solicitudes.map((sol) => (
+                      <li key={sol.id}>
+                        <strong>{sol.titulo}</strong> Acción autorizable: «{sol.opciones.find((o) => o.correcta)?.texto}»{' '}
+                        {sol.explicacion}
+                      </li>
+                    ))}
+                  </ul>
+                  <p>{d.successText}</p>
+                </>
               ) : d.kind === 'checklist' ? (
                 <>
                   <p className="repaso__pregunta">{d.prompt}</p>

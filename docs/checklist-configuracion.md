@@ -27,6 +27,13 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [ ] Aplicar la migración `20261019000006_banco_m3_v1_0.sql` en el proyecto Supabase.
 - [ ] Piloto: comprobar que se entiende que adaptar o suspender puede ser correcto, que dos personas adultas no siempre bastan y que una autorización no elimina el deber de cuidado.
 
+### Módulo 4 — «La información también protege»
+- [ ] Validación del guion v1.0 por el Punto Focal (guion, apartado 24): esquema real de autorización, articulación socio–ChildFund, funciones técnicas, comunicación a personas afectadas y requisitos externos, conservación y eliminación.
+- [ ] Resolver los puntos 33 a 37 de `docs/discrepancias.md`: accesos para tareas operativas, plazos de conservación, notificaciones de datos personales y la función de soporte autorizado.
+- [ ] Adoptar o ajustar el umbral provisional del módulo 4 (8/10 y críticas 2, 5, 6 y 7) en `src/content/episodio4/evaluacion.ts` y regenerar el banco.
+- [ ] Aplicar la migración `20261019000007_banco_m4_v1_0.sql` en el proyecto Supabase.
+- [ ] Piloto: comprobar que se entiende que compartir lo necesario puede proteger y que pertenecer a un equipo no autoriza a conocerlo todo.
+
 ## Canales y contactos (`src/config/canales.ts`)
 - [ ] Punto Focal de Salvaguarda de ChildFund: verificar el canal y cambiar el estado a `verificado`. (Descripción ajustada por la institución el 18/10/2026: «Recibe la preocupación y la registra mediante el formulario de incidentes».)
 - [x] Gerentes y dirección directa: confirmados por la institución el 18/10/2026 (Política 2.9.1; Procedimiento 5.2.2).

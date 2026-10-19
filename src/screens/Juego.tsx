@@ -12,8 +12,16 @@ import type {
   PanelId,
   RoleId,
   Scene,
+  SolicitudesDecision,
 } from '../content/types';
-import { escenaDe, fichaCompleta, opcionElegida, progreso, type EstadoPractica } from '../engine/practica';
+import {
+  escenaDe,
+  fichaCompleta,
+  opcionElegida,
+  progreso,
+  solicitudesPendientes,
+  type EstadoPractica,
+} from '../engine/practica';
 import { useApp } from '../state/AppState';
 import { Dialogo, Linea, textoRol, useAnunciar, useEnfocar } from '../ui/comunes';
 import { DialogoHerramientas } from '../ui/Herramientas';
@@ -159,6 +167,7 @@ function PasoVista({ escena, estado, rol, modo }: { escena: Scene; estado: Estad
           ))}
         </div>
       )}
+      {escena.chat && <ChatVista chat={escena.chat} />}
       {escena.ficha && <FichaCondiciones ficha={escena.ficha} />}
       {escena.panel && <PanelContextual id={escena.panel} rol={rol} />}
       {escena.consultas?.map((c) => (
@@ -180,6 +189,9 @@ function PasoVista({ escena, estado, rol, modo }: { escena: Scene; estado: Estad
       )}
       {p.kind === 'checklist' && escena.decision.kind === 'checklist' && (
         <FichaVista decision={escena.decision} marcados={p.marcados} comprobado={p.comprobado} />
+      )}
+      {p.kind === 'solicitudes' && escena.decision.kind === 'solicitudes' && (
+        <SolicitudesVista decision={escena.decision} elecciones={p.elecciones} comprobado={p.comprobado} />
       )}
       {p.kind === 'decision' && escena.decision.kind === 'continuar' && (
         <ContinuarVista decision={escena.decision} enfocar={escena.intro.length === 0} />
@@ -466,7 +478,112 @@ const etiquetasEstado: Record<EstadoCondicion, string> = {
   verificado: 'Verificado',
   no_viable: 'No viable',
   suspendido: 'Suspendido',
+  detectada: 'Detectada',
+  comunicada: 'Comunicada',
+  contencion_en_curso: 'Contención en curso',
+  riesgo_en_evaluacion: 'Riesgo en evaluación',
+  seguimiento_asignado: 'Seguimiento asignado',
 };
+
+/** Chat ficticio: los datos sensibles nunca están en el DOM; solo se muestra su tipo. */
+function ChatVista({ chat }: { chat: NonNullable<Scene['chat']> }) {
+  return (
+    <section className="chat-simulado" aria-label={chat.titulo}>
+      <p className="rotulo-simulacion">{chat.titulo}</p>
+      <ul>
+        {chat.mensajes.map((m, i) => (
+          <li key={i} className="chat-simulado__mensaje">
+            <span className="linea__hablante">{m.autor}:</span>{' '}
+            {m.partes.map((p, j) =>
+              typeof p === 'string' ? (
+                <span key={j}>{p}</span>
+              ) : (
+                <span key={j} className="dato-oculto">
+                  Dato oculto: {p.oculto}
+                </span>
+              ),
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function SolicitudesVista({
+  decision,
+  elecciones,
+  comprobado,
+}: {
+  decision: SolicitudesDecision;
+  elecciones: Record<string, string>;
+  comprobado: boolean;
+}) {
+  const { despachar } = useApp();
+  const pendientes = solicitudesPendientes(decision, elecciones);
+  const listo = comprobado && pendientes.length === 0;
+  const resultado = useEnfocar<HTMLDivElement>(comprobado ? `sol-${pendientes.join(',')}` : null);
+  return (
+    <div className="decision solicitudes">
+      <p className="rotulo-simulacion" role="note">
+        {decision.simulationLabel}
+      </p>
+      <h2 className="decision__pregunta">{decision.prompt}</h2>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          despachar({ type: 'COMPROBAR_SOLICITUDES' });
+        }}
+        noValidate
+      >
+        {decision.solicitudes.map((sol) => {
+          const mal = comprobado && pendientes.includes(sol.id);
+          return (
+            <fieldset key={sol.id} disabled={listo} className={mal ? 'solicitud solicitud--revisar' : 'solicitud'}>
+              <legend>{sol.titulo}</legend>
+              {sol.opciones.map((o) => (
+                <div className="opcion-lectura" key={o.id}>
+                  <input
+                    type="radio"
+                    id={`s-${o.id}`}
+                    name={sol.id}
+                    checked={elecciones[sol.id] === o.id}
+                    onChange={() => despachar({ type: 'ELEGIR_SOLICITUD', solicitudId: sol.id, optionId: o.id })}
+                  />
+                  <label htmlFor={`s-${o.id}`}>{o.texto}</label>
+                </div>
+              ))}
+              {(mal || listo) && (
+                <p className={mal ? 'ayuda' : 'nota-fuente'}>
+                  {mal && <strong>Revisa esta solicitud. </strong>}
+                  {sol.explicacion}
+                </p>
+              )}
+            </fieldset>
+          );
+        })}
+        {!listo && (
+          <button type="submit" className="boton boton--principal">
+            Comprobar las acciones
+          </button>
+        )}
+      </form>
+      {comprobado && (
+        <div className={`retro__caja${listo ? ' retro__caja--ok' : ''}`} ref={resultado} tabIndex={-1}>
+          <p className="retro__titulo">
+            <IconoResultado tipo={listo ? 'ok' : 'mejora'} /> {listo ? 'Acciones autorizables' : 'Hay solicitudes por revisar'}
+          </p>
+          <p>{listo ? decision.successText : decision.incorrectMessage}</p>
+        </div>
+      )}
+      {listo && (
+        <button type="button" className="boton boton--principal" onClick={() => despachar({ type: 'CONTINUAR' })}>
+          Continuar
+        </button>
+      )}
+    </div>
+  );
+}
 
 function FichaCondiciones({ ficha }: { ficha: NonNullable<Scene['ficha']> }) {
   return (

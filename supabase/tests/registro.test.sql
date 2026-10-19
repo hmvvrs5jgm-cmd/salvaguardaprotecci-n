@@ -405,6 +405,40 @@ end $$;
 reset role;
 
 -- =========================================================================
+-- 8d. Módulo 4: críticas propias (P2, P5, P6, P7) y resultados independientes
+-- =========================================================================
+select t.afirma((select array_agg(question_id order by position) from private.assessment_items
+   where episode_id = 'm4-la-informacion-tambien-protege' and critical) = array['M4_P2', 'M4_P5', 'M4_P6', 'M4_P7'],
+  'críticas del módulo 4: P2, P5, P6 y P7');
+select t.afirma((select bool_and(active) from private.assessment_versions
+   where (episode_id, content_version) in (('ep1-una-ayuda-con-condiciones', '1.2'), ('m2-gracias-por-escucharme', '1.0'),
+     ('m3-antes-de-abrir-las-puertas', '1.0'), ('m4-la-informacion-tambien-protege', '1.0'))),
+  'los bancos vigentes de los cuatro módulos están activos');
+create function t.respuestas_m4(p_errores text[]) returns jsonb language sql as $$
+  select jsonb_object_agg(question_id,
+    case when question_id = any (p_errores)
+      then (select o from unnest(option_ids) o where o <> correct_option_id limit 1)
+      else correct_option_id end)
+  from private.assessment_items where episode_id = 'm4-la-informacion-tambien-protege' and content_version = '1.0';
+$$;
+insert into t.r values
+  ('m4_ok8', t.respuestas_m4(array['M4_P1', 'M4_P3'])),
+  ('m4_crit9', t.respuestas_m4(array['M4_P7']));
+select t.como('00000000-0000-0000-0000-00000000000b');
+set role authenticated;
+do $$
+declare i jsonb; r jsonb;
+begin
+  i := public.start_attempt('m4-la-informacion-tambien-protege', '1.0');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm4_ok8'));
+  perform t.afirma((r ->> 'score')::int = 8 and (r ->> 'passed')::boolean, 'módulo 4: 8/10 con críticas correctas aprueba');
+  i := public.start_attempt('m4-la-informacion-tambien-protege', '1.0');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm4_crit9'));
+  perform t.afirma(r ->> 'estado' = 'critico_fallido' and r -> 'failed_critical' = '["M4_P7"]', 'módulo 4: 9/10 con crítica fallida no aprueba');
+end $$;
+reset role;
+
+-- =========================================================================
 -- 9. Privilegios: ninguna función pública ejecutable por anon; nada de private expuesto
 -- =========================================================================
 select t.afirma(not exists (

@@ -39,6 +39,12 @@ export function textosLiterales(ep: Episode): TextoLiteral[] {
       out.push({ origen: `${d.id} final`, texto: d.successText });
     } else if (d.kind === 'checklist') {
       out.push({ origen: `${d.id} incompleta`, texto: d.incompleteMessage });
+    } else if (d.kind === 'solicitudes') {
+      for (const sol of d.solicitudes) {
+        out.push({ origen: sol.id, texto: sol.titulo }, { origen: `${sol.id} explicación`, texto: sol.explicacion });
+        sol.opciones.forEach((o) => out.push({ origen: o.id, texto: o.texto }));
+      }
+      out.push({ origen: `${d.id} final`, texto: d.successText }, { origen: `${d.id} incorrecta`, texto: d.incorrectMessage });
     } else {
       out.push({ origen: `${d.id} botón`, texto: d.label });
     }
@@ -76,6 +82,7 @@ export function todoElTexto(): string {
       [...s.intro, ...(s.outro ?? []), ...(s.consultas ?? []).flatMap((c) => c.lines)].forEach((l) => partes.push(...rt(l.text)));
       s.consultas?.forEach((c) => partes.push(c.titulo));
       if (s.ficha) partes.push(s.ficha.titulo, ...s.ficha.filas.map((f) => f.aspecto));
+      if (s.chat) partes.push(s.chat.titulo, ...s.chat.mensajes.flatMap((m) => [m.autor, ...m.partes.map((x) => (typeof x === 'string' ? x : x.oculto))]));
       const d = s.decision;
       if (d.kind === 'choice') {
         for (const o of d.options) {
@@ -93,6 +100,8 @@ export function todoElTexto(): string {
         partes.push(d.prompt, d.simulationLabel, d.pendingState, d.doneState, d.successText);
         d.items.forEach((i) => partes.push(i.label));
         if (d.alternative) partes.push(d.alternative.label);
+      } else if (d.kind === 'solicitudes') {
+        partes.push(d.prompt, d.simulationLabel);
       } else if (d.note) {
         partes.push(d.note);
       }

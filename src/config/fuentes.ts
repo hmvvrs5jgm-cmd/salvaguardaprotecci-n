@@ -43,4 +43,8 @@ export const fuentes = [
     nombre: 'Guion «Antes de abrir las puertas» (módulo 3)',
     detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Personas, cifras y lugares ficticios; la ficha de verificación es una herramienta del juego, no un formulario institucional.',
   },
+  {
+    nombre: 'Guion «La información también protege» (módulo 4)',
+    detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Documentos y mensajes completamente ficticios.',
+  },
 ] as const;

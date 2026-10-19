@@ -27,6 +27,12 @@ export function nombreHablante(s: Speaker, rol: RoleId | null): string | null {
       return 'Comunicaciones (mensaje ficticio)';
     case 'colega':
       return 'Colega';
+    case 'simt':
+      return 'Integrante del SIMT';
+    case 'soporte':
+      return 'Soporte autorizado';
+    case 'documento':
+      return 'Texto ficticio';
     case 'tu':
       return 'Tú';
     case 'referente':

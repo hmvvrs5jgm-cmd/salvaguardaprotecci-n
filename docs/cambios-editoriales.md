@@ -63,3 +63,19 @@ Los diálogos, opciones, retroalimentaciones, reparaciones, preguntas, claves y 
 | M3_E09S | «Opciones equivalentes: A, reducir supervisión…; B, mantener…; C, delegar…» | Opciones y retroalimentaciones redactadas a partir de E09, sin mencionar un taller. La C reutiliza la retroalimentación literal de E09-C. | El guion solo resume las opciones. |
 | Cierre | Dos versiones y narración común | La línea de Elena depende de la rama recorrida más recientemente (`variantes` del cierre); después, la narración común y Camila. | El sistema conserva la variante y no muestra escenas incompatibles. |
 | Insignia «Adaptación responsable» | «D08–D10» | Cuenta D09 o su variante D09S. | Suspender de forma protectora también permite obtenerla. |
+
+## Módulo 4 — «La información también protege» (guion v1.0)
+
+Los diálogos, opciones, retroalimentaciones, reparaciones, las tres solicitudes de D04, las preguntas, las claves y los textos de resultado se copian literalmente. `npm run check:guion` comprueba 160 textos contra el guion local. Los textos redactados para el juego están en `ED` y en `textosEditoriales` (`src/content/episodio4/escenas.ts`).
+
+| Lugar | Guion (indicación) | Texto en el juego | Motivo |
+|---|---|---|---|
+| Pausas (D01-A, D02-B, D05-A/B, D06-C/D, D07-B/C, D08-A, D09-C, D10-A/B) | «Pausa antes del envío» / «Pausa» | El texto del guion como retroalimentación, con la narración «El ejercicio se detiene antes del envío. No se comparte ningún dato.» | Las acciones que ampliarían la exposición se detienen antes de ejecutarse. |
+| D01-C | «Reparación B» | La reparación muestra el texto B y la respuesta de Elena. | Igual que en los módulos anteriores. |
+| E03 | «Texto ficticio» y «Versión propuesta para revisión» | Líneas rotuladas «Texto ficticio». | Diferencia el documento de la narración. |
+| E04, D04 | «Interacción: tres solicitudes ficticias. Elegir la acción autorizable en cada una» | Tres grupos de opciones accesibles por teclado; instrucción y mensaje de revisión redactados para el juego. La explicación literal aparece en cada solicitud mal resuelta y en todas al terminar. | «Cada error explica finalidad, mínimo y autorización y permite corregir». |
+| E05 | «Tarjeta de contraste» | Desplegable opcional «Tarjeta de contraste: herramientas externas». | Consulta sin cambiar el recorrido. |
+| E06 | «Chat completamente ficticio… bloques ocultos y etiquetas de tipo de dato» | Chat simulado con la frase «Comparto el avance del informe:» y etiquetas «Dato oculto: …». Ningún dato sensible está en el DOM, el texto alternativo ni los registros. | Guion, apartado 23. |
+| M4_CONTENCION | Narración, aviso mínimo y estado de pantalla | El aviso literal como «Texto ficticio»; ficha «Estado de la exposición (simulación)» con los estados `comunicada`, `contencion_en_curso` y `riesgo_en_evaluacion`; nota «Revocar un enlace no equivale a “todo resuelto”». | Estados del apartado 22; nunca «Todo resuelto». |
+| E09 | «Variación de transferencia» | Rótulo «Variación hipotética» y narración de salida: «Termina la variación hipotética. En la historia principal, el mensaje lo envió Elena.» | La variación no cambia los hechos de E06. |
+| D02-A, D05-A, D10-C | — | Notas de fuente (Plan, anexos 1 y 6; Protocolo, 10.2, 10.4, 10.5 y 10.5.1). | Refuerzo con fuentes sin modificar el guion. |

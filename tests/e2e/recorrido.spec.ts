@@ -131,7 +131,7 @@ test('movimiento reducido desactiva transiciones', async ({ page }) => {
 });
 
 test('sin desplazamiento horizontal y pantallas accesibles', async ({ page }) => {
-  for (const ruta of ['./', './#/m1', './#/m2', './#/m3', './#/comunicar', './#/accesibilidad', './#/acerca', './#/m1/evaluacion', './#/m2/evaluacion', './#/m3/evaluacion', './#/cuenta', './#/punto-focal']) {
+  for (const ruta of ['./', './#/m1', './#/m2', './#/m3', './#/m4', './#/comunicar', './#/accesibilidad', './#/acerca', './#/m1/evaluacion', './#/m2/evaluacion', './#/m3/evaluacion', './#/m4/evaluacion', './#/cuenta', './#/punto-focal']) {
     await page.goto(ruta);
     await expect(page.locator('h1')).toBeVisible();
     const ancho = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

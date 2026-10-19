@@ -9,6 +9,7 @@ export async function cargarClaveDemo(episodeId: string): Promise<AnswerKey> {
   }
   if (episodeId === 'm2-gracias-por-escucharme') return (await import('../content/episodio2/clave')).claveM2;
   if (episodeId === 'm3-antes-de-abrir-las-puertas') return (await import('../content/episodio3/clave')).claveM3;
+  if (episodeId === 'm4-la-informacion-tambien-protege') return (await import('../content/episodio4/clave')).claveM4;
   return (await import('../content/episodio1/clave')).claveEp1;
 }
 
