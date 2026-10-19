@@ -494,6 +494,8 @@ const etiquetasEstado: Record<EstadoCondicion, string> = {
   contencion_en_curso: 'Contención en curso',
   riesgo_en_evaluacion: 'Riesgo en evaluación',
   seguimiento_asignado: 'Seguimiento asignado',
+  contenido_restringido: 'Restringido o retirado',
+  copias_en_gestion: 'Copias conocidas en gestión',
 };
 
 /** Chat ficticio: los datos sensibles nunca están en el DOM; solo se muestra su tipo. */

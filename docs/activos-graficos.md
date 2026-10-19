@@ -20,6 +20,12 @@ Imágenes **generadas con IA**, proporcionadas por la institución el 18/10/2026
 
 **Módulo 5.** Paula fue proporcionada por la institución el 19/10/2026 (generada con IA, tres poses). La persona señalada, la adolescente y el colega de E09 no tienen retrato: el guion pide no representar a la persona influyente como sombra ni como villano.
 
+**Módulo 6.** Alma y Valeria aún no tienen ilustración: se muestra una **silueta neutra provisional** (SVG en `src/ui/ilustraciones.tsx`) con una descripción accesible. Elena y el Referente reutilizan sus imágenes. La persona cuidadora y la cuenta externa no tienen retrato. La «publicación expuesta» no usa ninguna imagen: solo etiquetas por tipo de dato. Para sustituir las siluetas, en el mismo estilo, de cuerpo entero y en tres poses (`atenta`, `pensativa`, `explica`):
+- `alma-*.webp`: niña de 12 años, participante del taller, con una expresión natural y digna (guion, apartado 23).
+- `valeria-*.webp`: profesional adulta de comunicaciones.
+
+Después, añade las importaciones en `personajes`.
+
 Los personajes se muestran **de cuerpo entero sobre un fondo neutro**, sin escenarios (decisión de la institución del 19/10/2026). Las escenas sin personajes (E05, E05B y E06) no muestran escenario. La portada no lleva imagen.
 
 ## Cómo se eligen las poses

@@ -51,4 +51,8 @@ export const fuentes = [
     nombre: 'Guion «Es alguien importante» (módulo 5)',
     detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Identidades, mensajes, contratos y hechos inventados.',
   },
+  {
+    nombre: 'Guion «Una imagen que no debió publicarse» (módulo 6)',
+    detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Personas y publicaciones ficticias; no se usan imágenes reales.',
+  },
 ] as const;

@@ -25,7 +25,9 @@ export type Speaker =
   | 'simt'
   | 'soporte'
   | 'documento'
-  | 'paula';
+  | 'paula'
+  | 'alma'
+  | 'valeria';
 
 /** Pose del personaje mientras habla (las ilustraciones tienen tres poses por personaje). */
 export type Pose = 'atenta' | 'pensativa' | 'explica';
@@ -170,7 +172,7 @@ export type Decision =
   | SolicitudesDecision
   | VarianteDecision;
 
-export type CharacterId = 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional' | 'nicolas' | 'camila' | 'diego' | 'paula';
+export type CharacterId = 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional' | 'nicolas' | 'camila' | 'diego' | 'paula' | 'alma' | 'valeria';
 export type PanelId = 'transferencia' | 'canales' | 'apoyos';
 
 /** Estados de planificación de la ficha de condiciones (módulo 3). Siempre se muestran con texto. */
@@ -184,7 +186,10 @@ export type EstadoCondicion =
   | 'comunicada'
   | 'contencion_en_curso'
   | 'riesgo_en_evaluacion'
-  | 'seguimiento_asignado';
+  | 'seguimiento_asignado'
+  // Estados ficticios de una exposición pública (módulo 6)
+  | 'contenido_restringido'
+  | 'copias_en_gestion';
 
 /** Chat simulado: los datos sensibles se representan solo por su tipo, nunca con contenido. */
 export interface ChatSimulado {
@@ -223,6 +228,8 @@ export interface Scene {
 export interface Closing {
   /** Variantes según la rama recorrida: se muestra la de la escena visitada más recientemente, antes de las líneas comunes. */
   variantes?: { siVisitada: SceneId; lines: Line[] }[];
+  /** Dónde se muestra la variante: antes (por defecto) o después de las líneas comunes. */
+  variantesAlFinal?: boolean;
   lines: Line[];
   contribution: string;
   reflection: string[];

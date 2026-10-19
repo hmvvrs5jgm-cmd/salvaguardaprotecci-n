@@ -99,7 +99,7 @@ export function lineasDeCierre(ep: Episode, s: EstadoPractica): Line[] {
       elegida = v.lines;
     }
   }
-  return [...elegida, ...ep.closing.lines];
+  return ep.closing.variantesAlFinal ? [...ep.closing.lines, ...elegida] : [...elegida, ...ep.closing.lines];
 }
 
 /** Escena por ID; el grafo validado garantiza que existe. */

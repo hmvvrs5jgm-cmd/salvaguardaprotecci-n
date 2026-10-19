@@ -11,6 +11,7 @@ export async function cargarClaveDemo(episodeId: string): Promise<AnswerKey> {
   if (episodeId === 'm3-antes-de-abrir-las-puertas') return (await import('../content/episodio3/clave')).claveM3;
   if (episodeId === 'm4-la-informacion-tambien-protege') return (await import('../content/episodio4/clave')).claveM4;
   if (episodeId === 'm5-es-alguien-importante') return (await import('../content/episodio5/clave')).claveM5;
+  if (episodeId === 'm6-una-imagen-que-no-debio-publicarse') return (await import('../content/episodio6/clave')).claveM6;
   return (await import('../content/episodio1/clave')).claveEp1;
 }
 

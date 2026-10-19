@@ -450,8 +450,16 @@ progress {
 .retrato--camila {
   height: 93%;
 }
-.retrato--diego {
+.retrato--diego,
+.retrato--alma {
   height: 86%;
+}
+/* Silueta provisional para personajes sin ilustración */
+.retrato--silueta {
+  fill: #9aa49f;
+}
+.retrato--silueta.retrato--activo {
+  fill: #6f7b75;
 }
 
 /* Ficha de condiciones (módulo 3): el estado siempre se indica con texto */
@@ -477,6 +485,8 @@ progress {
 .estado-condicion--riesgo_en_evaluacion {
   color: var(--mejora);
 }
+.estado-condicion--contenido_restringido,
+.estado-condicion--copias_en_gestion,
 .estado-condicion--comunicada,
 .estado-condicion--contencion_en_curso,
 .estado-condicion--seguimiento_asignado {

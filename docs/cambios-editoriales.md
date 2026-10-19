@@ -95,3 +95,19 @@ Los diálogos, opciones, retroalimentaciones, reparaciones, tarjetas de D06, pre
 | M5_MEDIDAS | Ejemplos de medidas y límites | Narraciones con los textos del guion; botón «Continuar». | Escena sin elección. |
 | D02-C, D07-A | — | Notas de fuente (Política 2.9; Procedimiento 5.2.4.3; Plan de Salvaguarda, no represalias). | Refuerzo con fuentes sin modificar el guion. |
 | D09 | Nota sobre mensajes recibidos espontáneamente | Nota complementaria visible. | Contenido pedagógico relevante. |
+
+## Módulo 6 — «Una imagen que no debió publicarse» (guion v1.0)
+
+Los diálogos, opciones, retroalimentaciones, reparaciones, tarjetas de D03, preguntas, claves y textos de resultado se copian literalmente. `npm run check:guion` comprueba 155 textos contra el guion local. Los textos redactados para el juego están en `ED` y en `textosEditoriales` (`src/content/episodio6/escenas.ts`).
+
+| Lugar | Guion (indicación) | Texto en el juego | Motivo |
+|---|---|---|---|
+| Pausas | «Pausa: …» | El texto del guion como retroalimentación, con la narración «El ejercicio se detiene antes de ejecutar esta acción. No se publica ni se comparte nada.» | Las opciones que ampliarían la exposición se detienen antes de ejecutarse. |
+| E01 y E03 | «Publicación completamente ficticia con una figura ilustrada genérica y etiquetas» | Bloque «SIMULACIÓN. Publicación ficticia, sin conexión con redes reales», con etiquetas «Dato oculto: …» y sin imagen. | No se incorpora material sensible en el DOM, el texto alternativo ni los metadatos. |
+| E03, D03 | Seis tarjetas: «Revisar» o no | Selección múltiple con el rótulo «Revisar»; instrucción y mensajes de revisión redactados para el juego. | Interacción accesible sin arrastrar. |
+| E04, salida | «Estado: Contenido propio restringido/retirado; alcance externo pendiente de valoración» | Narración al salir de la escena. | — |
+| E06 y E10 | Estados pedagógicos | Fichas «Estado de la exposición (simulación)» con los estados `comunicada`, `contenido_restringido`, `riesgo_en_evaluacion`, `copias_en_gestion` y `seguimiento_asignado`. | Nunca «internet limpio» ni «caso resuelto». |
+| D07-C | «Reparación B» | La reparación muestra el texto de la opción B. | Igual que en los módulos anteriores. |
+| M6_NO_REPUBLICAR y M6_CONTENIDO_ALTERNATIVO | Escenas sin elección | Rótulos «Desenlace: …» y botón «Continuar». La retroalimentación de cada desenlace del guion se muestra al elegir D08-B o D08-C. | Hace visible la rama. |
+| Cierre | Narración común y línea según la ruta | La línea de la ruta recorrida aparece al final, después de la narración común (`variantesAlFinal`). | Orden del guion. |
+| D02-C | — | Nota de fuente (Procedimiento 5.1.14.4 y 5.1.14.5). | Refuerzo con fuentes sin modificar el guion. |

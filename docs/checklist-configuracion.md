@@ -42,6 +42,14 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [ ] Aplicar la migración `20261019000008_banco_m5_v1_0.sql` en el proyecto Supabase.
 - [ ] Piloto: comprobar que se entiende que no hace falta probar un hecho para reportar, que el conflicto se informa sin presumir culpabilidad y que prevenir represalias no significa prometer resultados laborales.
 
+### Módulo 6 — «Una imagen que no debió publicarse»
+- [ ] Revisión institucional del guion v1.0 (apartado 24): requisitos y alcance del uso de imagen, participación de NNA y representación, roles en cuentas y comunicaciones, contacto seguro, articulación socio–ChildFund, mecanismos de retiro, conservación y criterios para reanudar publicaciones.
+- [ ] Resolver los puntos 45 a 47 de `docs/discrepancias.md`.
+- [ ] Ilustraciones de Alma (niña de 12 años) y Valeria (profesional de comunicaciones), tres poses cada una (`docs/activos-graficos.md`).
+- [ ] Adoptar o ajustar el umbral provisional del módulo 6 (8/10 y críticas 2, 4, 5 y 6) en `src/content/episodio6/evaluacion.ts` y regenerar el banco.
+- [ ] Aplicar la migración `20261019000009_banco_m6_v1_0.sql` en el proyecto Supabase.
+- [ ] Piloto: comprobar que se entiende que una imagen cotidiana puede exponer por el contexto, que una firma no elimina la valoración de riesgos y que una negativa no perjudica la participación.
+
 ## Canales y contactos (`src/config/canales.ts`)
 - [ ] Punto Focal de Salvaguarda de ChildFund: verificar el canal y cambiar el estado a `verificado`. (Descripción ajustada por la institución el 18/10/2026: «Recibe la preocupación y la registra mediante el formulario de incidentes».)
 - [x] Gerentes y dirección directa: confirmados por la institución el 18/10/2026 (Política 2.9.1; Procedimiento 5.2.2).
