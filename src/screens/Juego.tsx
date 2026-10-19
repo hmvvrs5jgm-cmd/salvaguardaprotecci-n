@@ -13,6 +13,7 @@ import type {
   RoleId,
   Scene,
   SolicitudesDecision,
+  VarianteDecision,
 } from '../content/types';
 import {
   escenaDe,
@@ -20,6 +21,7 @@ import {
   opcionElegida,
   progreso,
   solicitudesPendientes,
+  tarjetasVisibles,
   type EstadoPractica,
 } from '../engine/practica';
 import { useApp } from '../state/AppState';
@@ -185,11 +187,17 @@ function PasoVista({ escena, estado, rol, modo }: { escena: Scene; estado: Estad
         <RetroalimentacionVista decision={escena.decision} estado={estado} rol={rol} />
       )}
       {p.kind === 'cards' && escena.decision.kind === 'cards' && (
-        <TarjetasVista decision={escena.decision} selected={p.selected} checked={p.checked} />
+        <TarjetasVista
+          decision={escena.decision}
+          cards={tarjetasVisibles(escena.decision, estado.recorrido)}
+          selected={p.selected}
+          checked={p.checked}
+        />
       )}
       {p.kind === 'checklist' && escena.decision.kind === 'checklist' && (
         <FichaVista decision={escena.decision} marcados={p.marcados} comprobado={p.comprobado} />
       )}
+      {p.kind === 'decision' && escena.decision.kind === 'variante' && <VarianteVista decision={escena.decision} />}
       {p.kind === 'solicitudes' && escena.decision.kind === 'solicitudes' && (
         <SolicitudesVista decision={escena.decision} elecciones={p.elecciones} comprobado={p.comprobado} />
       )}
@@ -385,10 +393,13 @@ function RetroalimentacionVista({ decision, estado, rol }: { decision: ChoiceDec
 
 function TarjetasVista({
   decision,
+  cards,
   selected,
   checked,
 }: {
   decision: CardsDecision;
+  /** Tarjetas visibles en este recorrido; se numeran en orden de aparición. */
+  cards: CardsDecision['cards'];
   selected: string[];
   checked: { missing: boolean; extra: boolean; ok: boolean } | null;
 }) {
@@ -411,7 +422,7 @@ function TarjetasVista({
           <legend>
             <h2 className="decision__pregunta">{decision.prompt}</h2>
           </legend>
-          {decision.cards.map((c) => (
+          {cards.map((c, i) => (
             <div className={`tarjeta${selected.includes(c.id) ? ' tarjeta--marcada' : ''}`} key={c.id}>
               <input
                 type="checkbox"
@@ -420,7 +431,7 @@ function TarjetasVista({
                 onChange={() => despachar({ type: 'ALTERNAR_TARJETA', cardId: c.id })}
               />
               <label htmlFor={`t-${c.id}`}>
-                <span className="tarjeta__numero">Tarjeta {c.number}</span> «{c.text}»
+                <span className="tarjeta__numero">Tarjeta {i + 1}</span> «{c.text}»
               </label>
             </div>
           ))}
@@ -440,10 +451,10 @@ function TarjetasVista({
                 <IconoResultado tipo="ok" /> Selección adecuada
               </p>
               <ul>
-                {decision.cards.map((c) => (
+                {cards.map((c, i) => (
                   <li key={c.id}>
                     <strong>
-                      Tarjeta {c.number} — {c.include ? (decision.includeLabel ?? 'Incluir') : 'Excluir'}:
+                      Tarjeta {i + 1} — {c.include ? (decision.includeLabel ?? 'Incluir') : 'Excluir'}:
                     </strong>{' '}
                     {c.explanation}
                   </li>
@@ -507,6 +518,27 @@ function ChatVista({ chat }: { chat: NonNullable<Scene['chat']> }) {
         ))}
       </ul>
     </section>
+  );
+}
+
+function VarianteVista({ decision }: { decision: VarianteDecision }) {
+  const { despachar } = useApp();
+  return (
+    <div className="decision">
+      <h2 className="decision__pregunta" id={`preg-${decision.id}`}>
+        {decision.prompt}
+      </h2>
+      <p className="ayuda">Elegir una variación no se puntúa: ambas son válidas.</p>
+      <ul className="opciones" aria-labelledby={`preg-${decision.id}`}>
+        {decision.opciones.map((o) => (
+          <li key={o.id}>
+            <button type="button" className="opcion" onClick={() => despachar({ type: 'ELEGIR_VARIANTE', optionId: o.id })}>
+              <strong>{o.label}</strong> {o.descripcion}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

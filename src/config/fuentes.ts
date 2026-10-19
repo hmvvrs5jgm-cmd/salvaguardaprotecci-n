@@ -47,4 +47,8 @@ export const fuentes = [
     nombre: 'Guion «La información también protege» (módulo 4)',
     detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Documentos y mensajes completamente ficticios.',
   },
+  {
+    nombre: 'Guion «Es alguien importante» (módulo 5)',
+    detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Identidades, mensajes, contratos y hechos inventados.',
+  },
 ] as const;

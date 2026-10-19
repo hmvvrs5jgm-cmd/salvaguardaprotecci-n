@@ -18,7 +18,7 @@ export function Repaso() {
         {ep.order.map((id) => {
           const s = escenaDe(ep, id);
           const d = s.decision;
-          if (d.kind === 'continuar') return null;
+          if (d.kind === 'continuar' || d.kind === 'variante') return null;
           return (
             <li key={id}>
               <h2>
@@ -67,7 +67,7 @@ export function Repaso() {
                     {d.cards.map((c) => (
                       <li key={c.id}>
                         <strong>
-                          Tarjeta {c.number} — {c.include ? (d.includeLabel ?? 'Incluir') : 'Excluir'}:
+                          {c.soloSiVisitada ? 'Solo en la variación correspondiente — ' : ''}Tarjeta {c.number} — {c.include ? (d.includeLabel ?? 'Incluir') : 'Excluir'}:
                         </strong>{' '}
                         {c.explanation}
                       </li>

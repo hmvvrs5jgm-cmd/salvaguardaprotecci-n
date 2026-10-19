@@ -33,6 +33,8 @@ export function nombreHablante(s: Speaker, rol: RoleId | null): string | null {
       return 'Soporte autorizado';
     case 'documento':
       return 'Texto ficticio';
+    case 'paula':
+      return 'Paula';
     case 'tu':
       return 'Tú';
     case 'referente':

@@ -79,3 +79,19 @@ Los diálogos, opciones, retroalimentaciones, reparaciones, las tres solicitudes
 | M4_CONTENCION | Narración, aviso mínimo y estado de pantalla | El aviso literal como «Texto ficticio»; ficha «Estado de la exposición (simulación)» con los estados `comunicada`, `contencion_en_curso` y `riesgo_en_evaluacion`; nota «Revocar un enlace no equivale a “todo resuelto”». | Estados del apartado 22; nunca «Todo resuelto». |
 | E09 | «Variación de transferencia» | Rótulo «Variación hipotética» y narración de salida: «Termina la variación hipotética. En la historia principal, el mensaje lo envió Elena.» | La variación no cambia los hechos de E06. |
 | D02-A, D05-A, D10-C | — | Notas de fuente (Plan, anexos 1 y 6; Protocolo, 10.2, 10.4, 10.5 y 10.5.1). | Refuerzo con fuentes sin modificar el guion. |
+
+## Módulo 5 — «Es alguien importante» (guion v1.0)
+
+Los diálogos, opciones, retroalimentaciones, reparaciones, tarjetas de D06, preguntas, claves y textos de resultado se copian literalmente. `npm run check:guion` comprueba 156 textos contra el guion local. Los textos redactados para el juego están en `ED` y en `textosEditoriales` (`src/content/episodio5/escenas.ts`).
+
+| Lugar | Guion (indicación) | Texto en el juego | Motivo |
+|---|---|---|---|
+| Pausas | «Pausa: …» | El texto del guion como retroalimentación, con la narración «El ejercicio se detiene antes de ejecutar esta acción.» | Igual que en los módulos anteriores. |
+| E04 | «Se presenta una variación elegible de la situación» | Pregunta «¿Qué variación quieres practicar?» con dos opciones descritas y la aclaración «Elegir una variación no se puntúa: ambas son válidas.» | La elección de rama no es una decisión evaluada. |
+| M5_CANAL_HABITUAL | «D04 se muestra como ejercicio breve equivalente: elegir reportar por el mecanismo sin esperar autorización de la persona señalada, frente a esperar o difundir» | Decisión D04H con tres opciones redactadas a partir de esa indicación; la retroalimentación de la opción adecuada es el texto del guion «Comunicar mediante ese mecanismo…». | El guion solo describe el ejercicio. |
+| Ambas rutas | «Tarjeta de transferencia» sobre alternativas | Desplegable en la ruta habitual y panel «Vías institucionales de referencia» en ambas. | Se aprende la alternativa sin exigir usarla cuando no hay conflicto. |
+| D04-D | «Mostrar herramienta de canales y volver a D04» | Narración que remite al panel de vías de la escena y reintento. | El panel está siempre disponible en la escena. |
+| E06, D06 | Selección de tarjetas; la 4 solo en la ruta de conflicto | Instrucción, mensajes de revisión y texto final redactados para el juego. La tarjeta 4 solo aparece y solo se exige si se recorrió M5_CONFLICTO; las tarjetas se numeran en orden de aparición. | «No exigir una información que la historia no proporcionó». |
+| M5_MEDIDAS | Ejemplos de medidas y límites | Narraciones con los textos del guion; botón «Continuar». | Escena sin elección. |
+| D02-C, D07-A | — | Notas de fuente (Política 2.9; Procedimiento 5.2.4.3; Plan de Salvaguarda, no represalias). | Refuerzo con fuentes sin modificar el guion. |
+| D09 | Nota sobre mensajes recibidos espontáneamente | Nota complementaria visible. | Contenido pedagógico relevante. |

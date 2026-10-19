@@ -10,6 +10,8 @@ import * as ep3 from '../src/content/episodio3';
 import { claveM3 } from '../src/content/episodio3/clave';
 import * as ep4 from '../src/content/episodio4';
 import { claveM4 } from '../src/content/episodio4/clave';
+import * as ep5 from '../src/content/episodio5';
+import { claveM5 } from '../src/content/episodio5/clave';
 import type { AnswerKey, AssessmentConfig, Question } from '../src/content/types';
 
 // Cada módulo y versión del contenido tiene su propia migración; las anteriores no se editan.
@@ -46,6 +48,12 @@ const bancos: Array<{
     preguntas: ep4.preguntas,
     clave: claveM4,
     destinos: { '1.0': 'supabase/migrations/20261019000007_banco_m4_v1_0.sql' },
+  },
+  {
+    configEvaluacion: ep5.configEvaluacion,
+    preguntas: ep5.preguntas,
+    clave: claveM5,
+    destinos: { '1.0': 'supabase/migrations/20261019000008_banco_m5_v1_0.sql' },
   },
 ];
 

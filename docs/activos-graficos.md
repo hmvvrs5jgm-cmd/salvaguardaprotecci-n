@@ -17,6 +17,8 @@ Imágenes **generadas con IA**, proporcionadas por la institución el 18/10/2026
 
 **Módulo 3.** Camila, Diego y Nicolás fueron proporcionados por la institución el 19/10/2026, también generados con IA, con tres poses cada uno. Las personas adolescentes y Diego se muestran algo más bajos que las adultas. La persona visitante no tiene retrato (guion: no se la caracteriza por su aspecto).
 
+**Módulo 5.** Paula aún no tiene ilustración: se muestra una **silueta neutra provisional** (SVG en `src/ui/ilustraciones.tsx`) con una descripción accesible. Elena y el Referente reutilizan sus imágenes. La persona señalada, la adolescente y el colega de E09 no tienen retrato: el guion pide no representar a la persona influyente como sombra ni como villano. Para sustituir la silueta: `paula-atenta.webp`, `paula-pensativa.webp` y `paula-explica.webp`, una colaboradora adulta del equipo territorial, de cuerpo entero y en el mismo estilo, con expresiones naturales. Después, añade las importaciones en `personajes`.
+
 Los personajes se muestran **de cuerpo entero sobre un fondo neutro**, sin escenarios (decisión de la institución del 19/10/2026). Las escenas sin personajes (E05, E05B y E06) no muestran escenario. La portada no lleva imagen.
 
 ## Cómo se eligen las poses

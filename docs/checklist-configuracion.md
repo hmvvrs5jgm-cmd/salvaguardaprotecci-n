@@ -34,6 +34,14 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [ ] Aplicar la migración `20261019000007_banco_m4_v1_0.sql` en el proyecto Supabase.
 - [ ] Piloto: comprobar que se entiende que compartir lo necesario puede proteger y que pertenecer a un equipo no autoriza a conocerlo todo.
 
+### Módulo 5 — «Es alguien importante»
+- [ ] Revisión del guion v1.0 por el Punto Focal (guion, apartado 24): canales alternativos existentes, articulación socio–ChildFund, manejo de un posible conflicto sin inventar una estructura de recusación, protección de NNA y denunciantes, y distinción entre prevención, investigación y decisiones laborales.
+- [ ] Resolver los puntos 39 a 42 de `docs/discrepancias.md`.
+- [ ] Ilustraciones de Paula (colaboradora adulta del equipo territorial, tres poses) (`docs/activos-graficos.md`).
+- [ ] Adoptar o ajustar el umbral provisional del módulo 5 (8/10 y críticas 2, 4, 6 y 8) en `src/content/episodio5/evaluacion.ts` y regenerar el banco.
+- [ ] Aplicar la migración `20261019000008_banco_m5_v1_0.sql` en el proyecto Supabase.
+- [ ] Piloto: comprobar que se entiende que no hace falta probar un hecho para reportar, que el conflicto se informa sin presumir culpabilidad y que prevenir represalias no significa prometer resultados laborales.
+
 ## Canales y contactos (`src/config/canales.ts`)
 - [ ] Punto Focal de Salvaguarda de ChildFund: verificar el canal y cambiar el estado a `verificado`. (Descripción ajustada por la institución el 18/10/2026: «Recibe la preocupación y la registra mediante el formulario de incidentes».)
 - [x] Gerentes y dirección directa: confirmados por la institución el 18/10/2026 (Política 2.9.1; Procedimiento 5.2.2).

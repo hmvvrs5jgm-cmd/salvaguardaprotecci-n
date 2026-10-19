@@ -59,6 +59,7 @@ export type Accion =
   | { type: 'ALTERNATIVA' }
   | { type: 'ELEGIR_SOLICITUD'; solicitudId: string; optionId: string }
   | { type: 'COMPROBAR_SOLICITUDES' }
+  | { type: 'ELEGIR_VARIANTE'; optionId: string }
   | { type: 'VER_HERRAMIENTA'; toolId: ToolId }
   | { type: 'REINICIAR' };
 
@@ -148,8 +149,15 @@ function resolverYSalir(ep: Episode, s: EstadoPractica, next: NodeId): EstadoPra
   return entrar(ep, base, next);
 }
 
-export function comprobarTarjetas(d: CardsDecision, selected: string[]): CardsCheck {
-  const requeridas = d.cards.filter((c) => c.include).map((c) => c.id);
+/** Tarjetas visibles en el recorrido actual (las condicionales solo aparecen en su rama). */
+export function tarjetasVisibles(d: CardsDecision, recorrido: NodeId[]): CardsDecision['cards'] {
+  return d.cards.filter((c) => !c.soloSiVisitada || recorrido.includes(c.soloSiVisitada));
+}
+
+export function comprobarTarjetas(d: CardsDecision, selected: string[], recorrido: NodeId[] = []): CardsCheck {
+  const requeridas = tarjetasVisibles(d, recorrido)
+    .filter((c) => c.include)
+    .map((c) => c.id);
   const missing = requeridas.some((id) => !selected.includes(id));
   const extra = selected.some((id) => !requeridas.includes(id));
   return { missing, extra, ok: !missing && !extra };
@@ -241,7 +249,7 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
     }
     case 'ALTERNAR_TARJETA': {
       if (s.paso.kind !== 'cards' || sc.decision.kind !== 'cards') return s;
-      if (!sc.decision.cards.some((c) => c.id === a.cardId)) return s;
+      if (!tarjetasVisibles(sc.decision, s.recorrido).some((c) => c.id === a.cardId)) return s;
       const sel = s.paso.selected.includes(a.cardId)
         ? s.paso.selected.filter((x) => x !== a.cardId)
         : [...s.paso.selected, a.cardId];
@@ -249,7 +257,7 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
     }
     case 'COMPROBAR_TARJETAS': {
       if (s.paso.kind !== 'cards' || sc.decision.kind !== 'cards') return s;
-      return { ...s, paso: { ...s.paso, checked: comprobarTarjetas(sc.decision, s.paso.selected) } };
+      return { ...s, paso: { ...s.paso, checked: comprobarTarjetas(sc.decision, s.paso.selected, s.recorrido) } };
     }
     case 'ALTERNAR_ITEM': {
       if (s.paso.kind !== 'checklist' || sc.decision.kind !== 'checklist') return s;
@@ -262,6 +270,12 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
     case 'COMPROBAR_FICHA': {
       if (s.paso.kind !== 'checklist' || sc.decision.kind !== 'checklist') return s;
       return { ...s, paso: { ...s.paso, comprobado: true } };
+    }
+    case 'ELEGIR_VARIANTE': {
+      if (s.paso.kind !== 'decision' || sc.decision.kind !== 'variante') return s;
+      const op = sc.decision.opciones.find((o) => o.id === a.optionId);
+      if (!op) return s;
+      return resolverYSalir(ep, s, op.next);
     }
     case 'ELEGIR_SOLICITUD': {
       if (s.paso.kind !== 'solicitudes' || sc.decision.kind !== 'solicitudes') return s;

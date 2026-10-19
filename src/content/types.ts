@@ -24,7 +24,8 @@ export type Speaker =
   | 'colega'
   | 'simt'
   | 'soporte'
-  | 'documento';
+  | 'documento'
+  | 'paula';
 
 /** Pose del personaje mientras habla (las ilustraciones tienen tres poses por personaje). */
 export type Pose = 'atenta' | 'pensativa' | 'explica';
@@ -90,6 +91,8 @@ export interface Card {
   text: string;
   include: boolean;
   explanation: string;
+  /** La tarjeta solo aparece si la escena indicada forma parte del recorrido actual (rama). */
+  soloSiVisitada?: SceneId;
 }
 
 export interface CardsDecision {
@@ -105,6 +108,14 @@ export interface CardsDecision {
   successTitle?: string;
   successText: string;
   next: NodeId;
+}
+
+/** Elección de la variación que se practica (no se puntúa; todas las opciones son válidas). */
+export interface VarianteDecision {
+  kind: 'variante';
+  id: DecisionId;
+  prompt: string;
+  opciones: { id: string; label: string; descripcion: string; next: NodeId }[];
 }
 
 /** Escena sin elección: un botón para continuar (p. ej., la reparación de la derivación en el módulo 2). */
@@ -151,9 +162,15 @@ export interface SolicitudesDecision {
   next: NodeId;
 }
 
-export type Decision = ChoiceDecision | CardsDecision | ContinueDecision | ChecklistDecision | SolicitudesDecision;
+export type Decision =
+  | ChoiceDecision
+  | CardsDecision
+  | ContinueDecision
+  | ChecklistDecision
+  | SolicitudesDecision
+  | VarianteDecision;
 
-export type CharacterId = 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional' | 'nicolas' | 'camila' | 'diego';
+export type CharacterId = 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional' | 'nicolas' | 'camila' | 'diego' | 'paula';
 export type PanelId = 'transferencia' | 'canales' | 'apoyos';
 
 /** Estados de planificación de la ficha de condiciones (módulo 3). Siempre se muestran con texto. */

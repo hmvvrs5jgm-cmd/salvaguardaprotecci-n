@@ -45,6 +45,8 @@ export function destinosDeEscena(ep: Episode, id: SceneId): NodeId[] {
       return d.alternative ? [d.next, d.alternative.next] : [d.next];
     case 'choice':
       return d.options.flatMap(destinosDeOpcion);
+    case 'variante':
+      return d.opciones.map((o) => o.next);
   }
 }
 
@@ -83,6 +85,8 @@ export function validarGrafo(ep: Episode): ProblemaGrafo[] {
       s.decision.cards.forEach((c) => registrar(c.id, `tarjeta de ${s.decision.id}`));
     } else if (s.decision.kind === 'checklist') {
       s.decision.items.forEach((i) => registrar(i.id, `condición de ${s.decision.id}`));
+    } else if (s.decision.kind === 'variante') {
+      s.decision.opciones.forEach((o) => registrar(o.id, `variante de ${s.decision.id}`));
     } else if (s.decision.kind === 'solicitudes') {
       for (const sol of s.decision.solicitudes) {
         registrar(sol.id, `solicitud de ${s.decision.id}`);
@@ -137,6 +141,8 @@ export function validarGrafo(ep: Episode): ProblemaGrafo[] {
           }
         }
       }
+    } else if (d.kind === 'cards' && d.cards.some((c) => c.soloSiVisitada && !(c.soloSiVisitada in ep.scenes))) {
+      problemas.push({ tipo: 'destino_inexistente', detalle: `${d.id}: tarjeta condicional` });
     } else if (d.kind === 'cards' && !d.cards.some((c) => c.include)) {
       problemas.push({ tipo: 'sin_opcion_adecuada', detalle: d.id });
     } else if (d.kind === 'checklist' && d.items.length === 0) {
@@ -190,6 +196,13 @@ export function recorridoAdecuado(ep: Episode, rol: RoleId): Array<{ scene: Scen
   while (n !== 'CIERRE' && !guard.has(n)) {
     guard.add(n);
     const s = escenaDe(ep, n);
+    if (s.decision.kind === 'variante') {
+      const primera = s.decision.opciones[0];
+      if (!primera) break;
+      out.push({ scene: s.id, label: primera.label });
+      n = primera.next;
+      continue;
+    }
     if (s.decision.kind !== 'choice') {
       out.push({ scene: s.id, label: s.decision.kind === 'continuar' ? s.decision.label : s.decision.kind });
       n = s.decision.next;

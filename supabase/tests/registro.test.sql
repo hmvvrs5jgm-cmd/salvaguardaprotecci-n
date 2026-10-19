@@ -412,8 +412,8 @@ select t.afirma((select array_agg(question_id order by position) from private.as
   'críticas del módulo 4: P2, P5, P6 y P7');
 select t.afirma((select bool_and(active) from private.assessment_versions
    where (episode_id, content_version) in (('ep1-una-ayuda-con-condiciones', '1.2'), ('m2-gracias-por-escucharme', '1.0'),
-     ('m3-antes-de-abrir-las-puertas', '1.0'), ('m4-la-informacion-tambien-protege', '1.0'))),
-  'los bancos vigentes de los cuatro módulos están activos');
+     ('m3-antes-de-abrir-las-puertas', '1.0'), ('m4-la-informacion-tambien-protege', '1.0'), ('m5-es-alguien-importante', '1.0'))),
+  'los bancos vigentes de los cinco módulos están activos');
 create function t.respuestas_m4(p_errores text[]) returns jsonb language sql as $$
   select jsonb_object_agg(question_id,
     case when question_id = any (p_errores)
@@ -435,6 +435,40 @@ begin
   i := public.start_attempt('m4-la-informacion-tambien-protege', '1.0');
   r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm4_crit9'));
   perform t.afirma(r ->> 'estado' = 'critico_fallido' and r -> 'failed_critical' = '["M4_P7"]', 'módulo 4: 9/10 con crítica fallida no aprueba');
+end $$;
+reset role;
+
+-- =========================================================================
+-- 8e. Módulo 5: críticas propias (P2, P4, P6, P8)
+-- =========================================================================
+select t.afirma((select array_agg(question_id order by position) from private.assessment_items
+   where episode_id = 'm5-es-alguien-importante' and critical) = array['M5_P2', 'M5_P4', 'M5_P6', 'M5_P8'],
+  'críticas del módulo 5: P2, P4, P6 y P8');
+create function t.respuestas_m5(p_errores text[]) returns jsonb language sql as $$
+  select jsonb_object_agg(question_id,
+    case when question_id = any (p_errores)
+      then (select o from unnest(option_ids) o where o <> correct_option_id limit 1)
+      else correct_option_id end)
+  from private.assessment_items where episode_id = 'm5-es-alguien-importante' and content_version = '1.0';
+$$;
+insert into t.r values
+  ('m5_ok8', t.respuestas_m5(array['M5_P1', 'M5_P3'])),
+  ('m5_ok7', t.respuestas_m5(array['M5_P1', 'M5_P3', 'M5_P5'])),
+  ('m5_crit9', t.respuestas_m5(array['M5_P4']));
+select t.como('00000000-0000-0000-0000-00000000000a');
+set role authenticated;
+do $$
+declare i jsonb; r jsonb;
+begin
+  i := public.start_attempt('m5-es-alguien-importante', '1.0');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm5_ok8'));
+  perform t.afirma((r ->> 'score')::int = 8 and (r ->> 'passed')::boolean, 'módulo 5: 8/10 con críticas correctas aprueba');
+  i := public.start_attempt('m5-es-alguien-importante', '1.0');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm5_ok7'));
+  perform t.afirma(not (r ->> 'passed')::boolean, 'módulo 5: 7/10 no aprueba');
+  i := public.start_attempt('m5-es-alguien-importante', '1.0');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm5_crit9'));
+  perform t.afirma(r ->> 'estado' = 'critico_fallido' and r -> 'failed_critical' = '["M5_P4"]', 'módulo 5: 9/10 con crítica fallida no aprueba');
 end $$;
 reset role;
 

@@ -39,6 +39,9 @@ export function textosLiterales(ep: Episode): TextoLiteral[] {
       out.push({ origen: `${d.id} final`, texto: d.successText });
     } else if (d.kind === 'checklist') {
       out.push({ origen: `${d.id} incompleta`, texto: d.incompleteMessage });
+    } else if (d.kind === 'variante') {
+      out.push({ origen: `${d.id} pregunta`, texto: d.prompt });
+      d.opciones.forEach((o) => out.push({ origen: o.id, texto: o.label }, { origen: `${o.id} descripción`, texto: o.descripcion }));
     } else if (d.kind === 'solicitudes') {
       for (const sol of d.solicitudes) {
         out.push({ origen: sol.id, texto: sol.titulo }, { origen: `${sol.id} explicación`, texto: sol.explicacion });
@@ -102,7 +105,7 @@ export function todoElTexto(): string {
         if (d.alternative) partes.push(d.alternative.label);
       } else if (d.kind === 'solicitudes') {
         partes.push(d.prompt, d.simulationLabel);
-      } else if (d.note) {
+      } else if (d.kind === 'continuar' && d.note) {
         partes.push(d.note);
       }
     }
