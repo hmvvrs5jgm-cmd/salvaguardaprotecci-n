@@ -8,7 +8,7 @@ Imágenes **generadas con IA**, proporcionadas por la institución el 18/10/2026
 | `src/assets/personajes/elena-*.webp` | Elena (chaleco verde y credencial) | atenta, pensativa, explica |
 | `src/assets/personajes/referente-*.webp` | Referente (camisa verde y credencial) | atenta, pensativa, explica |
 | `src/assets/personajes/lucia-*.webp` | Lucía, 15 años (chaqueta azul con capucha y jeans), módulo 2 | atenta, pensativa, explica |
-| `src/assets/personajes/profesional-*.webp` | Profesional de atención (chaqueta de punto verde, gafas y credencial), módulo 2 | atenta, explica (la pose pensativa usa la atenta) |
+| `src/assets/personajes/profesional-*.webp` | Profesional de atención (chaqueta de punto verde, gafas y credencial), módulo 2 | atenta, pensativa, explica |
 
 **Módulo 2.** Lucía y la profesional de atención fueron proporcionadas por la institución el 19/10/2026 (también generadas con IA). Lucía se muestra algo más baja que las personas adultas. La persona señalada no tiene retrato.
 
@@ -24,6 +24,5 @@ Los personajes se muestran **de cuerpo entero sobre un fondo neutro**, sin escen
 2. Ejecuta `npm test` y `npm run build:archivo` para regenerar la demostración en un solo archivo.
 
 ## Pendiente de confirmar
-- [ ] Pose pensativa de la profesional de atención (`profesional-pensativa.webp`); mientras tanto se usa la atenta.
 - [ ] Términos de uso de la herramienta de IA con que se generaron las imágenes (uso institucional y publicación).
 - [ ] Revisión de la representación de los personajes con el Punto Focal (diversidad, ausencia de estereotipos).

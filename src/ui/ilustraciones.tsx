@@ -15,6 +15,7 @@ import luciaAtenta from '../assets/personajes/lucia-atenta.webp';
 import luciaPensativa from '../assets/personajes/lucia-pensativa.webp';
 import luciaExplica from '../assets/personajes/lucia-explica.webp';
 import profesionalAtenta from '../assets/personajes/profesional-atenta.webp';
+import profesionalPensativa from '../assets/personajes/profesional-pensativa.webp';
 import profesionalExplica from '../assets/personajes/profesional-explica.webp';
 
 const personajes: Record<CharacterId, Record<Pose, string>> = {
@@ -22,8 +23,7 @@ const personajes: Record<CharacterId, Record<Pose, string>> = {
   elena: { atenta: elenaAtenta, pensativa: elenaPensativa, explica: elenaExplica },
   referente: { atenta: referenteAtenta, pensativa: referentePensativa, explica: referenteExplica },
   lucia: { atenta: luciaAtenta, pensativa: luciaPensativa, explica: luciaExplica },
-  // La profesional no tiene pose pensativa: se usa la atenta.
-  profesional: { atenta: profesionalAtenta, pensativa: profesionalAtenta, explica: profesionalExplica },
+  profesional: { atenta: profesionalAtenta, pensativa: profesionalPensativa, explica: profesionalExplica },
 };
 
 const descripciones: Record<CharacterId, string> = {
