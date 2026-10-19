@@ -33,8 +33,8 @@ Marca cada punto solo cuando la institución lo haya verificado.
 
 ## Marca y activos
 - [ ] Manual de marca: el color verde es un acento provisional (`--acento` en `src/styles.css`). No se usa el logotipo.
-- [x] Ilustraciones: imágenes de escenarios y personajes proporcionadas por la institución (ver `docs/activos-graficos.md`).
-- [ ] Confirmar los derechos de uso y el origen de las imágenes.
+- [x] Ilustraciones: personajes generados con IA, de cuerpo entero sobre un fondo neutro (ver `docs/activos-graficos.md`).
+- [ ] Confirmar los términos de uso de la herramienta de IA.
 
 ## Backend y publicación (ver `docs/despliegue.md`)
 - [ ] Proyecto Supabase creado por la institución, con las migraciones aplicadas.

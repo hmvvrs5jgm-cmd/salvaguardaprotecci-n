@@ -8,7 +8,7 @@ import { opcionElegida, progreso, type EstadoPractica } from '../engine/practica
 import { useApp } from '../state/AppState';
 import { Dialogo, Linea, textoRol, useAnunciar, useEnfocar } from '../ui/comunes';
 import { DialogoHerramientas } from '../ui/Herramientas';
-import { Fondo, IconoResultado, Retrato } from '../ui/ilustraciones';
+import { IconoResultado, Retrato } from '../ui/ilustraciones';
 import { Cierre } from './Cierre';
 
 export type ModoJuego = 'grafico' | 'lectura';
@@ -73,12 +73,16 @@ function EscenaVista({ escena, estado, modo }: { escena: Scene; estado: EstadoPr
         </h1>
       </header>
 
-      {modo === 'grafico' && (
+      {modo === 'grafico' && escena.characters.length > 0 && (
         <div className="escenario">
-          <Fondo id={escena.background} alt={escena.backgroundAlt} />
           <div className="escenario__personajes">
             {escena.characters.map((c) => (
-              <Retrato key={c} id={c} activo={hablante === c} pose={hablante === c ? (lineaActual?.pose ?? 'explica') : 'atenta'} />
+              <Retrato
+                key={c}
+                id={c}
+                activo={hablante === c}
+                pose={hablante === c ? (lineaActual?.pose ?? 'explica') : 'atenta'}
+              />
             ))}
           </div>
         </div>

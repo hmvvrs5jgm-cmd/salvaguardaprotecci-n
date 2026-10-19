@@ -1,10 +1,7 @@
-// Ilustraciones de escenarios y personajes (imágenes locales optimizadas en src/assets).
-// Sin fotografías de participantes reales ni escenas de violencia. La persona señalada no tiene retrato.
+// Personajes de cuerpo entero sobre un fondo neutro (imágenes locales optimizadas en src/assets/personajes).
+// Imágenes generadas con IA que representan a personas ficticias. La persona señalada no tiene retrato.
 
-import type { BackgroundId, CharacterId, Pose } from '../content/types';
-import centroExterior from '../assets/escenarios/centro-exterior.webp';
-import entrada from '../assets/escenarios/entrada.webp';
-import oficina from '../assets/escenarios/oficina.webp';
+import type { CharacterId, Pose } from '../content/types';
 import marielaAtenta from '../assets/personajes/mariela-atenta.webp';
 import marielaPensativa from '../assets/personajes/mariela-pensativa.webp';
 import marielaExplica from '../assets/personajes/mariela-explica.webp';
@@ -14,15 +11,6 @@ import elenaExplica from '../assets/personajes/elena-explica.webp';
 import referenteAtenta from '../assets/personajes/referente-atenta.webp';
 import referentePensativa from '../assets/personajes/referente-pensativa.webp';
 import referenteExplica from '../assets/personajes/referente-explica.webp';
-
-const fondos: Record<BackgroundId, string> = {
-  centro: centroExterior,
-  conversacion: entrada,
-  salida: centroExterior,
-  oficina,
-};
-
-export const imagenPortada = centroExterior;
 
 const personajes: Record<CharacterId, Record<Pose, string>> = {
   mariela: { atenta: marielaAtenta, pensativa: marielaPensativa, explica: marielaExplica },
@@ -41,10 +29,6 @@ const gestos: Record<Pose, string> = {
   pensativa: 'se muestra pensativa',
   explica: 'habla y explica con las manos abiertas',
 };
-
-export function Fondo({ id, alt }: { id: BackgroundId; alt: string }) {
-  return <img className="fondo" src={fondos[id]} alt={alt} width={1600} height={720} decoding="async" />;
-}
 
 export function Retrato({ id, pose = 'atenta', activo }: { id: CharacterId; pose?: Pose; activo?: boolean }) {
   return (
