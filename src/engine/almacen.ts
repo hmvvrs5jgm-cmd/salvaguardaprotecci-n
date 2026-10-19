@@ -49,6 +49,7 @@ export function cargarProgreso(ep: Episode, store: Almacen | null = almacenPorDe
       // Al recuperar se retoma al inicio de la escena: no se guardan las opciones elegidas.
       paso: { kind: 'intro', index: 0 },
       resolved: Array.isArray(data.resolved) ? data.resolved.filter((d) => typeof d === 'string') : [],
+      recorrido: Array.isArray(data.recorrido) ? data.recorrido.filter((n) => typeof n === 'string' && (n === 'CIERRE' || n in ep.scenes)) : [],
       toolsViewed: Array.isArray(data.toolsViewed) ? data.toolsViewed : [],
       badges: Array.isArray(data.badges) ? data.badges : [],
     };
@@ -63,9 +64,9 @@ export function cargarProgreso(ep: Episode, store: Almacen | null = almacenPorDe
 
 export function guardarProgreso(ep: Episode, s: EstadoPractica, store: Almacen | null = almacenPorDefecto()): void {
   if (!store) return;
-  const { episodeId, contentVersion, role, node, resolved, toolsViewed, badges } = s;
+  const { episodeId, contentVersion, role, node, resolved, recorrido, toolsViewed, badges } = s;
   try {
-    store.setItem(ep.claveAlmacen, JSON.stringify({ episodeId, contentVersion, role, node, resolved, toolsViewed, badges }));
+    store.setItem(ep.claveAlmacen, JSON.stringify({ episodeId, contentVersion, role, node, resolved, recorrido, toolsViewed, badges }));
   } catch {
     /* almacenamiento no disponible: el juego sigue funcionando sin guardar */
   }

@@ -4,6 +4,7 @@
 
 import { avisoServicios, serviciosPublicos } from '../config/canales';
 import { herramientasM2 } from './episodio2/herramientas';
+import { herramientasM3 } from './episodio3/herramientas';
 import type { Tool, ToolId } from './types';
 
 const lineaServicio = (s: (typeof serviciosPublicos)[number]) =>
@@ -380,8 +381,8 @@ export const herramientas: Tool[] = [
   },
 ];
 
-/** Herramientas comunes y del módulo 1, seguidas de las del módulo 2. */
-export const todasLasHerramientas: Tool[] = [...herramientas, ...herramientasM2];
+/** Herramientas comunes y del módulo 1, seguidas de las de los módulos 2 y 3. */
+export const todasLasHerramientas: Tool[] = [...herramientas, ...herramientasM2, ...herramientasM3];
 
 export function herramienta(id: ToolId): Tool {
   const t = todasLasHerramientas.find((h) => h.id === id);

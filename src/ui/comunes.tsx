@@ -15,6 +15,18 @@ export function nombreHablante(s: Speaker, rol: RoleId | null): string | null {
       return 'Lucía';
     case 'profesional':
       return 'Profesional de atención';
+    case 'nicolas':
+      return 'Nicolás';
+    case 'camila':
+      return 'Camila';
+    case 'diego':
+      return 'Diego';
+    case 'visitante':
+      return 'Visitante';
+    case 'comunicaciones':
+      return 'Comunicaciones (mensaje ficticio)';
+    case 'colega':
+      return 'Colega';
     case 'tu':
       return 'Tú';
     case 'referente':

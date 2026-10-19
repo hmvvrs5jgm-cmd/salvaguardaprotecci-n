@@ -8,7 +8,20 @@ export const ROLES: readonly RoleId[] = ['cf', 'socio'];
 /** Texto común o variante condicionada por rol. */
 export type RoleText = string | { cf: string; socio: string };
 
-export type Speaker = 'narracion' | 'tu' | 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional';
+export type Speaker =
+  | 'narracion'
+  | 'tu'
+  | 'mariela'
+  | 'elena'
+  | 'referente'
+  | 'lucia'
+  | 'profesional'
+  | 'nicolas'
+  | 'camila'
+  | 'diego'
+  | 'visitante'
+  | 'comunicaciones'
+  | 'colega';
 
 /** Pose del personaje mientras habla (las ilustraciones tienen tres poses por personaje). */
 export type Pose = 'atenta' | 'pensativa' | 'explica';
@@ -120,8 +133,17 @@ export interface ChecklistDecision {
 
 export type Decision = ChoiceDecision | CardsDecision | ContinueDecision | ChecklistDecision;
 
-export type CharacterId = 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional';
+export type CharacterId = 'mariela' | 'elena' | 'referente' | 'lucia' | 'profesional' | 'nicolas' | 'camila' | 'diego';
 export type PanelId = 'transferencia' | 'canales' | 'apoyos';
+
+/** Estados de planificación de la ficha de condiciones (módulo 3). Siempre se muestran con texto. */
+export type EstadoCondicion = 'pendiente_de_verificar' | 'verificado' | 'no_viable' | 'suspendido';
+
+/** Consulta opcional dentro de una escena (no cambia el recorrido). */
+export interface Consulta {
+  titulo: string;
+  lines: Line[];
+}
 
 export interface Scene {
   id: SceneId;
@@ -138,9 +160,15 @@ export interface Scene {
   outro?: Line[];
   /** Nota de diseño del guion: no se muestra como diálogo. */
   designNote?: string;
+  /** Consultas opcionales desplegables (p. ej., «¿Y si el relevo no llega?»). */
+  consultas?: Consulta[];
+  /** Ficha de condiciones de la simulación, mostrada antes de la decisión. */
+  ficha?: { titulo: string; filas: { aspecto: string; estado: EstadoCondicion }[] };
 }
 
 export interface Closing {
+  /** Variantes según la rama recorrida: se muestra la de la escena visitada más recientemente, antes de las líneas comunes. */
+  variantes?: { siVisitada: SceneId; lines: Line[] }[];
   lines: Line[];
   contribution: string;
   reflection: string[];
@@ -152,7 +180,8 @@ export interface Badge {
   id: string;
   name: string;
   description: string;
-  decisions: DecisionId[];
+  /** Decisiones requeridas; un grupo (array) se cumple con cualquiera de ellas (ramas alternativas). */
+  decisions: Array<DecisionId | DecisionId[]>;
 }
 
 /** Textos de portada y elección de rol de cada módulo. */
@@ -204,6 +233,8 @@ export interface Episode {
   evaluacion: EvaluacionEpisodio;
   /** Párrafos del panel «Posibles apoyos»; si falta, se usa el del módulo 1 (persona adulta). */
   panelApoyos?: string[];
+  /** Textos redactados para el juego que no figuran en el guion: se excluyen de la comparación literal. */
+  textosEditoriales?: string[];
   /** Texto del panel «Si hubiera peligro inmediato». */
   panelTransferencia?: string;
 }

@@ -19,6 +19,14 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [ ] Aplicar la migración `20261019000005_banco_m2_v1_0.sql` en el proyecto Supabase.
 - [ ] Piloto del módulo 2 con personal de ChildFund y socios, sin relatos reales.
 
+### Módulo 3 — «Antes de abrir las puertas»
+- [ ] Revisión del guion v1.0 por el Punto Focal y por los responsables operativos (guion, apartado 23).
+- [ ] Resolver los puntos 26 a 30 de `docs/discrepancias.md`: proporciones de supervisión, consentimiento de imagen, visitas no previstas en socios, requisitos de transporte, quién valida las adaptaciones y procedimiento de entrega.
+- [ ] Validar el umbral provisional del módulo 3 (8/10 y críticas 2, 4, 6 y 8) en `src/content/episodio3/evaluacion.ts` y regenerar el banco.
+- [ ] Ilustraciones de Nicolás, Camila (14 años) y Diego (11 años) (`docs/activos-graficos.md`).
+- [ ] Aplicar la migración `20261019000006_banco_m3_v1_0.sql` en el proyecto Supabase.
+- [ ] Piloto: comprobar que se entiende que adaptar o suspender puede ser correcto, que dos personas adultas no siempre bastan y que una autorización no elimina el deber de cuidado.
+
 ## Canales y contactos (`src/config/canales.ts`)
 - [ ] Punto Focal de Salvaguarda de ChildFund: verificar el canal y cambiar el estado a `verificado`. (Descripción ajustada por la institución el 18/10/2026: «Recibe la preocupación y la registra mediante el formulario de incidentes».)
 - [x] Gerentes y dirección directa: confirmados por la institución el 18/10/2026 (Política 2.9.1; Procedimiento 5.2.2).

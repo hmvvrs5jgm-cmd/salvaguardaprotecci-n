@@ -41,3 +41,25 @@ Los diálogos, opciones, retroalimentaciones, reparaciones, preguntas, claves y 
 | Rol | «Variante ChildFund / Variante socio» | Aclaraciones bajo cada opción de rol. | — |
 | Evaluación | Textos de resultado | El texto de aprobado añade la versión del módulo. | Trazabilidad de la versión aprobada. |
 
+## Módulo 3 — «Antes de abrir las puertas» (guion v1.0)
+
+Los diálogos, opciones, retroalimentaciones, reparaciones, preguntas, claves y textos de resultado se copian literalmente. `npm run check:guion` comprueba 163 textos contra el guion local. Los textos redactados para el juego están en `ED` y en `textosEditoriales` (`src/content/episodio3/escenas.ts`), y las indicaciones narradas llevan `literal: false`.
+
+| Lugar | Guion (indicación) | Texto en el juego | Motivo |
+|---|---|---|---|
+| Pausas (D01-C, D02-A/C, D03-C, D04-A/C, D05-A/C, D06-A, D08-A, D09-A/C, D10-A/C) | «Pausa: …» | El texto del guion como retroalimentación, con la narración «El ejercicio se detiene antes de ejecutar esta acción.» | Igual que en los módulos 1 y 2. |
+| Rol | Sin pregunta de rol | «¿Desde qué rol actuarás?» y las aclaraciones de cada rol bajo cada opción. | Coherencia con el módulo 2. |
+| E01 | «Ficha de trabajo inicial» | Tabla «Ficha de trabajo inicial (simulación)» con los siete aspectos y el estado «Pendiente de verificar», también en la herramienta 1. | La ficha se ve antes de la decisión; el estado se indica con texto. |
+| E02 | «Subescena opcional de consulta: ¿Y si el relevo no llega?» | Desplegable opcional con la respuesta literal de Elena. | Consulta sin cambiar el recorrido. |
+| E03-B | Sin retroalimentación | Retroalimentación editorial. | El guion no la define. |
+| M3_E03B | «Decisión de adaptación» sin elección | Narración y retroalimentación literal; desplegable «¿Y si no puede confirmarse una adaptación segura?»; botón «Continuar con la preparación». | Escena sin elección. |
+| E05, salida | «Cierre de escena: en esta historia la visita se reprograma…» | Narración al salir de la escena. | — |
+| D05-B, D06-B, D07-B, D02-A | — | Notas de fuente (Procedimiento 5.1.3, 5.1.10, 5.1.11.5 y 5.1.14). | Refuerzo con fuentes sin modificar el guion. |
+| D06 y D10 | Notas del guion | Notas complementarias visibles junto a la retroalimentación. | Contenido pedagógico relevante. |
+| E07 / M3_REVELACION | «Subescena de transferencia… recurso opcional de consulta que vuelve a E07» | Desplegable opcional en E07 «Si alguien comunica una preocupación durante la actividad», con la remisión al módulo 2 y el panel de vías institucionales. | Es una consulta que no obliga a revelar ni guarda relatos; no se representa como escena aparte. |
+| E08 | «Antes de iniciar, revisas la ficha» | Tabla «Ficha de condiciones (simulación)» con los estados `verificado`, `pendiente_de_verificar`, `suspendido` y `no_viable`, deducidos de la narración. | Estados de planificación del apartado 21, siempre con texto. |
+| D08-B, D09-B, D10-B | Solo consecuencia | Retroalimentaciones editoriales. | El guion no las define. |
+| M3_INICIO_ADAPTADO, M3_SUSPENSION | Escenas sin elección | Botones «Comenzar el taller interior» y «Coordinar la salida»; rótulos «Jornada adaptada» y «Jornada suspendida». | Hacen visible la rama. |
+| M3_E09S | «Opciones equivalentes: A, reducir supervisión…; B, mantener…; C, delegar…» | Opciones y retroalimentaciones redactadas a partir de E09, sin mencionar un taller. La C reutiliza la retroalimentación literal de E09-C. | El guion solo resume las opciones. |
+| Cierre | Dos versiones y narración común | La línea de Elena depende de la rama recorrida más recientemente (`variantes` del cierre); después, la narración común y Camila. | El sistema conserva la variante y no muestra escenas incompatibles. |
+| Insignia «Adaptación responsable» | «D08–D10» | Cuenta D09 o su variante D09S. | Suspender de forma protectora también permite obtenerla. |

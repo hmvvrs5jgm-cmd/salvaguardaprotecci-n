@@ -8,6 +8,7 @@ import type {
   ChoiceDecision,
   DecisionId,
   Episode,
+  Line,
   NodeId,
   Option,
   RoleId,
@@ -36,6 +37,8 @@ export interface EstadoPractica {
   node: NodeId;
   paso: Paso;
   resolved: DecisionId[];
+  /** Escenas del recorrido actual (desde la primera), para elegir la variante del cierre. */
+  recorrido: NodeId[];
   toolsViewed: ToolId[];
   badges: string[];
 }
@@ -63,9 +66,35 @@ export function estadoInicial(ep: Episode): EstadoPractica {
     node: ep.start,
     paso: { kind: 'intro', index: 0 },
     resolved: [],
+    recorrido: [],
     toolsViewed: [],
     badges: [],
   };
+}
+
+/** Entra en un nodo y lo añade al recorrido; volver a la primera escena inicia un recorrido nuevo. */
+function entrar(ep: Episode, s: EstadoPractica, next: NodeId): EstadoPractica {
+  const recorrido = next === ep.start ? [next] : [...s.recorrido, next];
+  return { ...s, node: next, paso: pasoDeEntrada(ep, next), recorrido };
+}
+
+export function insigniaCumplida(decisions: Array<DecisionId | DecisionId[]>, resolved: DecisionId[]): boolean {
+  return decisions.every((d) => (Array.isArray(d) ? d.some((x) => resolved.includes(x)) : resolved.includes(d)));
+}
+
+/** Variante del cierre según la rama recorrida (la de la escena visitada más tarde). */
+export function lineasDeCierre(ep: Episode, s: EstadoPractica): Line[] {
+  const vs = ep.closing.variantes ?? [];
+  let elegida: Line[] = [];
+  let pos = -1;
+  for (const v of vs) {
+    const i = s.recorrido.lastIndexOf(v.siVisitada);
+    if (i > pos) {
+      pos = i;
+      elegida = v.lines;
+    }
+  }
+  return [...elegida, ...ep.closing.lines];
 }
 
 /** Escena por ID; el grafo validado garantiza que existe. */
@@ -102,7 +131,7 @@ export function pasoDecision(sc: Scene): Paso {
 
 function conInsignias(ep: Episode, s: EstadoPractica): EstadoPractica {
   const badges = new Set(s.badges);
-  for (const b of ep.badges) if (b.decisions.every((d) => s.resolved.includes(d))) badges.add(b.id);
+  for (const b of ep.badges) if (insigniaCumplida(b.decisions, s.resolved)) badges.add(b.id);
   return { ...s, badges: ep.badges.map((b) => b.id).filter((id) => badges.has(id)) };
 }
 
@@ -111,7 +140,7 @@ function resolverYSalir(ep: Episode, s: EstadoPractica, next: NodeId): EstadoPra
   const resolved = s.resolved.includes(sc.decision.id) ? s.resolved : [...s.resolved, sc.decision.id];
   const base = conInsignias(ep, { ...s, resolved });
   if (sc.outro && sc.outro.length > 0) return { ...base, paso: { kind: 'outro', next } };
-  return { ...base, node: next, paso: pasoDeEntrada(ep, next) };
+  return entrar(ep, base, next);
 }
 
 export function comprobarTarjetas(d: CardsDecision, selected: string[]): CardsCheck {
@@ -128,10 +157,10 @@ export function fichaCompleta(d: ChecklistDecision, marcados: string[]): boolean
 export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPractica {
   switch (a.type) {
     case 'ELEGIR_ROL':
-      return { ...s, role: a.role, node: ep.start, paso: pasoDeEntrada(ep, ep.start) };
+      return entrar(ep, { ...s, role: a.role }, ep.start);
     case 'CAMBIAR_ROL':
       // El recorrido se reinicia desde E01; se conservan herramientas e insignias.
-      return { ...s, role: a.role, node: ep.start, paso: pasoDeEntrada(ep, ep.start) };
+      return entrar(ep, { ...s, role: a.role }, ep.start);
     case 'REINICIAR':
       return estadoInicial(ep);
     case 'VER_HERRAMIENTA':
@@ -149,7 +178,7 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
         if (p.index + 1 < sc.intro.length) return { ...s, paso: { kind: 'intro', index: p.index + 1 } };
         return { ...s, paso: pasoDecision(sc) };
       }
-      if (p.kind === 'outro') return { ...s, node: p.next, paso: pasoDeEntrada(ep, p.next) };
+      if (p.kind === 'outro') return entrar(ep, s, p.next);
       if (p.kind === 'feedback') {
         const o = opcionElegida(ep, s);
         if (!o) return s;
@@ -220,8 +249,7 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
     case 'ALTERNATIVA': {
       // Rama de contingencia: se visita sin resolver la decisión.
       if (s.paso.kind !== 'checklist' || sc.decision.kind !== 'checklist' || !sc.decision.alternative) return s;
-      const next = sc.decision.alternative.next;
-      return { ...s, node: next, paso: pasoDeEntrada(ep, next) };
+      return entrar(ep, s, sc.decision.alternative.next);
     }
   }
 }

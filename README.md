@@ -6,7 +6,9 @@ Juego web formativo en español para personas adultas del personal técnico de C
 
 **Módulo 2 — «Gracias por escucharme»** (guion v1.0): escuchar a una adolescente sin investigar ni culpabilizar, explicar la confidencialidad con lenguaje adecuado a la edad, atender un riesgo inmediato dentro del rol, no contactar automáticamente a la familia, comunicar con información mínima y contribuir a una derivación segura, verificada y con seguimiento.
 
-Cada módulo tiene su ruta (`#/m1`, `#/m2`), su progreso local, su evaluación y su resultado en el registro (por `episode_id` y versión). Las rutas anteriores (`#/jugar`, `#/evaluacion`…) llevan al módulo 1.
+**Módulo 3 — «Antes de abrir las puertas»** (guion v1.0): planificar, adaptar y realizar actividades seguras con niñas, niños y adolescentes. Revisar riesgos antes y durante la actividad, mantener la supervisión, respetar la participación voluntaria y la decisión sobre imágenes, controlar visitas, coordinar transporte y entrega segura, y adaptar o suspender lo que no tiene condiciones. Tiene dos ramas válidas: jornada adaptada y jornada suspendida.
+
+Cada módulo tiene su ruta (`#/m1`, `#/m2`, `#/m3`), su progreso local, su evaluación y su resultado en el registro (por `episode_id` y versión). Las rutas anteriores (`#/jugar`, `#/evaluacion`…) llevan al módulo 1.
 
 > Todas las personas y situaciones del juego son ficticias. El juego no es un sistema de denuncias: no envía información a ningún canal.
 
@@ -58,7 +60,7 @@ El modo se fija en la compilación, nunca según la disponibilidad de la red.
 
 ```
 src/
-  content/            contenido tipado (único origen): episodio1/ y episodio2/ (escenas, evaluación, clave), herramientas, registro de módulos
+  content/            contenido tipado (único origen): episodio1/, episodio2/ y episodio3/ (escenas, evaluación, clave), herramientas, registro de módulos
   config/             canales y contactos (verificado/pendiente), privacidad, fuentes, modo
   engine/             motor de práctica (reductor puro), grafo, puntuación, mezcla, almacenamiento
   screens/ ui/        pantallas y componentes (modo gráfico y versión de lectura)
@@ -85,7 +87,8 @@ El guion, la política, el procedimiento y la PPT **se quedan en `referencias/`*
 
 ## Límites conocidos
 
-- La regla de aprobación de cada módulo (8/10 y críticas 2, 3, 4 y 6) es un **criterio pedagógico provisional**, no un requisito de la política.
+- La regla de aprobación de cada módulo (8/10 y críticas 2, 3, 4 y 6 en los módulos 1 y 2; 2, 4, 6 y 8 en el módulo 3) es un **criterio pedagógico provisional**, no un requisito de la política.
+- Nicolás, Camila y Diego (módulo 3) se muestran con una silueta provisional hasta contar con sus ilustraciones.
 - El repositorio es público: la evaluación es formativa y sin supervisión, no un examen seguro. La aprobación corresponde solo al módulo y la versión; no es un certificado.
 - Mientras no exista un banco alternativo revisado, los nuevos intentos repiten las mismas diez preguntas («práctica reforzada»).
 - Las personas que operan el proyecto Supabase tienen acceso técnico a los datos. «Único rol autorizado» se refiere a la aplicación.

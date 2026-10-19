@@ -2,7 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { avisoServicios, canalesParaRol, directorioLocal, emergencia, esEnlaceActivo, serviciosPublicos } from '../config/canales';
 import { panelApoyos } from '../content/herramientas';
-import type { CardsDecision, ChecklistDecision, ChoiceDecision, ContinueDecision, Option, PanelId, RoleId, Scene } from '../content/types';
+import type {
+  CardsDecision,
+  ChecklistDecision,
+  ChoiceDecision,
+  ContinueDecision,
+  EstadoCondicion,
+  Option,
+  PanelId,
+  RoleId,
+  Scene,
+} from '../content/types';
 import { escenaDe, fichaCompleta, opcionElegida, progreso, type EstadoPractica } from '../engine/practica';
 import { useApp } from '../state/AppState';
 import { Dialogo, Linea, textoRol, useAnunciar, useEnfocar } from '../ui/comunes';
@@ -149,7 +159,16 @@ function PasoVista({ escena, estado, rol, modo }: { escena: Scene; estado: Estad
           ))}
         </div>
       )}
+      {escena.ficha && <FichaCondiciones ficha={escena.ficha} />}
       {escena.panel && <PanelContextual id={escena.panel} rol={rol} />}
+      {escena.consultas?.map((c) => (
+        <details className="panel-contextual" key={c.titulo}>
+          <summary>{c.titulo}</summary>
+          {c.lines.map((l) => (
+            <Linea key={l.id} linea={l} rol={rol} />
+          ))}
+        </details>
+      ))}
       {p.kind === 'decision' && escena.decision.kind === 'choice' && (
         <DecisionVista decision={escena.decision} rol={rol} modo={modo} enfocar={volviendo} />
       )}
@@ -438,6 +457,39 @@ function TarjetasVista({
           Continuar
         </button>
       )}
+    </div>
+  );
+}
+
+const etiquetasEstado: Record<EstadoCondicion, string> = {
+  pendiente_de_verificar: 'Pendiente de verificar',
+  verificado: 'Verificado',
+  no_viable: 'No viable',
+  suspendido: 'Suspendido',
+};
+
+function FichaCondiciones({ ficha }: { ficha: NonNullable<Scene['ficha']> }) {
+  return (
+    <div className="tabla-contenedor ficha-condiciones" tabIndex={0} role="region" aria-label={ficha.titulo}>
+      <table>
+        <caption>{ficha.titulo}</caption>
+        <thead>
+          <tr>
+            <th scope="col">Condición</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ficha.filas.map((f) => (
+            <tr key={f.aspecto}>
+              <td>{f.aspecto}</td>
+              <td>
+                <span className={`estado-condicion estado-condicion--${f.estado}`}>{etiquetasEstado[f.estado]}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

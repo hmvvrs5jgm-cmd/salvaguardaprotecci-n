@@ -445,9 +445,40 @@ progress {
   transform: translateY(-1.5%);
   filter: drop-shadow(0 12px 10px rgb(60 50 40 / 0.28));
 }
-/* Lucía es adolescente: se muestra algo más baja que las personas adultas. */
-.retrato--lucia {
+/* Las personas adolescentes se muestran algo más bajas que las adultas. */
+.retrato--lucia,
+.retrato--camila {
   height: 93%;
+}
+.retrato--diego {
+  height: 86%;
+}
+/* Silueta provisional para personajes sin ilustración */
+.retrato--silueta {
+  fill: #9aa49f;
+}
+.retrato--silueta.retrato--activo {
+  fill: #6f7b75;
+}
+
+/* Ficha de condiciones (módulo 3): el estado siempre se indica con texto */
+.ficha-condiciones caption {
+  text-align: left;
+  font-weight: 700;
+  padding-bottom: 0.4em;
+}
+.estado-condicion {
+  font-weight: 600;
+}
+.estado-condicion--verificado {
+  color: var(--acento-fuerte);
+}
+.estado-condicion--pendiente_de_verificar {
+  color: var(--mejora);
+}
+.estado-condicion--no_viable,
+.estado-condicion--suspendido {
+  color: var(--pausa);
 }
 
 /* Inicio: lista de módulos */

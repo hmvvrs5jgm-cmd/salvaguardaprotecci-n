@@ -44,6 +44,8 @@ export function textosLiterales(ep: Episode): TextoLiteral[] {
     }
   }
   lines(ep.closing.lines, 'CIERRE');
+  ep.closing.variantes?.forEach((v) => lines(v.lines, `CIERRE tras ${v.siVisitada}`));
+  for (const s of Object.values(ep.scenes)) s.consultas?.forEach((c) => lines(c.lines, `${s.id} consulta`));
   out.push({ origen: 'CIERRE contribución', texto: ep.closing.contribution });
   ep.closing.reflection.forEach((texto) => out.push({ origen: 'CIERRE reflexión', texto }));
   const p = ep.portada;
@@ -58,7 +60,8 @@ export function textosLiterales(ep: Episode): TextoLiteral[] {
       q.options.forEach((o) => out.push({ origen: o.id, texto: o.text }));
     }
   }
-  return out;
+  const editoriales = new Set(ep.textosEditoriales ?? []);
+  return out.filter((t) => !editoriales.has(t.texto));
 }
 
 /** Todo el texto publicado de todos los módulos (para buscar términos prohibidos). */
@@ -67,8 +70,12 @@ export function todoElTexto(): string {
   for (const ep of episodios) {
     partes.push(...textosLiterales(ep).map((t) => t.texto));
     if (ep.panelTransferencia) partes.push(ep.panelTransferencia);
+    partes.push(...(ep.panelApoyos ?? []), ...(ep.textosEditoriales ?? []));
+    ep.closing.variantes?.forEach((v) => v.lines.forEach((l) => partes.push(...rt(l.text))));
     for (const s of Object.values(ep.scenes)) {
-      [...s.intro, ...(s.outro ?? [])].forEach((l) => partes.push(...rt(l.text)));
+      [...s.intro, ...(s.outro ?? []), ...(s.consultas ?? []).flatMap((c) => c.lines)].forEach((l) => partes.push(...rt(l.text)));
+      s.consultas?.forEach((c) => partes.push(c.titulo));
+      if (s.ficha) partes.push(s.ficha.titulo, ...s.ficha.filas.map((f) => f.aspecto));
       const d = s.decision;
       if (d.kind === 'choice') {
         for (const o of d.options) {

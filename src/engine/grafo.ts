@@ -14,7 +14,8 @@ export interface ProblemaGrafo {
     | 'ciclo_sin_salida'
     | 'sin_final'
     | 'variante_rol_incompleta'
-    | 'complemento_invalido';
+    | 'complemento_invalido'
+    | 'insignia_invalida';
   detalle: string;
 }
 
@@ -84,6 +85,19 @@ export function validarGrafo(ep: Episode): ProblemaGrafo[] {
     }
   }
   ep.closing.lines.forEach((l) => registrar(l.id, 'cierre'));
+  ep.closing.variantes?.forEach((v) => {
+    v.lines.forEach((l) => registrar(l.id, `cierre tras ${v.siVisitada}`));
+    if (!(v.siVisitada in ep.scenes)) problemas.push({ tipo: 'destino_inexistente', detalle: `cierre: ${v.siVisitada}` });
+  });
+  for (const s of Object.values(ep.scenes)) s.consultas?.forEach((c) => c.lines.forEach((l) => registrar(l.id, `consulta de ${s.id}`)));
+
+  // Insignias: cada decisión requerida existe
+  const decisiones = new Set(Object.values(ep.scenes).map((s) => s.decision.id));
+  for (const b of ep.badges) {
+    for (const d of b.decisions.flat()) {
+      if (!decisiones.has(d)) problemas.push({ tipo: 'insignia_invalida', detalle: `${b.id}: ${d}` });
+    }
+  }
 
   // Destinos inexistentes
   for (const s of Object.values(ep.scenes)) {

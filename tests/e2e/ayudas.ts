@@ -5,7 +5,7 @@ export async function entrar(
   page: Page,
   rol: 'cf' | 'socio',
   modo: 'Comenzar' | 'Versión de lectura' = 'Comenzar',
-  modulo: 'm1' | 'm2' = 'm1',
+  modulo: 'm1' | 'm2' | 'm3' = 'm1',
 ) {
   await page.goto(`./#/${modulo}`);
   await page.getByLabel('Confirmo que soy una persona mayor de 18 años.').check();

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { lineasDeCierre } from '../engine/practica';
 import { useApp } from '../state/AppState';
 import { Linea, useEnfocar } from '../ui/comunes';
 
@@ -12,7 +13,7 @@ export function Cierre({ onHerramientas }: { onHerramientas: () => void }) {
       <h1 id="cierre-titulo" ref={ref} tabIndex={-1}>
         Cierre del módulo
       </h1>
-      {ep.closing.lines.map((l) => (
+      {lineasDeCierre(ep, estado).map((l) => (
         <Linea key={l.id} linea={l} rol={estado.role} />
       ))}
       <p className="cierre__contribucion">{ep.closing.contribution}</p>

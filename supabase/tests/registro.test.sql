@@ -362,6 +362,49 @@ end $$;
 reset role;
 
 -- =========================================================================
+-- 8c. Módulo 3: críticas propias (P2, P4, P6, P8) y resultados independientes
+-- =========================================================================
+select t.afirma((select count(*) from private.assessment_items where episode_id = 'm3-antes-de-abrir-las-puertas' and content_version = '1.0') = 10,
+  'el banco del módulo 3 tiene 10 preguntas');
+select t.afirma((select array_agg(question_id order by position) from private.assessment_items
+   where episode_id = 'm3-antes-de-abrir-las-puertas' and critical) = array['M3_P2', 'M3_P4', 'M3_P6', 'M3_P8'],
+  'críticas del módulo 3: P2, P4, P6 y P8');
+select t.afirma((select bool_and(active) from private.assessment_versions
+   where (episode_id, content_version) in (('ep1-una-ayuda-con-condiciones', '1.2'), ('m2-gracias-por-escucharme', '1.0'))),
+  'el banco del módulo 3 no desactiva los módulos 1 y 2');
+create function t.respuestas_m3(p_errores text[]) returns jsonb language sql as $$
+  select jsonb_object_agg(question_id,
+    case when question_id = any (p_errores)
+      then (select o from unnest(option_ids) o where o <> correct_option_id limit 1)
+      else correct_option_id end)
+  from private.assessment_items where episode_id = 'm3-antes-de-abrir-las-puertas' and content_version = '1.0';
+$$;
+insert into t.r values
+  ('m3_ok8', t.respuestas_m3(array['M3_P1', 'M3_P3'])),
+  ('m3_ok7', t.respuestas_m3(array['M3_P1', 'M3_P3', 'M3_P5'])),
+  ('m3_crit9', t.respuestas_m3(array['M3_P8']));
+select t.como('00000000-0000-0000-0000-00000000000a');
+set role authenticated;
+do $$
+declare i jsonb; r jsonb; antes int := (select count(*) from public.episode_results);
+begin
+  i := public.start_attempt('m3-antes-de-abrir-las-puertas', '1.0');
+  -- Las respuestas del módulo 2 no son válidas para el módulo 3.
+  perform t.espera_error(format('select public.submit_attempt(%L, %L)', (i ->> 'attempt_id')::uuid,
+    (select v from t.r where nombre = 'm2_todo')), 'invalid_answers');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm3_ok8'));
+  perform t.afirma((r ->> 'score')::int = 8 and (r ->> 'passed')::boolean, 'módulo 3: 8/10 con críticas correctas aprueba');
+  i := public.start_attempt('m3-antes-de-abrir-las-puertas', '1.0');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm3_ok7'));
+  perform t.afirma(not (r ->> 'passed')::boolean and r ->> 'estado' = 'insuficiente', 'módulo 3: 7/10 no aprueba');
+  i := public.start_attempt('m3-antes-de-abrir-las-puertas', '1.0');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm3_crit9'));
+  perform t.afirma(r ->> 'estado' = 'critico_fallido' and r -> 'failed_critical' = '["M3_P8"]', 'módulo 3: 9/10 con crítica fallida no aprueba');
+  perform t.afirma((select count(*) from public.episode_results) = antes + 3, 'los resultados del módulo 3 se suman sin sobrescribir otros módulos');
+end $$;
+reset role;
+
+-- =========================================================================
 -- 9. Privilegios: ninguna función pública ejecutable por anon; nada de private expuesto
 -- =========================================================================
 select t.afirma(not exists (

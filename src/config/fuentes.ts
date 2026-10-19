@@ -39,4 +39,8 @@ export const fuentes = [
     nombre: 'Guion «Gracias por escucharme» (módulo 2)',
     detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Personas y situaciones ficticias.',
   },
+  {
+    nombre: 'Guion «Antes de abrir las puertas» (módulo 3)',
+    detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Personas, cifras y lugares ficticios; la ficha de verificación es una herramienta del juego, no un formulario institucional.',
+  },
 ] as const;

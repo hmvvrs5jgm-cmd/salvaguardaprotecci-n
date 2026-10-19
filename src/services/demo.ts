@@ -8,6 +8,7 @@ export async function cargarClaveDemo(episodeId: string): Promise<AnswerKey> {
     throw new Error('La clave no está disponible en modo registro: la puntuación la calcula el servidor.');
   }
   if (episodeId === 'm2-gracias-por-escucharme') return (await import('../content/episodio2/clave')).claveM2;
+  if (episodeId === 'm3-antes-de-abrir-las-puertas') return (await import('../content/episodio3/clave')).claveM3;
   return (await import('../content/episodio1/clave')).claveEp1;
 }
 
