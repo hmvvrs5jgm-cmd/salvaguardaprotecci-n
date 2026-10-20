@@ -41,7 +41,7 @@ describe('módulo 6', () => {
     expect(screen.getAllByText(/— Revisar:/)).toHaveLength(5);
   });
 
-  it('Alma se muestra con una silueta provisional accesible', () => {
+  it('Alma se muestra con su ilustración y una descripción accesible', () => {
     sembrar('M6_E05');
     montar('/m6/jugar');
     expect(screen.getByRole('img', { name: /Alma, niña participante de 12 años/ })).toBeInTheDocument();

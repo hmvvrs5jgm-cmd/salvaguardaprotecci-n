@@ -30,6 +30,12 @@ import nicolasExplica from '../assets/personajes/nicolas-explica.webp';
 import paulaAtenta from '../assets/personajes/paula-atenta.webp';
 import paulaPensativa from '../assets/personajes/paula-pensativa.webp';
 import paulaExplica from '../assets/personajes/paula-explica.webp';
+import almaAtenta from '../assets/personajes/alma-atenta.webp';
+import almaPensativa from '../assets/personajes/alma-pensativa.webp';
+import almaExplica from '../assets/personajes/alma-explica.webp';
+import valeriaAtenta from '../assets/personajes/valeria-atenta.webp';
+import valeriaPensativa from '../assets/personajes/valeria-pensativa.webp';
+import valeriaExplica from '../assets/personajes/valeria-explica.webp';
 
 const personajes: Partial<Record<CharacterId, Record<Pose, string>>> = {
   mariela: { atenta: marielaAtenta, pensativa: marielaPensativa, explica: marielaExplica },
@@ -41,6 +47,8 @@ const personajes: Partial<Record<CharacterId, Record<Pose, string>>> = {
   diego: { atenta: diegoAtenta, pensativa: diegoPensativa, explica: diegoExplica },
   nicolas: { atenta: nicolasAtenta, pensativa: nicolasPensativa, explica: nicolasExplica },
   paula: { atenta: paulaAtenta, pensativa: paulaPensativa, explica: paulaExplica },
+  alma: { atenta: almaAtenta, pensativa: almaPensativa, explica: almaExplica },
+  valeria: { atenta: valeriaAtenta, pensativa: valeriaPensativa, explica: valeriaExplica },
 };
 
 const descripciones: Record<CharacterId, string> = {
@@ -51,8 +59,8 @@ const descripciones: Record<CharacterId, string> = {
   profesional: 'Profesional de un servicio de atención, con chaqueta de punto verde, gafas y credencial.',
   nicolas: 'Nicolás, colega a cargo de logística y transporte, con polo azul marino y credencial.',
   paula: 'Paula, colaboradora adulta del equipo territorial, con camisa verde azulado y credencial.',
-  alma: 'Alma, niña participante de 12 años (silueta provisional).',
-  valeria: 'Valeria, profesional de comunicaciones (silueta provisional).',
+  alma: 'Alma, niña participante de 12 años, con trenzas y suéter coral.',
+  valeria: 'Valeria, profesional de comunicaciones, con chaqueta granate, gafas y credencial.',
   camila: 'Camila, participante adolescente, con suéter granate y jeans.',
   diego: 'Diego, participante de 11 años, con suéter mostaza y jeans.',
 };

@@ -12,6 +12,8 @@ Imágenes **generadas con IA**, proporcionadas por la institución el 18/10/2026
 | `src/assets/personajes/diego-*.webp` | Diego, 11 años (suéter mostaza), módulo 3 | atenta, pensativa, explica |
 | `src/assets/personajes/nicolas-*.webp` | Nicolás, logística y transporte (polo azul marino y credencial), módulo 3 | atenta, pensativa, explica |
 | `src/assets/personajes/paula-*.webp` | Paula, equipo territorial (camisa verde azulado y credencial), módulo 5 | atenta, pensativa, explica |
+| `src/assets/personajes/alma-*.webp` | Alma, 12 años (trenzas y suéter coral), módulo 6 | atenta, pensativa, explica |
+| `src/assets/personajes/valeria-*.webp` | Valeria, comunicaciones (chaqueta granate, gafas y credencial), módulo 6 | atenta, pensativa, explica |
 | `src/assets/personajes/profesional-*.webp` | Profesional de atención (chaqueta de punto verde, gafas y credencial), módulo 2 | atenta, pensativa, explica |
 
 **Módulo 2.** Lucía y la profesional de atención fueron proporcionadas por la institución el 19/10/2026 (también generadas con IA). Lucía se muestra algo más baja que las personas adultas. La persona señalada no tiene retrato.
@@ -20,11 +22,9 @@ Imágenes **generadas con IA**, proporcionadas por la institución el 18/10/2026
 
 **Módulo 5.** Paula fue proporcionada por la institución el 19/10/2026 (generada con IA, tres poses). La persona señalada, la adolescente y el colega de E09 no tienen retrato: el guion pide no representar a la persona influyente como sombra ni como villano.
 
-**Módulo 6.** Alma y Valeria aún no tienen ilustración: se muestra una **silueta neutra provisional** (SVG en `src/ui/ilustraciones.tsx`) con una descripción accesible. Elena y el Referente reutilizan sus imágenes. La persona cuidadora y la cuenta externa no tienen retrato. La «publicación expuesta» no usa ninguna imagen: solo etiquetas por tipo de dato. Para sustituir las siluetas, en el mismo estilo, de cuerpo entero y en tres poses (`atenta`, `pensativa`, `explica`):
-- `alma-*.webp`: niña de 12 años, participante del taller, con una expresión natural y digna (guion, apartado 23).
-- `valeria-*.webp`: profesional adulta de comunicaciones.
+**Módulo 6.** Alma y Valeria fueron proporcionadas por la institución el 20/10/2026, también generadas con IA y con tres poses cada una. La persona cuidadora y la cuenta externa no tienen retrato. La «publicación expuesta» no usa ninguna imagen: solo etiquetas por tipo de dato.
 
-Después, añade las importaciones en `personajes`.
+Si en el futuro un personaje no tiene ilustración, se muestra una silueta neutra provisional (`Silueta` en `src/ui/ilustraciones.tsx`).
 
 Los personajes se muestran **de cuerpo entero sobre un fondo neutro**, sin escenarios (decisión de la institución del 19/10/2026). Las escenas sin personajes (E05, E05B y E06) no muestran escenario. La portada no lleva imagen.
 
