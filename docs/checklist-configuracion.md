@@ -76,7 +76,7 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [ ] Confirmar los términos de uso de la herramienta de IA.
 
 ## Backend y publicación (ver `docs/despliegue.md`)
-- [ ] Proyecto Supabase creado por la institución, con las migraciones aplicadas.
+- [ ] Proyecto Supabase creado por la institución, con todas las migraciones de `supabase/migrations/` aplicadas en orden (incluidos los bancos de los módulos 2 a 6 y `20261020000010_csv_columna_modulo.sql`).
 - [ ] Plantilla de correo con el código `{{ .Token }}`; SMTP propio configurado.
 - [ ] MFA TOTP habilitado.
 - [ ] Punto Focal designado con `private.asignar_punto_focal`.

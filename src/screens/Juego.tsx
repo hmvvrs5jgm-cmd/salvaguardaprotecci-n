@@ -77,6 +77,12 @@ export function Juego({ modo }: { modo: ModoJuego }) {
   );
 }
 
+/** Código corto de la escena (E01, E05B…); las escenas de rama o reparación no muestran código. */
+function codigoVisible(id: string): string | null {
+  const c = id.replace(/^M\d+_/, '');
+  return /^E\d+[A-Z]?$/.test(c) ? c : null;
+}
+
 function EscenaVista({ escena, estado, modo }: { escena: Scene; estado: EstadoPractica; modo: ModoJuego }) {
   const rol = estado.role!;
   const titulo = useEnfocar<HTMLHeadingElement>(escena.id);
@@ -88,7 +94,7 @@ function EscenaVista({ escena, estado, modo }: { escena: Scene; estado: EstadoPr
       <header className="escena__cabecera">
         {escena.variationLabel && <p className="rotulo-variacion">{escena.variationLabel}</p>}
         <h1 id="escena-titulo" ref={titulo} tabIndex={-1}>
-          <span className="escena__codigo">{escena.id.replace(/^M\d+_/, '')}</span> {escena.title}
+          {codigoVisible(escena.id) && <span className="escena__codigo">{codigoVisible(escena.id)}</span>} {escena.title}
         </h1>
       </header>
 

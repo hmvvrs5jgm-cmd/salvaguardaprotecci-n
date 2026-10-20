@@ -587,6 +587,7 @@ const M2_E08: Scene = {
 
 const M2_REPARAR_DERIVACION: Scene = {
   id: 'M2_REPARAR_DERIVACION',
+  opcional: true,
   title: 'Reparar la derivación',
   setting: 'Sala de coordinación.',
   characters: ['lucia'],
@@ -641,6 +642,7 @@ const M2_VERIFICAR: Scene = {
 
 const M2_SIN_SERVICIO: Scene = {
   id: 'M2_SIN_SERVICIO',
+  opcional: true,
   title: 'Derivación pendiente',
   setting: 'Sala de coordinación.',
   characters: ['referente'],

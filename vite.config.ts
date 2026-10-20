@@ -38,6 +38,18 @@ export default defineConfig({
   build: {
     sourcemap: false,
     assetsInlineLimit: 0,
+    // Las librerías y el contenido de los módulos van en paquetes separados (mejor caché al actualizar contenido).
+    rollupOptions: archivoUnico
+      ? {}
+      : {
+          output: {
+            manualChunks: (id) => {
+              if (id.includes('node_modules/react') || id.includes('node_modules/scheduler')) return 'react';
+              if (/src\/content\/episodio\d+\/(?!clave)/.test(id)) return 'contenido';
+              return undefined;
+            },
+          },
+        },
   },
   test: {
     globals: true,

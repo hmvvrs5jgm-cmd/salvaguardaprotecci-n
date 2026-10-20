@@ -564,6 +564,7 @@ const M3_E08: Scene = {
 
 const M3_INICIO_ADAPTADO: Scene = {
   id: 'M3_INICIO_ADAPTADO',
+  rama: 'jornada:adaptada',
   title: 'Inicio adaptado',
   setting: 'Actividad interior del centro comunitario, en la planta baja.',
   characters: ['camila', 'elena'],
@@ -586,6 +587,7 @@ const M3_INICIO_ADAPTADO: Scene = {
 
 const M3_SUSPENSION: Scene = {
   id: 'M3_SUSPENSION',
+  rama: 'jornada:suspendida',
   title: 'Suspender sin dejar de cuidar',
   setting: 'Actividad interior del centro comunitario. El grupo espera acompañado.',
   characters: ['elena'],
@@ -610,6 +612,7 @@ const M3_SUSPENSION: Scene = {
 
 const M3_E09: Scene = {
   id: 'M3_E09',
+  rama: 'jornada:adaptada',
   title: 'Un cambio durante la jornada',
   setting: 'Taller interior en la planta baja.',
   characters: ['camila'],
@@ -664,6 +667,7 @@ const M3_E09: Scene = {
 
 const M3_E09S: Scene = {
   id: 'M3_E09S',
+  rama: 'jornada:suspendida',
   title: 'Un cambio durante la espera',
   setting: 'Espacio de espera del centro comunitario. No hay taller.',
   characters: ['camila'],

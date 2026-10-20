@@ -39,7 +39,10 @@ jobs:
         run: |
           npx tsx scripts/check-release-config.ts
           npx vite build --outDir dist-registro
-          if grep -q 'P1:"P1-B"' dist-registro/assets/*.js; then echo "La clave aparece en el paquete de registro"; exit 1; fi
+          # Ninguna clave de respuestas (módulos 1 a 6) debe llegar al paquete de registro.
+          for k in 'P1:"P1-B"' 'M2_P1:"M2_P1-B"' 'M3_P1:"M3_P1-A"' 'M4_P1:"M4_P1-B"' 'M5_P1:"M5_P1-B"' 'M6_P1:"M6_P1-C"'; do
+            if grep -q "$k" dist-registro/assets/*.js; then echo "La clave $k aparece en el paquete de registro"; exit 1; fi
+          done
       - name: Pruebas de base de datos (PostgreSQL local)
         run: npm run test:db
       - name: Pruebas de extremo a extremo y accesibilidad

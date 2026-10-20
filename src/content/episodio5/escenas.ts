@@ -241,6 +241,7 @@ const M5_E04: Scene = {
 
 const M5_CANAL_HABITUAL: Scene = {
   id: 'M5_CANAL_HABITUAL',
+  rama: 'canal:habitual',
   title: 'Canal habitual',
   setting: 'Interfaz ficticia de canales de reporte.',
   characters: [],
@@ -284,6 +285,7 @@ const M5_CANAL_HABITUAL: Scene = {
 
 const M5_CONFLICTO: Scene = {
   id: 'M5_CONFLICTO',
+  rama: 'canal:conflicto',
   title: 'Un posible conflicto de interés',
   setting: 'Interfaz ficticia de canales de reporte.',
   characters: ['paula'],

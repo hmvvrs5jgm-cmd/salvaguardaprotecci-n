@@ -209,6 +209,13 @@ export interface Scene {
   /** Descripción del entorno para la versión de lectura y la documentación. */
   setting: string;
   characters: CharacterId[];
+  /**
+   * Rama a la que pertenece la escena, con la forma «grupo:opción» (p. ej., «jornada:suspendida»).
+   * El contador de escenas solo cuenta la opción recorrida de cada grupo.
+   */
+  rama?: string;
+  /** Escena que solo se visita en algunos recorridos (reparación o contingencia): no cuenta si no se visitó. */
+  opcional?: boolean;
   /** Rótulo visible para escenas hipotéticas o de contingencia. */
   variationLabel?: string;
   intro: Line[];

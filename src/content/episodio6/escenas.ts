@@ -485,6 +485,7 @@ const M6_E08: Scene = {
 
 const M6_NO_REPUBLICAR: Scene = {
   id: 'M6_NO_REPUBLICAR',
+  rama: 'desenlace:no-republicar',
   title: 'No volver a publicar',
   setting: 'Espacio de coordinación.',
   characters: ['elena'],
@@ -500,6 +501,7 @@ const M6_NO_REPUBLICAR: Scene = {
 
 const M6_CONTENIDO_ALTERNATIVO: Scene = {
   id: 'M6_CONTENIDO_ALTERNATIVO',
+  rama: 'desenlace:contenido-alternativo',
   title: 'Contenido general e independiente',
   setting: 'Espacio de coordinación con el boceto de una ilustración general.',
   characters: ['valeria'],

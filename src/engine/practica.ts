@@ -14,6 +14,7 @@ import type {
   Option,
   RoleId,
   Scene,
+  SceneId,
   ToolId,
 } from '../content/types';
 
@@ -295,9 +296,29 @@ export function reducir(ep: Episode, s: EstadoPractica, a: Accion): EstadoPracti
   }
 }
 
-/** Progreso visible: posición de la escena en el recorrido. */
+/**
+ * Escenas del recorrido actual en orden: excluye las ramas no tomadas (antes de elegir, cuenta la primera opción de
+ * cada grupo) y las escenas opcionales no visitadas.
+ */
+export function ordenDelRecorrido(ep: Episode, s: EstadoPractica): SceneId[] {
+  const visitadas = new Set([...s.recorrido, s.node]);
+  const grupo = (rama: string) => rama.split(':')[0] ?? rama;
+  const ramas = ep.order.map((id) => ({ id, rama: escenaDe(ep, id).rama })).filter((x) => x.rama) as { id: string; rama: string }[];
+  // Opción de cada grupo: la visitada en este recorrido o, si aún no se eligió, la primera del orden.
+  const elegida = new Map<string, string>();
+  for (const x of ramas) if (visitadas.has(x.id)) elegida.set(grupo(x.rama), x.rama);
+  for (const x of ramas) if (!elegida.has(grupo(x.rama))) elegida.set(grupo(x.rama), x.rama);
+  return ep.order.filter((id) => {
+    const sc = escenaDe(ep, id);
+    if (sc.opcional && !visitadas.has(id)) return false;
+    return !sc.rama || elegida.get(grupo(sc.rama)) === sc.rama;
+  });
+}
+
+/** Progreso visible: posición de la escena en el recorrido actual. */
 export function progreso(ep: Episode, s: EstadoPractica): { actual: number; total: number } {
-  const total = ep.order.length;
+  const orden = ordenDelRecorrido(ep, s);
+  const total = orden.length;
   if (s.node === 'CIERRE') return { actual: total, total };
-  return { actual: ep.order.indexOf(s.node) + 1, total };
+  return { actual: orden.indexOf(s.node) + 1, total };
 }

@@ -228,7 +228,7 @@ select t.afirma((select count(*) from public.admin_list_results(p_content_versio
 do $$
 declare csv text := public.admin_export_csv();
 begin
-  perform t.afirma(csv like '"Nombre","Correo"%', 'CSV con encabezados');
+  perform t.afirma(csv like '"Nombre","Correo","Organización","Módulo","Versión"%', 'CSV con encabezados (columna «Módulo»)');
   perform t.afirma(position('"''=HIPERVINCULO(""x"")"' in csv) > 0, 'CSV neutraliza fórmulas y escapa comillas');
   perform t.afirma(position('"=HIPERVINCULO' in csv) = 0, 'ninguna celda empieza por =');
   perform t.afirma(current_setting('response.headers', true) like '%no-store%', 'exportación sin caché');
