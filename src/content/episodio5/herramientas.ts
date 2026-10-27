@@ -14,13 +14,15 @@ export const herramientasM5: Tool[] = [
         heading: 'Criterio',
         paragraphs: [
           'Prestigio, cargo, aportes, amistad o reputación no descartan una preocupación ni prueban culpabilidad.',
-          'Tolerancia cero no significa culpabilidad automática. Reportar de buena fe no exige demostrar el hecho, y que una preocupación no llegue a confirmarse no demuestra, por sí solo, mala fe de quien reportó.',
+          'Tolerancia cero no significa culpabilidad automática. Reportar de buena fe no exige demostrar el hecho; una preocupación no confirmada no prueba, por sí sola, mala fe.',
+          'Es una orientación pedagógica validada por el Punto Focal: no equivale a una declaración legal de inmunidad ni autoriza acusaciones deliberadamente falsas. Comunica lo observado o conocido, sin investigar por tu cuenta ni presentar sospechas como hechos comprobados.',
         ],
       },
     ],
     sources: [
       'Procedimiento 3.3 (protección de supervivientes, denunciantes y testigos)',
       'Plan de Salvaguarda FY2026, anexo 2 (declaración de confidencialidad y no represalias)',
+      'Respuestas revisadas del Punto Focal, 23/10/2026, punto 2.11 (redacción validada)',
       'Guion del módulo 5, escenas M5_E01 y M5_E03',
     ],
   },
@@ -37,6 +39,7 @@ export const herramientasM5: Tool[] = [
         bullets: [
           'Vías institucionales: el Punto Focal de Salvaguarda, cualquier gerente de ChildFund, la dirección directa (complaints@childfund.org) y Speak Up. Consulta el panel «Cómo comunicar una preocupación real».',
           'En una organización socia: su mecanismo, articulado con ChildFund según la ruta. Si una estructura local está involucrada o bloquea la comunicación, se usa una alternativa habilitada.',
+          'Ante un posible conflicto del receptor habitual, usa otra vía que no dependa de esa persona: otro gerente o la Dirección sin conflicto, complaints@childfund.org o Speak Up. Si el conflicto alcanza a la Dirección o al Punto Focal, usa la vía global autorizada.',
           'No necesitas probar parcialidad para informar un posible conflicto: lo valoran las instancias competentes, que deciden quién interviene y con qué acceso.',
           'La comunicación se hace dentro de 24 horas desde que se conoce la preocupación; si hay peligro inmediato, la respuesta urgente no espera.',
         ],
@@ -102,13 +105,14 @@ export const herramientasM5: Tool[] = [
         ],
         bullets: [
           'Está prohibida cualquier forma de represalia, intimidación, discriminación o trato adverso contra denunciantes, sobrevivientes o testigos.',
-          'Quien conoce un intento, amenaza o acto de represalia lo comunica de inmediato por la vía autorizada.',
+          'Quien conoce un intento, amenaza o acto de represalia lo comunica de inmediato por la vía autorizada. Este deber alcanza al personal de ChildFund y al personal y los representantes de las organizaciones socias. No se espera a demostrar la represalia para alertar.',
           'Comunica la frase o el cambio conocido, cuándo se advirtió y lo que se desconoce, sin calificarlo como hecho probado.',
         ],
       },
     ],
     sources: [
       'Plan de Salvaguarda FY2026: principio de no represalias, apartado X y anexo 2',
+      'Respuestas revisadas del Punto Focal, 23/10/2026, punto 2.10 (alcance al personal y a los socios)',
       'Procedimiento 3.3',
       'Guion del módulo 5, escenas M5_E07, M5_MEDIDAS y M5_E08',
     ],
@@ -144,6 +148,7 @@ export const herramientasM5: Tool[] = [
         bullets: [
           'Las medidas que pueden valorar los responsables incluyen un punto de contacto sin conflicto, seguimiento seguro, revisión de cambios adversos y ajustes proporcionales al riesgo.',
           'Ninguna medida protectora expulsa a la adolescente, aísla a quien comunicó ni obliga a confrontar a nadie.',
+          'Si la persona que reportó trabaja en una organización socia y sufre un cambio adverso, ChildFund puede articular con la Junta y la coordinación del socio, siempre que no tengan conflicto de interés, compartiendo solo lo indispensable. Si están implicadas, se usa una instancia alternativa y los canales globales.',
         ],
       },
     ],

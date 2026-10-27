@@ -19,10 +19,16 @@ export const herramientasM6: Tool[] = [
         bullets: [
           'Para publicar, se obtiene consentimiento informado y, cuando el sujeto principal es una niña o un niño, consentimiento escrito de su madre, padre o tutor.',
           'Una negativa o un cambio de preferencia no se usan para excluir de programas o ayudas.',
+          'El asentimiento de la niña o el niño se pide de forma individual y sin presión, se comprueba su comprensión con sus propias palabras y se registra la aceptación o la negativa. Una señal de incomodidad detiene la toma o el uso.',
+          'El permiso se revisa antes de cada nuevo uso y se renueva si cambian la finalidad, la audiencia, la plataforma, la duración, el nivel de identificación o el contexto de riesgo. Un permiso para asistir a un evento no autoriza a publicar.',
         ],
       },
     ],
-    sources: ['Procedimiento 5.1.11.3 y 5.1.14.4', 'Guion del módulo 6, escenas M6_E02 y M6_E05'],
+    sources: [
+      'Procedimiento 5.1.11.3 y 5.1.14.4',
+      'Respuestas revisadas del Punto Focal, 23/10/2026, punto 3.4 (asentimiento y revisión del permiso, propuesta)',
+      'Guion del módulo 6, escenas M6_E02 y M6_E05',
+    ],
   },
   {
     id: 'm6-revision',

@@ -60,6 +60,7 @@ export const herramientasM3: Tool[] = [
         paragraphs: [
           'Dos o más personas adultas supervisan todas las actividades con niñas, niños y adolescentes y están siempre visibles y presentes.',
           'No significa que dos personas adultas basten para cualquier cantidad de participantes, espacio o necesidad: la suficiencia se valora en cada actividad.',
+          'En las fuentes revisadas no hay una proporción numérica universal de personas adultas por participante. La evaluación de riesgo determina el personal adicional según la edad, el número de participantes, la discapacidad, la actividad, los desplazamientos y las condiciones del entorno.',
         ],
       },
       {
@@ -109,6 +110,9 @@ export const herramientasM3: Tool[] = [
         bullets: [
           'Las visitas se coordinan con antelación y siguen el procedimiento y la lista de verificación de visitas.',
           'ChildFund puede rechazar visitas no anunciadas; la decisión no corresponde a quien está en la actividad.',
+          'Las visitas de patrocinadores y otras visitas de ChildFund las decide el Director Nacional, después de consultar a la Oficina Internacional.',
+          'En una organización socia, su coordinación autoriza las visitas de su propia competencia, con revisión de salvaguarda, identificación, finalidad, supervisión y evaluación de riesgo. Esa autorización no permite omitir el procedimiento de visitas de ChildFund ni el contacto no supervisado con niñas, niños o adolescentes.',
+          'Si no está clara quién decide, se pospone el acceso y se consulta: no se improvisa la visita.',
           'La persona visitante siempre está acompañada por personal autorizado, no intercambia información de contacto y sigue los procedimientos de consentimiento fotográfico.',
           'La supervisión de una visita nunca se delega en niñas, niños o adolescentes.',
           'Se aplican controles sin acusar ni estigmatizar: una relación con un donante no crea una excepción.',
@@ -118,7 +122,8 @@ export const herramientasM3: Tool[] = [
         heading: 'Imágenes y datos',
         bullets: [
           'Participación e imagen son decisiones diferenciadas: no se condiciona la participación a aparecer en fotografías.',
-          'Antes de publicar se obtiene consentimiento informado y, cuando el sujeto principal es una niña o un niño, también el consentimiento escrito de su madre, padre o tutor. Un permiso previo se revisa por propósito, vigencia y alcance.',
+          'Antes de publicar se obtiene consentimiento informado y, cuando el sujeto principal es una niña o un niño, también el consentimiento escrito de su madre, padre o tutor, con el formato institucional vigente. Un permiso previo se revisa por propósito, vigencia y alcance.',
+          'Además, se pregunta a la niña o el niño de forma individual y sin presión: para qué es la imagen, quién la verá y dónde podría publicarse, y que negarse no afecta su participación. Una señal de incomodidad o rechazo detiene la toma o el uso, aunque exista autorización adulta.',
           'Difuminar un rostro no elimina toda posibilidad de identificación: también importan la voz, el uniforme, la ubicación, los nombres y el contexto.',
           'Una alternativa, como fotografiar los materiales, puede cumplir el objetivo comunicacional sin excluir ni señalar a nadie.',
           'Los datos e imágenes se guardan de forma segura y solo acceden las personas autorizadas.',
@@ -127,6 +132,7 @@ export const herramientasM3: Tool[] = [
     ],
     sources: [
       'Procedimiento 5.1.10 (visitas seguras), en especial 5.1.10.7 y 5.1.10.12',
+      'Respuestas revisadas del Punto Focal, 23/10/2026, puntos 2.5 y 3.4',
       'Procedimiento 5.1.14.4–5.1.14.7 (consentimiento, dignidad y seguridad de la información)',
       'Guion del módulo 3, escenas M3_E05 y M3_E06',
     ],
@@ -152,11 +158,28 @@ export const herramientasM3: Tool[] = [
           'Reconocer a alguien no confirma su autorización. Se verifican la identidad y la autorización por el mecanismo previsto, con acceso restringido.',
           'No se distribuyen documentos de identidad ni datos personales para resolver una verificación.',
           'Si el niño o la niña expresa temor o hay conflicto con quien recogería, no se hace un contacto automático que lo exponga: se activa la valoración de los responsables. No se decide custodia ni se usa coerción física.',
+          'Procedimiento de salida propuesto: lista restringida de participantes y personas autorizadas; verificación de identidad y autorización; registro de hora y responsable de la entrega; supervisión si hay retrasos. La salida autónoma de adolescentes solo procede con una modalidad autorizada y evaluada como segura.',
+        ],
+      },
+      {
+        heading: 'Control de transporte propuesto (pendiente de validación)',
+        paragraphs: [
+          'Propuesta para validar por administración o logística y por salvaguarda. No es una lista oficial ni sustituye los requisitos de la autoridad de tránsito competente, que dependen de la modalidad, el vehículo y la ruta.',
+        ],
+        bullets: [
+          'Proveedor: contratación verificable, habilitación para la modalidad y obligaciones de salvaguarda en el acuerdo.',
+          'Conductor: identidad, licencia vigente de la categoría adecuada, aptitud para conducir y conocimiento de la ruta.',
+          'Vehículo: matrícula, revisión y habilitaciones vigentes; neumáticos, frenos, puertas y cinturones funcionales; seguros verificados.',
+          'Capacidad: una plaza y sujeción adecuada para cada ocupante; nadie de pie, sobre las piernas de otra persona ni en espacios no habilitados.',
+          'Acompañamiento: personas adultas designadas y formadas; quien conduce no sustituye la supervisión.',
+          'Trayecto, embarque y salida: ruta y paradas acordadas, plan ante imprevistos, conteo en cada transición y revisión final del vehículo.',
+          'Un incumplimiento crítico impide iniciar o continuar hasta resolverlo de forma segura. Los formularios no se completan después de salir.',
         ],
       },
     ],
     sources: [
       'Procedimiento 5.1.11.1 (directrices de viaje)',
+      'Respuestas revisadas del Punto Focal, 23/10/2026, puntos 2.6 y 2.7 y anexo A (propuestas para validación)',
       'Procedimiento 5.1.14.6–5.1.14.7 (información sensible y confidencialidad)',
       'Guion del módulo 3, escenas M3_E04 y M3_E10',
     ],
@@ -173,7 +196,7 @@ export const herramientasM3: Tool[] = [
           'Si tampoco se puede garantizar el resto, se suspende o reprograma la jornada completa.',
           'Las condiciones se mantienen durante toda la actividad: un cambio a mitad de jornada exige pausar lo afectado.',
           'Suspender no equivale a dejar a nadie sin cuidado: se comunica, se mantiene el acompañamiento y se coordina una entrega segura.',
-          'La persona responsable de la actividad valida la adaptación y la reanudación, con asesoría de salvaguarda cuando se necesita. Puedes detener una acción insegura y pedir apoyo.',
+          'La persona responsable de la actividad, identificada antes de iniciarla, verifica que se corrigieron las causas de la suspensión y documenta las condiciones para reanudar. Si hay una preocupación de salvaguarda, consulta al Punto Focal; si interviene una autoridad o un servicio de emergencia, se siguen sus indicaciones. No se reanuda mientras persista un riesgo que no puede controlarse. Puedes detener una acción insegura y pedir apoyo.',
           'Adaptar o suspender puede ser la decisión correcta: completar la agenda no es el indicador de éxito.',
         ],
       },

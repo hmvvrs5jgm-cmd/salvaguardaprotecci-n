@@ -78,3 +78,30 @@ Registro de diferencias materiales entre las fuentes, o entre las fuentes y el g
 | 47 | Guion, apartado 15 | «Marca interna de no uso» para imágenes que no deben reutilizarse | No se ha confirmado que exista un mecanismo institucional de etiquetado. | Se presenta como propuesta con acceso restringido, nunca como una lista pública de personas afectadas. **Confirmar el procedimiento de archivo de comunicaciones.** |
 | 48 | Guion, apartado 3 | Retratos de Alma y Valeria | Resuelto el 20/10/2026 con ilustraciones de la institución. La persona cuidadora y la cuenta externa no tienen retrato. | Ambas tienen sus tres poses (`docs/activos-graficos.md`). La publicación expuesta se representa solo con etiquetas por tipo de dato. |
 | 49 | Guion, apartado 20 | Umbral 8/10 y críticas P2, P4, P5 y P6 | Propuesta pedagógica del guion. | Se aplica en la demostración y en el servidor (módulo `m6-una-imagen-que-no-debio-publicarse`). **Pendiente de adopción institucional.** |
+
+## Resoluciones del documento «Respuestas revisadas» (23/10/2026)
+
+El Punto Focal de Salvaguarda entregó las respuestas a la consulta institucional. Estado según ese documento: **confirmado** (decisión comunicada), **sustentado** (respaldado por fuentes), **propuesto** (pendiente de validación) o **pendiente** (falta un dato o una corrección). El juego aplica lo confirmado y lo sustentado; lo propuesto se muestra como propuesta.
+
+| # | Resolución | Estado | Cambio en el juego |
+|---|---|---|---|
+| 3, 15 | La persona adulta decide sobre la asistencia y sobre acudir personalmente a la policía; no es una facultad absoluta para impedir una denuncia legalmente obligatoria. El COIP, art. 276, no se limita a víctimas mujeres ni a profesionales de la salud; puede alcanzar al personal según funciones y hechos. | Corregido; validar la aplicación concreta con Asesoría Legal | Herramienta «Opciones de apoyo» (módulo 1): decisión de la persona separada del reporte interno y de las obligaciones de terceros; alcance corregido del art. 276. |
+| 12 | Banco alternativo de diez preguntas por módulo (forma B). | Propuesto | Los nuevos intentos de la demostración alternan forma A y forma B, rotulada como propuesta. El registro sigue usando solo la forma A. |
+| 13 | Insignia de práctica por llegar a la respuesta adecuada o a una reparación segura, aunque haya errores previos. | Confirmado | Sin cambios: el cierre ya separa insignias y aprobación. |
+| 16 | No adoptar «nivel 2 = riesgo para la vida». Prevalecen las definiciones del Procedimiento 5.2.3; ante riesgo inmediato se protege, se activa asistencia urgente y se reporta. | Requiere armonización institucional (Dirección País) | Herramientas «Ruta» y «Roles, niveles y plazos»: nota de armonización; nivel 1 puede requerir emergencia; nivel 3 no requiere investigación concluida. |
+| 19 | Ajustar la consulta con la familia cuando el representante es presunto agresor o hay conflicto de interés. | Confirmado; pendiente actualizar la ruta gráfica | Herramientas «Ruta» (módulo 1) y «Familia y redes» (módulo 2). |
+| 20 | Si la revelación llega a ChildFund, su Punto Focal coordina recepción, evaluación inicial, protección inmediata y articulación. | Confirmado | Tarjeta de niveles (módulo 1). |
+| 25, 32, 38, 44, 49 | Regla 8/10 y cuatro críticas en el mismo intento, como criterio pedagógico del curso. | Confirmado | Notas de umbral sin cambios de regla. |
+| 26 | Sin proporción numérica universal; regla de dos adultos y evaluación de riesgo. | Sustentado | Herramienta «Supervisión» (módulo 3). |
+| 27, 45 | Formato institucional de imagen y procedimiento de asentimiento y revisión del permiso. | Requisito sustentado; asentimiento propuesto; formato pendiente de identificar | Herramientas «Visitas e imágenes» (módulo 3) y «Tres decisiones distintas» (módulo 6). |
+| 28 | La coordinación del socio autoriza las visitas de su competencia; las de ChildFund las decide el Director Nacional. | Decisión local con límite institucional | Herramienta «Visitas e imágenes» (módulo 3). |
+| 29, 30 | Control de transporte y procedimiento de salida. | Propuesto | Herramientas «Transporte y salida» y «Pausar o suspender» (módulo 3), rotuladas como propuesta. |
+| 33 | Logística no recibe acceso al expediente; instrucción operativa mínima separada. | Propuesto | Herramienta «Accesos por función» (módulo 4). |
+| 34 | Siete años es una propuesta interna, no un mínimo legal. | Propuesto | Herramienta «Contener y conservar» (módulo 4). |
+| 36 | Términos de la LOPDP (arts. 43 y 46): 5 días a SPDP y ARCOTEL, 2 días del encargado al responsable, 3 días a la persona afectada. | Reglas legales verificadas; procedimiento interno pendiente | Herramienta «Si hay una exposición» (módulo 4), sin convertirlos en permiso para esperar. |
+| 39 | Ante conflicto del receptor: otro gerente o Dirección sin conflicto, complaints o Speak Up; vía global si alcanza a Dirección o al Punto Focal. | Sustentado | Herramienta «Ruta y alternativas» (módulo 5). |
+| 40 | El deber de comunicar amenazas o represalias se extiende al personal y a los socios. | Confirmado | Herramienta «Posibles represalias» y nota de fuente de M5_E07. |
+| 41 | Frase de buena fe validada como orientación pedagógica. | Confirmado | Herramienta 1 (módulo 5), con la redacción validada. |
+| 42 | Articulación con la Junta y la coordinación del socio sin conflicto de interés. | Confirmado con salvaguardas propuestas | Herramienta «Apoyo» (módulo 5). |
+
+Siguen abiertos: 1.1 (versiones exactas aprobadas), 3.3 (consentimiento por intervención), 5.1 a 5.4 (privacidad del registro), sección 6 (TI, comunicaciones y marca) y sección 7 (puesta en marcha).

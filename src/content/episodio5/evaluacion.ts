@@ -207,5 +207,5 @@ export const textosResultado: TextosResultado = {
     `Obtuviste ${score}/10. Antes de aprobar necesitas reforzar un criterio esencial. Revisa la orientación y vuelve a intentarlo.`,
   insuficiente: 'Puedes practicar y consultar herramientas antes de repetir la evaluación.',
   practicaReforzada:
-    'Este nuevo intento repite las mismas diez preguntas: es práctica reforzada, no un intento independiente. Aún no existe un banco de preguntas equivalentes revisado.',
+    'Este nuevo intento repite las mismas diez preguntas: es práctica reforzada, no un intento independiente. La forma B del banco alternativo está pendiente de validación y todavía no se usa en el registro.',
 };

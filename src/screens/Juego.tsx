@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { avisoServicios, canalesParaRol, directorioLocal, emergencia, esEnlaceActivo, serviciosPublicos } from '../config/canales';
+import {
+  avisoServicios,
+  canalesParaRol,
+  directorioLocal,
+  emergencia,
+  esEnlaceActivo,
+  notaAlternativas,
+  revisionDirectorio,
+  serviciosPublicos,
+} from '../config/canales';
 import { panelApoyos } from '../content/herramientas';
 import type {
   CardsDecision,
@@ -800,6 +809,7 @@ export function ListaServicios() {
   return (
     <>
       <p className="aviso aviso--info">{avisoServicios}</p>
+      <p className="ayuda">{revisionDirectorio}</p>
       <ul className="canales">
         {visibles.map((s) => (
           <li key={s.id} className="canal">
@@ -825,6 +835,8 @@ export function ListaServicios() {
 
 export function ListaCanales({ rol }: { rol: RoleId }) {
   return (
+    <>
+    <p className="ayuda">{notaAlternativas}</p>
     <ul className="canales">
       {canalesParaRol(rol).map((c) => (
         <li key={c.id} className="canal">
@@ -859,6 +871,7 @@ export function ListaCanales({ rol }: { rol: RoleId }) {
         </li>
       ))}
     </ul>
+    </>
   );
 }
 

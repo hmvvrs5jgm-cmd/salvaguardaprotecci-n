@@ -483,7 +483,7 @@ const M5_E07: Scene = {
         feedback:
           'Una presión para impedir el reporte merece atención. No necesitas demostrar primero una represalia consumada.',
         sourceNote:
-          'ChildFund se compromete a proteger a sobrevivientes, denunciantes y testigos frente a represalias, y el SIMT debe comunicar las amenazas o actos de represalia que conozca (Plan de Salvaguarda FY2026, deber de cuidado y declaración de confidencialidad y no represalias).',
+          'ChildFund se compromete a proteger a sobrevivientes, denunciantes y testigos frente a represalias, y el SIMT debe comunicar las amenazas o actos de represalia que conozca (Plan de Salvaguarda FY2026, deber de cuidado y declaración de confidencialidad y no represalias). Por decisión del Punto Focal (23/10/2026), ese deber de comunicar de inmediato se extiende al personal y a los representantes de las organizaciones socias.',
         outcome: { type: 'avanza', next: 'M5_MEDIDAS' },
       },
       {

@@ -207,5 +207,5 @@ export const textosResultado: TextosResultado = {
   insuficiente:
     'Hay decisiones que puedes practicar nuevamente. Las herramientas están disponibles y puedes repetir la evaluación.',
   practicaReforzada:
-    'Este nuevo intento repite las mismas diez preguntas: es práctica reforzada, no un intento independiente. Aún no existe un banco de preguntas equivalentes revisado.',
+    'Este nuevo intento repite las mismas diez preguntas: es práctica reforzada, no un intento independiente. La forma B del banco alternativo está pendiente de validación y todavía no se usa en el registro.',
 };

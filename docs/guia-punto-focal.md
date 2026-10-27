@@ -40,5 +40,8 @@ Cada consulta, exportación y anulación se registra en `private.admin_access_lo
 - Nombre y organización son **autodeclarados**: la app no los verifica.
 - Una aprobación corresponde solo al módulo y la versión indicados (columna «Módulo»; filtro por módulo en el panel). Cada módulo tiene su propio resultado: aprobar el módulo 2 no sustituye al módulo 1. No es un certificado oficial ni habilita para investigar o gestionar casos.
 - El registro de formación es independiente de cualquier sistema de denuncias. Nunca registres aquí información de casos.
+- **Vigencia.** Cada aprobación vale doce meses desde su fecha. Al vencer, el resultado se conserva y la tabla lo marca como «vigencia vencida»; para renovarla, la persona aprueba de nuevo la versión vigente.
+- **Nuevas versiones.** Tú apruebas las nuevas versiones del contenido dentro de tu competencia; los cambios legales, de privacidad, seguridad informática o de procedimientos de otras áreas necesitan además la validación del rol competente. Las aprobaciones históricas se conservan.
+- **Forma B.** El banco alternativo de nuevos intentos (`src/content/formaB/`) es una propuesta pendiente de tu revisión. Hoy solo se usa en la demostración; el registro sigue puntuando la forma A.
 - El apoyo formativo a quien no aprueba se ofrece sin publicar resultados. No hay rankings.
 - Las personas que administran técnicamente el proyecto Supabase pueden acceder a los datos. Limita su número.

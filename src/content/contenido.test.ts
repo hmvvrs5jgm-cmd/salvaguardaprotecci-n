@@ -79,3 +79,29 @@ describe('servicios públicos del Capítulo III', () => {
     expect(todoElTexto()).toContain('no son un plazo para reportar ni para esperar');
   });
 });
+
+describe('forma B propuesta (respuestas revisadas, 23/10/2026, anexo C)', () => {
+  it('tiene diez preguntas por módulo, tres opciones, una clave válida y las críticas comunicadas', async () => {
+    const { itemsFormaB } = await import('./formaB/items');
+    const { claveFormaB } = await import('./formaB/clave');
+    const { construirFormaB } = await import('./formaB');
+    const { episodios } = await import('./episodios');
+    const criticas: Record<number, number[]> = { 1: [2, 3, 4, 6], 2: [2, 3, 4, 6], 3: [2, 4, 6, 8], 4: [2, 5, 6, 7], 5: [2, 4, 6, 8], 6: [2, 4, 5, 6] };
+    for (const ep of episodios) {
+      const n = ep.number as 1 | 2 | 3 | 4 | 5 | 6;
+      expect(itemsFormaB[n].items).toHaveLength(10);
+      const forma = construirFormaB(n, ep.evaluacion.config, ep.evaluacion.preguntas);
+      expect(forma.preguntas.filter((p) => p.critical).map((p) => p.number)).toEqual(criticas[n]);
+      expect(forma.config.criticalQuestionIds).toHaveLength(4);
+      expect(forma.config.passScore).toBe(8);
+      expect(forma.config.version).toMatch(/forma B \(propuesta\)/);
+      for (const p of forma.preguntas) {
+        expect(p.options).toHaveLength(3);
+        expect(p.options.map((o) => o.id)).toContain(claveFormaB[n][p.id]);
+        expect(ep.herramientas).toContain(p.recovery.toolId);
+      }
+      // La clave no viaja dentro de las preguntas.
+      expect(JSON.stringify(forma.preguntas)).not.toMatch(/"(correct\w*|clave|key)":/i);
+    }
+  });
+});

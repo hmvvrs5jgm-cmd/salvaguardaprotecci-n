@@ -7,9 +7,11 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [ ] Revisar con el Punto Focal la fidelidad del episodio al procedimiento y a las rutas (guion, apartado 21).
 - [ ] Confirmar con Asesoría Legal la decisión de denunciar en casos con personas adultas y el alcance del COIP, art. 276 (`docs/discrepancias.md`, puntos 3, 4 y 15).
 - [ ] Armonizar el criterio de niveles 2 y 3 entre la ruta gráfica y el Procedimiento 5.2.3 (punto 16).
-- [ ] Aprobar o ajustar el umbral pedagógico provisional (8/10 y críticas 2, 3, 4 y 6): `src/content/episodio1/evaluacion.ts`. Después, regenerar el banco con `npm run gen:assessment-sql`.
-- [ ] Validar la interpretación de las insignias (`docs/discrepancias.md`, punto 13).
-- [ ] Banco de preguntas equivalentes revisado para nuevos intentos (hoy: práctica reforzada con las mismas diez).
+- [x] Umbral pedagógico (8/10 y cuatro críticas en el mismo intento) confirmado por el Punto Focal el 23/10/2026 para los seis módulos. Si cambia, ajustar: `src/content/episodio1/evaluacion.ts`. Después, regenerar el banco con `npm run gen:assessment-sql`.
+- [x] Interpretación de las insignias confirmada el 23/10/2026 (`docs/discrepancias.md`, punto 13).
+- [ ] Validar la forma B (`src/content/formaB/`): revisión del Punto Focal, ítems legales por la instancia competente y cotejo de equivalencia con la forma A. **Las críticas de la forma B no evalúan las mismas competencias que las críticas de la forma A en la misma posición** (por ejemplo, M1: «Reportar sin pruebas» frente a «Límites de confidencialidad»). Hoy solo se usa en la demostración.
+- [ ] Cuando se valide, versionar la forma B y generar su banco en el servidor para usarla en el registro.
+- [ ] Identificar la versión o fecha exacta de cada guion aprobado (punto 1.1).
 
 ### Módulo 2 — «Gracias por escucharme»
 - [ ] Validación del guion v1.0 por el Punto Focal (guion, apartado 24): roles y articulación socio–ChildFund, excepciones de contacto con representantes, consentimiento por intervención y no cierre automático.
@@ -51,23 +53,26 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [ ] Piloto: comprobar que se entiende que una imagen cotidiana puede exponer por el contexto, que una firma no elimina la valoración de riesgos y que una negativa no perjudica la participación.
 
 ## Canales y contactos (`src/config/canales.ts`)
-- [ ] Punto Focal de Salvaguarda de ChildFund: verificar el canal y cambiar el estado a `verificado`. (Descripción ajustada por la institución el 18/10/2026: «Recibe la preocupación y la registra mediante el formulario de incidentes».)
+- [x] Punto Focal de Salvaguarda de ChildFund: `gvasquez@childfund.org`, confirmado el 23/10/2026.
 - [x] Gerentes y dirección directa: confirmados por la institución el 18/10/2026 (Política 2.9.1; Procedimiento 5.2.2).
 - [x] `complaints@childfund.org`: confirmado por la institución el 18/10/2026; se muestra como enlace de correo.
 - [x] Speak Up: `http://speakup.childfund.org` confirmado por la institución el 18/10/2026; se muestra como enlace externo.
-- [ ] Teléfono de país: se consulta en el sitio de Speak Up; no copiarlo sin verificar.
-- [ ] Punto focal de las organizaciones socias: redacción genérica, sin nombrar intermediarios.
+- [x] Teléfono de país: se remite al sitio de Speak Up (decisión del 23/10/2026); no se publica un número.
+- [x] Punto focal de las organizaciones socias: «Punto focal de salvaguarda de tu organización» (23/10/2026).
+- [ ] Contacto concreto y alternativa de cada organización socia.
 - [x] Número de emergencia 911 y servicios públicos del Capítulo III (`serviciosPublicos` en `src/config/canales.ts`): confirmados por la institución el 18/10/2026. Revisar periódicamente su vigencia.
-- [ ] PEP suplente: verificar el canal de contacto (Plan de Salvaguarda FY2026, anexo 4).
-- [ ] Mecanismo comunitario de retroalimentación y quejas: verificar cómo se accede.
-- [ ] Directorio local de servicios: el mapeo del Protocolo es de uso interno; definir cómo se consulta a través del PEP.
+- [x] PEP suplente: `mespin@childfund.org`, confirmado el 23/10/2026.
+- [ ] Constancia documental de la designación vigente del suplente.
+- [ ] Mecanismo comunitario: criterio confirmado (cada socio lo establece y difunde); documentar modalidades y acceso de cada socio.
+- [x] Directorio local: se consulta a través del Punto Focal correspondiente; revisión semestral (23/10/2026).
 
 ## Privacidad y registro (`src/config/privacidad.ts`)
-- [ ] Responsable del tratamiento.
-- [ ] Plazo de conservación.
-- [ ] Base jurídica.
-- [ ] Canal de consultas.
-- [ ] Vigencia de la aprobación (opcional; vacía por defecto).
+- [ ] Responsable del tratamiento: denominación jurídica exacta de la entidad (no el delegado de protección de datos) y proveedor que trate datos por su cuenta.
+- [ ] Plazo de conservación: propuesta de siete años desde cada resultado, pendiente de justificar necesidad y proporcionalidad.
+- [ ] Base jurídica: definir por finalidad y grupo con Asesoría Legal (la LOPDP es el marco, no la base).
+- [ ] Canal de consultas: correo o formulario verificado para derechos; el correo de salvaguarda no lo sustituye.
+- [x] Registro con correo institucional de organizaciones socias: confirmado (23/10/2026).
+- [x] Vigencia de la aprobación: doce meses (23/10/2026). Se muestra en «Mi cuenta» y en el panel del Punto Focal.
 - [ ] Mientras falten los cuatro primeros campos, `npm run build` en modo `registro` se detiene.
 
 ## Marca y activos

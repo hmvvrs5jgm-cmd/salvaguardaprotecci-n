@@ -1,6 +1,8 @@
 // Herramientas del módulo 4 (guion «La información también protege» v1.0, apartado 18).
 // El texto de cada tarjeta del guion se conserva; las secciones de apoyo citan sus fuentes.
-// No se inventan plazos de conservación ni de notificación, sanciones automáticas ni nombres de herramientas.
+// No se inventan plazos de conservación, sanciones automáticas ni nombres de herramientas.
+// Los términos de notificación de la LOPDP (arts. 43 y 46) se citan como reglas legales verificadas el 23/10/2026;
+// los aplican los roles competentes y nunca autorizan a esperar.
 
 import type { Tool } from '../types';
 
@@ -83,7 +85,7 @@ export const herramientasM4: Tool[] = [
           ],
         },
         paragraphs: [
-          'Ningún acceso sin registro y justificación: se registra quién accede, para qué y por cuánto tiempo. Una tarea concreta (por ejemplo, apoyar un traslado seguro) puede requerir datos operativos mínimos que define el responsable.',
+          'Ningún acceso sin registro y justificación: se registra quién accede, para qué y por cuánto tiempo. Una tarea concreta (por ejemplo, apoyar un traslado seguro) no da acceso al expediente: el Punto Focal puede preparar una instrucción operativa separada, con lo estrictamente necesario, sin relato ni tipo de caso, y registra quién la recibe, para qué y por cuánto tiempo.',
         ],
       },
       {
@@ -117,8 +119,33 @@ export const herramientasM4: Tool[] = [
           'No contactes por tu cuenta a la persona afectada: la comunicación y cualquier notificación externa las coordinan los roles competentes por un medio seguro.',
         ],
       },
+      {
+        heading: 'Términos legales que valoran los roles competentes',
+        paragraphs: [
+          'Tú alertas de inmediato por el canal institucional. Los roles autorizados contienen la exposición, preservan registros, documentan cuándo se conoció y valoran las notificaciones. Estos términos no son un permiso para esperar ni equivalen a «72 horas».',
+        ],
+        table: {
+          headers: ['Comunicación', 'Regla legal resumida (LOPDP)'],
+          rows: [
+            [
+              'Responsable a la Superintendencia de Protección de Datos y a ARCOTEL',
+              'Tan pronto sea posible y como máximo en el término de cinco días desde que tenga constancia, salvo que sea improbable un riesgo para los derechos y libertades. Art. 43.',
+            ],
+            ['Encargado a responsable', 'Tan pronto sea posible y en el término de dos días desde que conozca la vulneración. Art. 43.'],
+            [
+              'Responsable a la persona afectada',
+              'Sin dilación, en el término de tres días desde que conozca el riesgo para sus derechos y libertades, por una vía segura que no amplíe la exposición. Art. 46.',
+            ],
+          ],
+        },
+      },
     ],
-    sources: ['Protocolo de asistencia y derivación, 10.2', 'Política 2.9 (obligación de reportar)', 'Guion del módulo 4, escenas M4_E06 y M4_E08'],
+    sources: [
+      'Protocolo de asistencia y derivación, 10.2',
+      'Política 2.9 (obligación de reportar)',
+      'Ley Orgánica de Protección de Datos Personales, arts. 43 y 46; Resolución SPDP-SPD-2026-0040-R',
+      'Guion del módulo 4, escenas M4_E06 y M4_E08',
+    ],
   },
   {
     id: 'm4-contener',
@@ -143,7 +170,10 @@ export const herramientasM4: Tool[] = [
           'Solo se conserva información mínima agregada, sin datos personales identificables, para estadística o aprendizaje.',
           'Las copias personales no son un archivo autorizado.',
         ],
-        paragraphs: ['Las fuentes no fijan un plazo numérico de conservación: se aplica la disposición institucional vigente.'],
+        paragraphs: [
+          'El plazo de conservación se fijará en una tabla institucional validada. Siete años es una propuesta interna en revisión, no un mínimo legal: mientras tanto se aplica la disposición institucional vigente.',
+          'No se elimina información sujeta a una obligación de conservación, investigación, reclamación o proceso pendiente. El cierre administrativo de un caso no equivale al cierre de todos los procesos relacionados.',
+        ],
       },
     ],
     sources: [

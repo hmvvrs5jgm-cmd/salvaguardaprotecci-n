@@ -111,3 +111,20 @@ Los diálogos, opciones, retroalimentaciones, reparaciones, tarjetas de D03, pre
 | M6_NO_REPUBLICAR y M6_CONTENIDO_ALTERNATIVO | Escenas sin elección | Rótulos «Desenlace: …» y botón «Continuar». La retroalimentación de cada desenlace del guion se muestra al elegir D08-B o D08-C. | Hace visible la rama. |
 | Cierre | Narración común y línea según la ruta | La línea de la ruta recorrida aparece al final, después de la narración común (`variantesAlFinal`). | Orden del guion. |
 | D02-C | — | Nota de fuente (Procedimiento 5.1.14.4 y 5.1.14.5). | Refuerzo con fuentes sin modificar el guion. |
+
+## Ajustes del 27/10/2026 según las respuestas revisadas del Punto Focal (23/10/2026)
+
+No se modificó ningún diálogo, opción, retroalimentación ni pregunta de la forma A: `npm run check:guion` sigue comparando los mismos textos literales. Los cambios están en las herramientas, en una nota de fuente, en la configuración y en una forma alternativa de evaluación.
+
+| Lugar | Cambio | Fuente |
+|---|---|---|
+| `src/config/canales.ts` | Punto Focal (`gvasquez@childfund.org`) y suplente (`mespin@childfund.org`) verificados; descripción del punto focal del socio, del mecanismo comunitario y del directorio; nota de alternativas de reporte y de revisión semestral; el 911 no sustituye el reporte. | Respuestas 4.1 a 4.7 |
+| Herramientas del módulo 1 | Ruta: excepción para representante presunto agresor y nota de armonización de niveles. Niveles: nivel 1 puede requerir emergencia y su coordinación por ChildFund; nivel 3 sin investigación concluida. Apoyos: decisión de la persona adulta y alcance corregido del COIP, art. 276. | 2.1 a 2.3, 3.1 y 3.2 |
+| Herramientas del módulo 2 | «Familia y redes»: no contactar a la persona señalada si aumenta el riesgo; buscar una persona protectora segura. | 2.2 |
+| Herramientas del módulo 3 | Supervisión sin proporción universal; visitas de socios y del Director Nacional; asentimiento de imagen; control de transporte y salida **propuestos**; reanudación documentada. | 2.4 a 2.7 y 3.4 |
+| Herramientas del módulo 4 | Instrucción operativa mínima sin acceso al expediente (**propuesta**); términos de la LOPDP (arts. 43 y 46); conservación sin plazo legal de siete años. | 2.8, 3.5 y 3.6 |
+| Herramientas y nota de M5_E07 del módulo 5 | Alternativas ante conflicto de interés; deber de comunicar represalias extendido al personal y a socios; redacción validada de buena fe; articulación con el socio. | 2.9 a 2.12 |
+| Herramientas del módulo 6 | Asentimiento y revisión del permiso antes de cada nuevo uso (**propuesta**). | 3.4 |
+| `src/content/formaB/` | Forma B de diez preguntas por módulo (anexo C), solo en la demostración y rotulada como propuesta. En el resultado se ofrece la herramienta temática, sin presentar una escena de práctica como caso de recuperación. | 1.5 |
+| `src/engine/vigencia.ts` | Vigencia de doce meses de cada aprobación, visible en «Mi cuenta» y en el panel; el resultado vencido se conserva. | 1.6 |
+| `src/config/privacidad.ts` | Vigencia completada; aviso previo con el uso del correo institucional del socio y la separación de los expedientes. Responsable, conservación, base jurídica y canal siguen vacíos: el modo registro no compila. | 1.6, 5.1 a 5.5 |

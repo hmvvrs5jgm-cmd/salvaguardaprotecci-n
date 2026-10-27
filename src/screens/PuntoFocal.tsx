@@ -16,6 +16,7 @@ import {
   type RegistroAdmin,
 } from '../services/registro';
 import { episodioPorId, episodios } from '../content/episodios';
+import { textoEstadoRegistro } from '../engine/vigencia';
 import { Encabezado } from '../ui/comunes';
 
 // La interfaz no concede permisos: el servidor comprueba rol de Punto Focal activo y MFA (aal2) en cada llamada.
@@ -61,7 +62,7 @@ function Tabla({ filas, onAnular }: { filas: RegistroAdmin[]; onAnular?: (r: Reg
               <td>{r.content_version}</td>
               <td>{new Date(r.created_at).toLocaleDateString('es-EC')}</td>
               <td>{r.score}/10</td>
-              <td>{r.status === 'aprobado' ? 'Aprobado' : r.status === 'anulado' ? `Anulado (${r.annul_reason ?? ''})` : 'No aprobado'}</td>
+              <td>{textoEstadoRegistro(r)}</td>
               {onAnular && (
                 <td>
                   {r.status !== 'anulado' && (

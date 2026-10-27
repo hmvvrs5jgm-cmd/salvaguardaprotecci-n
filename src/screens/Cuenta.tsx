@@ -1,3 +1,4 @@
+import { textoEstadoRegistro } from '../engine/vigencia';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { config } from '../config/modo';
@@ -70,6 +71,7 @@ export function AvisoPrivacidad() {
         Datos registrados: identificador, nombre, correo verificado, organización, episodio y versión, fecha, puntaje y estado.
         No se guardan relatos, decisiones de práctica ni información de personajes. No se usa analítica ni rastreadores.
       </p>
+      {privacidad.vigenciaAprobacion && <p>Vigencia de la aprobación: {privacidad.vigenciaAprobacion}</p>}
     </section>
   );
 }
@@ -190,7 +192,7 @@ function CuentaRegistro() {
                   <td>{episodioPorId(r.episode_id)?.title ?? r.episode_id}</td>
                   <td>{r.content_version}</td>
                   <td>{r.score}/10</td>
-                  <td>{r.status === 'aprobado' ? 'Aprobado' : r.status === 'anulado' ? 'Anulado' : 'No aprobado'}</td>
+                  <td>{textoEstadoRegistro({ status: r.status, created_at: r.created_at })}</td>
                 </tr>
               ))}
             </tbody>

@@ -125,7 +125,11 @@ describe('D7 y canales', () => {
     expect(speakUp).toHaveAttribute('rel', 'noopener noreferrer');
     // Correo verificado: enlace de correo simple, sin asunto ni cuerpo que transfieran datos del juego.
     expect(screen.getByRole('link', { name: 'complaints@childfund.org' })).toHaveAttribute('href', 'mailto:complaints@childfund.org');
-    expect(screen.getByText('Recibe la preocupación y la registra mediante el formulario de incidentes.')).toBeInTheDocument();
+    expect(screen.getByText(/^Recibe la preocupación y la registra mediante el formulario de incidentes\./)).toBeInTheDocument();
+    // Punto Focal y suplente confirmados por la institución (respuestas revisadas, 23/10/2026).
+    expect(screen.getByRole('link', { name: 'gvasquez@childfund.org' })).toHaveAttribute('href', 'mailto:gvasquez@childfund.org');
+    expect(screen.getByRole('link', { name: 'mespin@childfund.org' })).toHaveAttribute('href', 'mailto:mespin@childfund.org');
+    expect(screen.getByText(/alternativas de reporte, no pasos sucesivos obligatorios/)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Si hay peligro inmediato' })).toBeInTheDocument();
     expect(screen.getByText('Línea de denuncia de la Fiscalía')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Abrir el sitio de la Fiscalía/ })).toHaveAttribute('href', 'https://www.fiscalia.gob.ec/');

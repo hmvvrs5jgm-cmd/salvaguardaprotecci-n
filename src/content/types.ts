@@ -328,6 +328,8 @@ export interface Question {
   complementaryNote?: string;
   /** Recuperación tras error: escena de práctica relacionada y herramienta. */
   recovery: { decisionId: DecisionId; sceneId: SceneId; toolId: ToolId };
+  /** Forma B: en el resultado se ofrece la herramienta, sin mostrar la escena de práctica como caso de recuperación. */
+  sinCasoRecuperacion?: boolean;
 }
 
 /** Clave de corrección separada de las preguntas: el frontend de registro no la necesita. */
