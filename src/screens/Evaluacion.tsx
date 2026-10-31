@@ -50,11 +50,10 @@ export function Evaluacion() {
   const [ocupado, setOcupado] = useState(false);
   const [requisito, setRequisito] = useState<'sesion' | 'perfil' | null>(null);
   const modoRegistro = config.modo === 'registro';
-  // En demostración, los nuevos intentos alternan la forma A con la forma B propuesta (punto 1.5).
-  // En registro solo existe la forma A del servidor: el nuevo intento es práctica reforzada.
+  // Los nuevos intentos alternan la forma A y la forma B validada (punto 1.5), en demostración y en registro.
   const siguienteForma = (): FormaEvaluacion =>
-    !modoRegistro && intentos % 2 === 1 ? construirFormaB(ep.number, configEvaluacion, preguntas) : formaA;
-  const usaraFormaB = !modoRegistro && intentos % 2 === 1;
+    intentos % 2 === 1 ? construirFormaB(ep.number, configEvaluacion, preguntas) : formaA;
+  const usaraFormaB = intentos % 2 === 1;
 
   useEffect(() => {
     if (!modoRegistro) return;
@@ -90,14 +89,15 @@ export function Evaluacion() {
     }
     setOcupado(true);
     try {
-      // El servidor crea el intento y decide el orden de presentación.
-      const it = await iniciarIntento(configEvaluacion.episodeId, configEvaluacion.version);
+      // El servidor crea el intento de la forma que corresponde y decide el orden de presentación.
+      const forma = siguienteForma();
+      const it = await iniciarIntento(forma.config.episodeId, forma.config.version);
       setFase({
         kind: 'preguntas',
         orden: { questionOrder: it.question_order, optionOrder: it.option_order },
         attemptId: it.attempt_id,
         indice: 0,
-        forma: formaA,
+        forma,
       });
     } catch (e) {
       setError(e instanceof ErrorRegistro ? e.message : 'No se pudo iniciar el intento.');
@@ -135,9 +135,9 @@ export function Evaluacion() {
             perQuestion,
             version: r.content_version,
             registrado: true,
-            forma: 'A',
+            forma: forma.forma,
           },
-          preguntas,
+          preguntas: forma.preguntas,
         });
       }
       setIntentos((n) => n + 1);
@@ -379,8 +379,8 @@ export function Resultado({
       )}
       {resultado.forma === 'B' && (
         <p className="aviso aviso--info" role="note">
-          Forma B propuesta, pendiente de validación del Punto Focal. Sirve para practicar con preguntas nuevas; no es un
-          banco validado.
+          Forma B: banco alternativo validado por el Punto Focal de Salvaguarda, con las mismas competencias y la misma regla
+          de aprobación que la forma A.
         </p>
       )}
       <div className={`resultado__caja resultado__caja--${resultado.estado}`}>

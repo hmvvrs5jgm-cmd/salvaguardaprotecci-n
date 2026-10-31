@@ -1,4 +1,5 @@
 import { HashRouter, Link, Navigate, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { marca } from './config/marca';
 import { useEffect } from 'react';
 import { episodioPorRuta } from './content/episodios';
 import { EpisodioProvider, PrefsProvider } from './state/AppState';
@@ -95,6 +96,9 @@ export function Marco({ children }: { children: React.ReactNode }) {
       </a>
       <header className="cabecera">
         <Link to="/" className="marca">
+          {marca.logotipo && (
+            <img className="marca__logo" src={`${import.meta.env.BASE_URL}marca/${marca.logotipo}`} alt={marca.textoAlternativo} />
+          )}
           Decisiones que protegen
         </Link>
         <nav aria-label="Principal">

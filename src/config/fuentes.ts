@@ -1,10 +1,16 @@
 // Versión y fecha de las fuentes, mostradas en «Acerca de» (prompt, apartado 2.2.10).
 
-export const fuentes = [
+export interface Fuente {
+  nombre: string;
+  detalle: string;
+  advertencia?: string;
+}
+
+export const fuentes: Fuente[] = [
   {
     nombre: 'Política de Salvaguardia PRO-POL-080',
-    detalle: 'Aprobada el 13 de junio de 2023; en vigor desde el 1 de julio de 2023; próxima revisión prevista: 30 de junio de 2026.',
-    advertencia: 'La fecha de revisión prevista ya pasó. Vigencia pendiente de confirmación institucional.',
+    detalle:
+      'Aprobada el 13 de junio de 2023; en vigor desde el 1 de julio de 2023. Sigue vigente, según confirmó el Punto Focal de Salvaguarda el 31 de octubre de 2026, aunque su revisión estaba prevista para el 30 de junio de 2026.',
   },
   {
     nombre: 'Procedimiento de Salvaguardia PRO-PRO-080',

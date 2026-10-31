@@ -3,10 +3,10 @@
 
 import type { AnswerKey } from '../content/types';
 
-/** Clave de la forma B (propuesta, solo demostración). */
+/** Clave de la forma B en demostración (en registro la puntúa el servidor con su propio banco). */
 export async function cargarClaveFormaBDemo(numeroModulo: number): Promise<AnswerKey> {
   if (import.meta.env.VITE_APP_MODE === 'registro') {
-    throw new Error('La forma B no se usa en modo registro.');
+    throw new Error('La clave no está disponible en modo registro: la puntuación la calcula el servidor.');
   }
   const { claveFormaB } = await import('../content/formaB/clave');
   const clave = claveFormaB[numeroModulo as 1 | 2 | 3 | 4 | 5 | 6];

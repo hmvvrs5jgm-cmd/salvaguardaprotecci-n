@@ -321,7 +321,7 @@ update private.assessment_versions set active = true;
 select t.afirma((select count(*) from private.assessment_items where episode_id = 'm2-gracias-por-escucharme' and content_version = '1.0') = 10,
   'el banco del módulo 2 tiene 10 preguntas');
 select t.afirma((select array_agg(question_id order by position) from private.assessment_items
-   where episode_id = 'm2-gracias-por-escucharme' and critical) = array['M2_P2', 'M2_P3', 'M2_P4', 'M2_P6'],
+   where episode_id = 'm2-gracias-por-escucharme' and content_version = '1.0' and critical) = array['M2_P2', 'M2_P3', 'M2_P4', 'M2_P6'],
   'críticas del módulo 2: P2, P3, P4 y P6');
 select t.afirma((select active from private.assessment_versions where episode_id = 'ep1-una-ayuda-con-condiciones' and content_version = '1.2'),
   'el banco del módulo 2 no desactiva el módulo 1');
@@ -367,7 +367,7 @@ reset role;
 select t.afirma((select count(*) from private.assessment_items where episode_id = 'm3-antes-de-abrir-las-puertas' and content_version = '1.0') = 10,
   'el banco del módulo 3 tiene 10 preguntas');
 select t.afirma((select array_agg(question_id order by position) from private.assessment_items
-   where episode_id = 'm3-antes-de-abrir-las-puertas' and critical) = array['M3_P2', 'M3_P4', 'M3_P6', 'M3_P8'],
+   where episode_id = 'm3-antes-de-abrir-las-puertas' and content_version = '1.0' and critical) = array['M3_P2', 'M3_P4', 'M3_P6', 'M3_P8'],
   'críticas del módulo 3: P2, P4, P6 y P8');
 select t.afirma((select bool_and(active) from private.assessment_versions
    where (episode_id, content_version) in (('ep1-una-ayuda-con-condiciones', '1.2'), ('m2-gracias-por-escucharme', '1.0'))),
@@ -408,7 +408,7 @@ reset role;
 -- 8d. Módulo 4: críticas propias (P2, P5, P6, P7) y resultados independientes
 -- =========================================================================
 select t.afirma((select array_agg(question_id order by position) from private.assessment_items
-   where episode_id = 'm4-la-informacion-tambien-protege' and critical) = array['M4_P2', 'M4_P5', 'M4_P6', 'M4_P7'],
+   where episode_id = 'm4-la-informacion-tambien-protege' and content_version = '1.0' and critical) = array['M4_P2', 'M4_P5', 'M4_P6', 'M4_P7'],
   'críticas del módulo 4: P2, P5, P6 y P7');
 select t.afirma((select bool_and(active) from private.assessment_versions
    where (episode_id, content_version) in (('ep1-una-ayuda-con-condiciones', '1.2'), ('m2-gracias-por-escucharme', '1.0'),
@@ -442,7 +442,7 @@ reset role;
 -- 8e. Módulo 5: críticas propias (P2, P4, P6, P8)
 -- =========================================================================
 select t.afirma((select array_agg(question_id order by position) from private.assessment_items
-   where episode_id = 'm5-es-alguien-importante' and critical) = array['M5_P2', 'M5_P4', 'M5_P6', 'M5_P8'],
+   where episode_id = 'm5-es-alguien-importante' and content_version = '1.0' and critical) = array['M5_P2', 'M5_P4', 'M5_P6', 'M5_P8'],
   'críticas del módulo 5: P2, P4, P6 y P8');
 create function t.respuestas_m5(p_errores text[]) returns jsonb language sql as $$
   select jsonb_object_agg(question_id,
@@ -476,7 +476,7 @@ reset role;
 -- 8f. Módulo 6: críticas propias (P2, P4, P5, P6)
 -- =========================================================================
 select t.afirma((select array_agg(question_id order by position) from private.assessment_items
-   where episode_id = 'm6-una-imagen-que-no-debio-publicarse' and critical) = array['M6_P2', 'M6_P4', 'M6_P5', 'M6_P6'],
+   where episode_id = 'm6-una-imagen-que-no-debio-publicarse' and content_version = '1.0' and critical) = array['M6_P2', 'M6_P4', 'M6_P5', 'M6_P6'],
   'críticas del módulo 6: P2, P4, P5 y P6');
 create function t.respuestas_m6(p_errores text[]) returns jsonb language sql as $$
   select jsonb_object_agg(question_id,
@@ -499,6 +499,46 @@ begin
   i := public.start_attempt('m6-una-imagen-que-no-debio-publicarse', '1.0');
   r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'm6_crit9'));
   perform t.afirma(r ->> 'estado' = 'critico_fallido' and r -> 'failed_critical' = '["M6_P5"]', 'módulo 6: 9/10 con crítica fallida no aprueba');
+end $$;
+reset role;
+
+-- =========================================================================
+-- 8g. Forma B (banco alternativo validado): activa junto a la forma A, con sus propias críticas
+-- =========================================================================
+select t.afirma((select count(*) from private.assessment_versions where content_version like '%-B' and active) = 6,
+  'las seis formas B están activas');
+select t.afirma((select bool_and(active) from private.assessment_versions
+   where (episode_id, content_version) in (('ep1-una-ayuda-con-condiciones', '1.2'), ('m6-una-imagen-que-no-debio-publicarse', '1.0'))),
+  'la forma B no desactiva la forma A');
+select t.afirma((select array_agg(question_id order by position) from private.assessment_items
+   where episode_id = 'm4-la-informacion-tambien-protege' and content_version = '1.0-B' and critical) = array['M4_B02', 'M4_B05', 'M4_B06', 'M4_B07'],
+  'la forma B conserva las posiciones críticas del módulo 4');
+create function t.respuestas_b(p_episodio text, p_version text, p_errores text[]) returns jsonb language sql as $$
+  select jsonb_object_agg(question_id,
+    case when question_id = any (p_errores)
+      then (select o from unnest(option_ids) o where o <> correct_option_id limit 1)
+      else correct_option_id end)
+  from private.assessment_items where episode_id = p_episodio and content_version = p_version;
+$$;
+insert into t.r values
+  ('b1_ok8', t.respuestas_b('ep1-una-ayuda-con-condiciones', '1.2-B', array['M1_B01', 'M1_B05'])),
+  ('b1_crit9', t.respuestas_b('ep1-una-ayuda-con-condiciones', '1.2-B', array['M1_B03']));
+select t.como('00000000-0000-0000-0000-00000000000b');
+set role authenticated;
+do $$
+declare i jsonb; r jsonb;
+begin
+  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2-B');
+  perform t.afirma(jsonb_array_length(i -> 'question_order') = 10 and i::text !~* 'correct', 'intento de la forma B sin clave');
+  -- Las respuestas de la forma A no valen para la forma B.
+  perform t.espera_error(format('select public.submit_attempt(%L, %L)', (i ->> 'attempt_id')::uuid,
+    (select v from t.r where nombre = 'todo')), 'invalid_answers');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'b1_ok8'));
+  perform t.afirma((r ->> 'score')::int = 8 and (r ->> 'passed')::boolean and r ->> 'content_version' = '1.2-B',
+    'forma B: 8/10 con críticas correctas aprueba y registra la versión 1.2-B');
+  i := public.start_attempt('ep1-una-ayuda-con-condiciones', '1.2-B');
+  r := public.submit_attempt((i ->> 'attempt_id')::uuid, (select v from t.r where nombre = 'b1_crit9'));
+  perform t.afirma(r ->> 'estado' = 'critico_fallido' and r -> 'failed_critical' = '["M1_B03"]', 'forma B: 9/10 con crítica fallida no aprueba');
 end $$;
 reset role;
 

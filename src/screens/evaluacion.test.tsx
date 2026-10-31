@@ -54,7 +54,7 @@ describe('evaluación en modo demostración', () => {
     expect(screen.getByText(/Este nuevo intento usa la forma B/)).toBeInTheDocument();
   });
 
-  it('el nuevo intento usa la forma B propuesta, con su clave y sus críticas, y después vuelve a la forma A', async () => {
+  it('el nuevo intento usa la forma B validada, con su clave y sus críticas, y después vuelve a la forma A', async () => {
     const user = userEvent.setup();
     montar();
     await user.click(screen.getByRole('button', { name: 'Iniciar evaluación' }));
@@ -76,7 +76,7 @@ describe('evaluación en modo demostración', () => {
       await user.click(screen.getByRole('button', { name: i < 9 ? 'Siguiente' : 'Revisar respuestas' }));
     }
     await user.click(screen.getByRole('button', { name: 'Enviar evaluación' }));
-    expect(await screen.findByText(/Forma B propuesta, pendiente de validación/)).toBeInTheDocument();
+    expect(await screen.findByText(/Forma B: banco alternativo validado por el Punto Focal/)).toBeInTheDocument();
     expect(screen.getByText(/Obtuviste 9\/10/)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Límites de confidencialidad', level: 3 })).toBeInTheDocument();
     // En la forma B no se muestra una escena de práctica como caso de recuperación.

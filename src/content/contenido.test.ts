@@ -80,7 +80,7 @@ describe('servicios públicos del Capítulo III', () => {
   });
 });
 
-describe('forma B propuesta (respuestas revisadas, 23/10/2026, anexo C)', () => {
+describe('forma B validada (respuestas revisadas, 23/10/2026, anexo C; validada el 31/10/2026)', () => {
   it('tiene diez preguntas por módulo, tres opciones, una clave válida y las críticas comunicadas', async () => {
     const { itemsFormaB } = await import('./formaB/items');
     const { claveFormaB } = await import('./formaB/clave');
@@ -94,7 +94,7 @@ describe('forma B propuesta (respuestas revisadas, 23/10/2026, anexo C)', () => 
       expect(forma.preguntas.filter((p) => p.critical).map((p) => p.number)).toEqual(criticas[n]);
       expect(forma.config.criticalQuestionIds).toHaveLength(4);
       expect(forma.config.passScore).toBe(8);
-      expect(forma.config.version).toMatch(/forma B \(propuesta\)/);
+      expect(forma.config.version).toBe(`${ep.version}-B`);
       for (const p of forma.preguntas) {
         expect(p.options).toHaveLength(3);
         expect(p.options.map((o) => o.id)).toContain(claveFormaB[n][p.id]);

@@ -7,6 +7,16 @@ Hay dos piezas que se despliegan por separado:
 
 Sin el punto 2, el sitio funciona como **demostración no registrada**.
 
+**Responsables confirmados (consulta institucional, 31/10/2026):**
+
+| Pieza | Responsable |
+| --- | --- |
+| Proyecto Supabase (7.1) | Grace Vásquez, gvasquez@childfund.org |
+| SMTP de Auth (7.2) | Cuenta gvasquez@childfund.org, configurada en Supabase (Auth → SMTP). Las credenciales nunca se guardan en el repositorio. |
+| Punto Focal en el panel (7.3) | gvasquez@childfund.org: después de su primer inicio de sesión, `select private.asignar_punto_focal('gvasquez@childfund.org');` en el SQL Editor (ver 2.4). |
+| Publicación (7.4) | GitHub Pages desde este repositorio. |
+| Piloto (7.5) | Oficina País de Ecuador, noviembre, facilitado por Grace Vásquez. |
+
 > Nada de esto se ha publicado. Los pasos que requieren cuentas o secretos debe hacerlos la persona propietaria. Comprueba cada paso con la documentación oficial vigente de GitHub y Supabase: los nombres de menús y claves cambian.
 
 ## 1. Publicar la demostración en GitHub Pages

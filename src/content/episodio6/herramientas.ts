@@ -1,6 +1,7 @@
 // Herramientas del módulo 6 (guion «Una imagen que no debió publicarse» v1.0, apartado 18).
 // El texto de cada tarjeta del guion se conserva; las secciones de apoyo citan sus fuentes.
 // No se dan instrucciones de plataformas concretas ni plazos de retiro, notificación o conservación.
+// Responsables del retiro y de la marca de no uso: respuestas de la consulta, puntos 6.2 y 6.3 (31/10/2026).
 
 import type { Tool } from '../types';
 
@@ -86,10 +87,11 @@ export const herramientasM6: Tool[] = [
           'No se piden credenciales a familias, niñas o cuentas externas.',
           'No se usan herramientas no autorizadas ni reconocimiento facial para localizar copias.',
           'No se reenvía públicamente el material para pedir que se elimine.',
+          'Las solicitudes de retiro en plataformas externas las gestiona la Especialista de Comunicación de ChildFund; en una organización socia, sus puntos focales de comunicación. Tú les haces llegar las referencias conocidas por la vía restringida.',
         ],
       },
     ],
-    sources: ['Procedimiento 5.1.14.6', 'Guion del módulo 6, escena M6_E06'],
+    sources: ['Procedimiento 5.1.14.6', 'Respuestas de la consulta institucional, sección 6 (validadas por salvaguarda, 31/10/2026), punto 6.2', 'Guion del módulo 6, escena M6_E06'],
   },
   {
     id: 'm6-comunicacion',
@@ -140,11 +142,16 @@ export const herramientasM6: Tool[] = [
         ],
         bullets: [
           'Retirar una publicación no equivale a cerrar el caso: se documenta lo confirmado, lo pendiente y lo desconocido.',
-          'Una marca interna de no uso, si se propone, tiene acceso restringido y no es una lista pública de personas afectadas.',
+          'Las imágenes que no deben reutilizarse llevan una marca interna de no uso, con acceso restringido: no es una lista pública de personas afectadas.',
           'Las imágenes, formularios de consentimiento y demás información sensible se almacenan, conservan y eliminan según normas institucionales.',
         ],
       },
     ],
-    sources: ['Procedimiento 5.1.14.6', 'Protocolo de asistencia y derivación, 10.3 y 10.4', 'Guion del módulo 6, escenas M6_E09 y M6_E10'],
+    sources: [
+      'Procedimiento 5.1.14.6',
+      'Protocolo de asistencia y derivación, 10.3 y 10.4',
+      'Respuestas de la consulta institucional, sección 6 (validadas por salvaguarda, 31/10/2026), punto 6.3',
+      'Guion del módulo 6, escenas M6_E09 y M6_E10',
+    ],
   },
 ];

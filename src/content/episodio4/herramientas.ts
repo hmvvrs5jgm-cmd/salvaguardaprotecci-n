@@ -120,6 +120,12 @@ export const herramientasM4: Tool[] = [
         ],
       },
       {
+        heading: 'Quién es el soporte autorizado',
+        paragraphs: [
+          'La Especialista de Comunicación de ChildFund coordina con TI de la Oficina Internacional y con el Punto Focal de Seguridad la revisión de permisos y registros. Se la contacta por correo electrónico, junto con el aviso al Punto Focal de Salvaguarda.',
+        ],
+      },
+      {
         heading: 'Términos legales que valoran los roles competentes',
         paragraphs: [
           'Tú alertas de inmediato por el canal institucional. Los roles autorizados contienen la exposición, preservan registros, documentan cuándo se conoció y valoran las notificaciones. Estos términos no son un permiso para esperar ni equivalen a «72 horas».',
@@ -144,6 +150,7 @@ export const herramientasM4: Tool[] = [
       'Protocolo de asistencia y derivación, 10.2',
       'Política 2.9 (obligación de reportar)',
       'Ley Orgánica de Protección de Datos Personales, arts. 43 y 46; Resolución SPDP-SPD-2026-0040-R',
+      'Respuestas de la consulta institucional, sección 6 (validadas por salvaguarda, 31/10/2026), punto 6.1',
       'Guion del módulo 4, escenas M4_E06 y M4_E08',
     ],
   },

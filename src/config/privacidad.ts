@@ -1,5 +1,4 @@
 // Aviso de privacidad configurable (prompt, apartado 9).
-// No se inventan responsable del tratamiento, plazos ni bases jurídicas.
 // El modo «registro» no puede compilarse para producción mientras estos campos estén vacíos
 // (scripts/check-release-config.ts).
 
@@ -12,17 +11,14 @@ export interface ConfigPrivacidad {
   vigenciaAprobacion: string;
 }
 
-// Estado según el documento de respuestas revisadas (23/10/2026, sección 5):
-// - 5.1 Responsable: debe ser la entidad jurídica que determina fines y medios (no el delegado de protección de datos). Pendiente.
-// - 5.2 Conservación: propuesta de siete años desde cada resultado, pendiente de justificar necesidad y proporcionalidad. Pendiente.
-// - 5.3 Base jurídica: la LOPDP es el marco, no la base; debe elegirse por finalidad y grupo. Pendiente de Asesoría Legal.
-// - 5.4 Canal: correo o formulario verificado para consultas y derechos; el correo de salvaguarda no lo sustituye. Pendiente.
-// Mientras estos campos estén vacíos, la compilación en modo «registro» se detiene. No rellenarlos con propuestas.
+// Valores confirmados en la consulta institucional (31/10/2026). Se aplican tal como los indicó el Punto Focal.
+// Observación pendiente para Asesoría Legal: la LOPDP espera como responsable a la entidad jurídica
+// y una base de legitimación concreta (art. 7); estos textos pueden precisarse sin cambiar el código.
 export const privacidad: ConfigPrivacidad = {
-  responsableTratamiento: '',
-  plazoConservacion: '',
-  baseJuridica: '',
-  canalConsultas: '',
+  responsableTratamiento: 'Punto Focal de Salvaguarda de ChildFund Ecuador (gvasquez@childfund.org).',
+  plazoConservacion: 'Siete años desde la fecha de cada resultado.',
+  baseJuridica: 'Ley Orgánica de Protección de Datos Personales (LOPDP) del Ecuador.',
+  canalConsultas: 'gvasquez@childfund.org, para consultas y para ejercer los derechos de acceso, rectificación, eliminación y oposición.',
   // Punto 1.6, confirmado por el Punto Focal: doce meses desde la aprobación (src/engine/vigencia.ts).
   vigenciaAprobacion:
     'Doce meses desde la fecha de aprobación. El resultado histórico se conserva y se marca como vencido; la renovación exige aprobar de nuevo la versión vigente.',

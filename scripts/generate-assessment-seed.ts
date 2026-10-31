@@ -14,6 +14,8 @@ import * as ep5 from '../src/content/episodio5';
 import { claveM5 } from '../src/content/episodio5/clave';
 import * as ep6 from '../src/content/episodio6';
 import { claveM6 } from '../src/content/episodio6/clave';
+import { construirFormaB } from '../src/content/formaB';
+import { claveFormaB } from '../src/content/formaB/clave';
 import type { AnswerKey, AssessmentConfig, Question } from '../src/content/types';
 
 // Cada módulo y versión del contenido tiene su propia migración; las anteriores no se editan.
@@ -23,6 +25,8 @@ const bancos: Array<{
   preguntas: Question[];
   clave: AnswerKey;
   destinos: Record<string, string>;
+  /** Versiones del mismo módulo que siguen activas junto a esta (forma A y forma B). */
+  vigentes?: string[];
 }> = [
   {
     configEvaluacion: ep1.configEvaluacion,
@@ -65,10 +69,31 @@ const bancos: Array<{
   },
 ];
 
+// Forma B (banco alternativo validado el 31/10/2026): activa junto a la forma A de cada módulo.
+const migracionesB: Record<number, string> = {
+  1: '20261031000011_banco_ep1_v1_2_B',
+  2: '20261031000012_banco_m2_v1_0_B',
+  3: '20261031000013_banco_m3_v1_0_B',
+  4: '20261031000014_banco_m4_v1_0_B',
+  5: '20261031000015_banco_m5_v1_0_B',
+  6: '20261031000016_banco_m6_v1_0_B',
+};
+bancos.slice(0, 6).forEach((a, i) => {
+  const n = i + 1;
+  const b = construirFormaB(n, a.configEvaluacion, a.preguntas);
+  bancos.push({
+    configEvaluacion: b.config,
+    preguntas: b.preguntas,
+    clave: claveFormaB[n as 1 | 2 | 3 | 4 | 5 | 6],
+    destinos: { [b.config.version]: `supabase/migrations/${migracionesB[n]}.sql` },
+    vigentes: [a.configEvaluacion.version, b.config.version],
+  });
+});
+
 const q = (s: string) => `'${s.replace(/'/g, "''")}'`;
 let desactualizado = false;
 
-for (const { configEvaluacion, preguntas, clave, destinos } of bancos) {
+for (const { configEvaluacion, preguntas, clave, destinos, vigentes } of bancos) {
   const destino = destinos[configEvaluacion.version];
   if (!destino)
     throw new Error(`Añade el nombre de migración para ${configEvaluacion.episodeId} ${configEvaluacion.version}`);
@@ -88,10 +113,17 @@ insert into private.assessment_versions (episode_id, content_version, pass_score
 values (${q(configEvaluacion.episodeId)}, ${q(configEvaluacion.version)}, ${configEvaluacion.passScore}, true)
 on conflict (episode_id, content_version) do update set pass_score = excluded.pass_score, active = excluded.active;
 
--- Las versiones anteriores del episodio dejan de aceptar intentos nuevos y envíos.
+${
+  vigentes
+    ? `-- Las versiones anteriores del episodio dejan de aceptar intentos nuevos y envíos; siguen activas ${vigentes.join(' y ')}.
+update private.assessment_versions set active = false
+ where episode_id = ${q(configEvaluacion.episodeId)} and content_version not in (${vigentes.map(q).join(', ')});
+`
+    : `-- Las versiones anteriores del episodio dejan de aceptar intentos nuevos y envíos.
 update private.assessment_versions set active = false
  where episode_id = ${q(configEvaluacion.episodeId)} and content_version <> ${q(configEvaluacion.version)};
-
+`
+}
 delete from private.assessment_items where episode_id = ${q(configEvaluacion.episodeId)} and content_version = ${q(configEvaluacion.version)};
 
 insert into private.assessment_items (episode_id, content_version, question_id, position, critical, correct_option_id, option_ids) values

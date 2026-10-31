@@ -24,6 +24,8 @@ Cada módulo tiene su ruta (`#/m1` a `#/m6`), su progreso local, su evaluación 
 |---|---|
 | Juego completo en local (modo demostración) | ✅ Funciona sin credenciales; resultados rotulados como «demostración no registrada» |
 | Registro privado (Supabase) | 🟡 Preparado y probado en un PostgreSQL local con emulación de Supabase; **no se ha probado contra un proyecto Supabase real** |
+| Evaluación forma B | ✅ Validada (31/10/2026); los nuevos intentos alternan A y B en la demostración y en el registro |
+| Aviso de privacidad | ✅ Campos completos (31/10/2026); el modo registro ya compila |
 | Publicación en GitHub Pages | 🟡 Flujo preparado y manual; **no se ha publicado** |
 
 ## Probar sin instalar nada

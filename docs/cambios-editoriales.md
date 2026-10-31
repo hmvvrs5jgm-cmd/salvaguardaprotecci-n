@@ -128,3 +128,17 @@ No se modificó ningún diálogo, opción, retroalimentación ni pregunta de la 
 | `src/content/formaB/` | Forma B de diez preguntas por módulo (anexo C), solo en la demostración y rotulada como propuesta. En el resultado se ofrece la herramienta temática, sin presentar una escena de práctica como caso de recuperación. | 1.5 |
 | `src/engine/vigencia.ts` | Vigencia de doce meses de cada aprobación, visible en «Mi cuenta» y en el panel; el resultado vencido se conserva. | 1.6 |
 | `src/config/privacidad.ts` | Vigencia completada; aviso previo con el uso del correo institucional del socio y la separación de los expedientes. Responsable, conservación, base jurídica y canal siguen vacíos: el modo registro no compila. | 1.6, 5.1 a 5.5 |
+
+## Consulta institucional, secciones 5 a 7 (31/10/2026)
+
+No se modificó ningún diálogo, opción, retroalimentación ni pregunta de la forma A.
+
+| Lugar | Cambio | Fuente |
+|---|---|---|
+| `src/content/formaB/`, `src/screens/Evaluacion.tsx` | Forma B validada (versión `<A>-B`). Los nuevos intentos alternan A y B también en el registro, puntuados en el servidor. | Validación del Punto Focal |
+| `supabase/migrations/2026103100001{1..6}_*_B.sql` | Bancos de la forma B; los bancos A siguen activos. | Ídem |
+| Herramienta «Exposición» (módulo 4) | Quién es el soporte autorizado. | 6.1 |
+| Herramientas «Copias externas» y «Archivo y seguimiento» (módulo 6) | Quién gestiona los retiros externos; marca interna de no uso confirmada. | 6.2 y 6.3 |
+| `src/styles.css`, `src/config/marca.ts` | Acento naranja junto al verde; espacio para el logotipo oficial (vacío hasta recibir el archivo). | 6.4 |
+| `src/config/privacidad.ts` | Responsable, conservación (siete años), base (LOPDP) y canal completados. | 5.1 a 5.4 |
+| `src/config/fuentes.ts` | La Política sigue vigente; se retira la advertencia. | 7.6 |

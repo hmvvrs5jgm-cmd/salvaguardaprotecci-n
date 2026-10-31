@@ -25,7 +25,7 @@ export function Acerca() {
       <ul>
         {fuentes.map((f) => (
           <li key={f.nombre}>
-            <strong>{f.nombre}.</strong> {f.detalle} {'advertencia' in f && <em>{f.advertencia}</em>}
+            <strong>{f.nombre}.</strong> {f.detalle} {f.advertencia && <em>{f.advertencia}</em>}
           </li>
         ))}
       </ul>

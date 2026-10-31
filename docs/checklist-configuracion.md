@@ -3,14 +3,14 @@
 Marca cada punto solo cuando la institución lo haya verificado.
 
 ## Contenido institucional
-- [ ] Confirmar la vigencia de la Política PRO-POL-080 (revisión prevista para el 30/06/2026). La fecha de aprobación del Procedimiento (13 de junio de 2023) quedó confirmada el 23/10/2026.
+- [x] Política PRO-POL-080: sigue vigente (Punto Focal, 31/10/2026, punto 7.6). La fecha de aprobación del Procedimiento (13 de junio de 2023) quedó confirmada el 23/10/2026.
 - [ ] Revisar con el Punto Focal la fidelidad del episodio al procedimiento y a las rutas (guion, apartado 21).
 - [ ] Confirmar con Asesoría Legal la decisión de denunciar en casos con personas adultas y el alcance del COIP, art. 276 (`docs/discrepancias.md`, puntos 3, 4 y 15).
 - [ ] Armonizar el criterio de niveles 2 y 3 entre la ruta gráfica y el Procedimiento 5.2.3 (punto 16).
 - [x] Umbral pedagógico (8/10 y cuatro críticas en el mismo intento) confirmado por el Punto Focal el 23/10/2026 para los seis módulos. Si cambia, ajustar: `src/content/episodio1/evaluacion.ts`. Después, regenerar el banco con `npm run gen:assessment-sql`.
 - [x] Interpretación de las insignias confirmada el 23/10/2026 (`docs/discrepancias.md`, punto 13).
-- [ ] Validar la forma B (`src/content/formaB/`): revisión del Punto Focal, ítems legales por la instancia competente y cotejo de equivalencia con la forma A. **Las críticas de la forma B no evalúan las mismas competencias que las críticas de la forma A en la misma posición** (por ejemplo, M1: «Reportar sin pruebas» frente a «Límites de confidencialidad»). Hoy solo se usa en la demostración.
-- [ ] Cuando se valide, versionar la forma B y generar su banco en el servidor para usarla en el registro.
+- [x] Forma B validada por el Punto Focal (31/10/2026). Versión `<versión A>-B`; bancos en `supabase/migrations/2026103100001{1..6}_*_B.sql`. Los nuevos intentos alternan A y B en la demostración y en el registro.
+- [ ] Aplicar en Supabase las seis migraciones de la forma B.
 - [ ] Identificar la versión o fecha exacta de cada guion aprobado (punto 1.1).
 
 ### Módulo 2 — «Gracias por escucharme»
@@ -67,24 +67,27 @@ Marca cada punto solo cuando la institución lo haya verificado.
 - [x] Directorio local: se consulta a través del Punto Focal correspondiente; revisión semestral (23/10/2026).
 
 ## Privacidad y registro (`src/config/privacidad.ts`)
-- [ ] Responsable del tratamiento: denominación jurídica exacta de la entidad (no el delegado de protección de datos) y proveedor que trate datos por su cuenta.
-- [ ] Plazo de conservación: propuesta de siete años desde cada resultado, pendiente de justificar necesidad y proporcionalidad.
-- [ ] Base jurídica: definir por finalidad y grupo con Asesoría Legal (la LOPDP es el marco, no la base).
-- [ ] Canal de consultas: correo o formulario verificado para derechos; el correo de salvaguarda no lo sustituye.
+- [x] Responsable del tratamiento: Punto Focal de Salvaguarda de ChildFund Ecuador, gvasquez@childfund.org (31/10/2026).
+- [x] Plazo de conservación: siete años desde cada resultado (31/10/2026).
+- [x] Base jurídica: Ley Orgánica de Protección de Datos Personales (LOPDP) (31/10/2026).
+- [x] Canal de consultas: gvasquez@childfund.org (31/10/2026).
+- [ ] Recomendado: que Asesoría Legal precise la denominación jurídica del responsable y la base de legitimación concreta (LOPDP, art. 7). Basta con editar los textos de `src/config/privacidad.ts`.
 - [x] Registro con correo institucional de organizaciones socias: confirmado (23/10/2026).
 - [x] Vigencia de la aprobación: doce meses (23/10/2026). Se muestra en «Mi cuenta» y en el panel del Punto Focal.
-- [ ] Mientras falten los cuatro primeros campos, `npm run build` en modo `registro` se detiene.
+- [x] Los cuatro campos están completos: `npm run build` en modo `registro` ya no se detiene por privacidad.
 
 ## Marca y activos
-- [ ] Manual de marca: el color verde es un acento provisional (`--acento` en `src/styles.css`). No se usa el logotipo.
+- [x] Acentos verde y naranja (`--acento` y `--acento-2` en `src/styles.css`), según el punto 6.4 (31/10/2026). Ambos cumplen contraste AA sobre blanco y sobre el fondo.
+- [ ] Logotipo: entregar el archivo oficial (SVG o PNG) y los códigos de color del manual de marca. El archivo se copia en `public/marca/` y su nombre se indica en `src/config/marca.ts`.
 - [x] Ilustraciones: personajes generados con IA, de cuerpo entero sobre un fondo neutro (ver `docs/activos-graficos.md`).
-- [ ] Confirmar los términos de uso de la herramienta de IA.
+- [x] Términos de uso de la herramienta de IA: el uso institucional y la publicación están permitidos (31/10/2026, punto 6.5).
+- [x] Representación de los personajes aprobada (31/10/2026, punto 6.6).
 
 ## Backend y publicación (ver `docs/despliegue.md`)
-- [ ] Proyecto Supabase creado por la institución, con todas las migraciones de `supabase/migrations/` aplicadas en orden (incluidos los bancos de los módulos 2 a 6 y `20261020000010_csv_columna_modulo.sql`).
-- [ ] Plantilla de correo con el código `{{ .Token }}`; SMTP propio configurado.
+- [ ] Proyecto Supabase creado por la institución y administrado por Grace Vásquez (gvasquez@childfund.org, punto 7.1), con todas las migraciones de `supabase/migrations/` aplicadas en orden (incluidos los bancos de los módulos 2 a 6 y `20261020000010_csv_columna_modulo.sql`).
+- [ ] Plantilla de correo con el código `{{ .Token }}`; SMTP propio configurado con la cuenta gvasquez@childfund.org (punto 7.2). Las credenciales se cargan en Supabase, nunca en el repositorio.
 - [ ] MFA TOTP habilitado.
-- [ ] Punto Focal designado con `private.asignar_punto_focal`.
+- [ ] Punto Focal designado con `private.asignar_punto_focal` para gvasquez@childfund.org, después de su primer inicio de sesión (punto 7.3).
 - [ ] Variables del repositorio para Pages (`VITE_APP_MODE`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`).
-- [ ] GitHub Pages activado con «GitHub Actions» como fuente; ejecución manual del flujo «Publicar en GitHub Pages».
-- [ ] Prueba piloto con personal de ChildFund y socios (guion, apartado 21), sin solicitar relatos reales.
+- [ ] GitHub Pages activado en este repositorio (punto 7.4) con «GitHub Actions» como fuente; ejecución manual del flujo «Publicar en GitHub Pages».
+- [ ] Prueba piloto en la Oficina País de Ecuador en noviembre, facilitada por Grace Vásquez (punto 7.5), sin solicitar relatos reales.

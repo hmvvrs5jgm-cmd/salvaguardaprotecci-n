@@ -38,5 +38,5 @@ Los personajes se muestran **de cuerpo entero sobre un fondo neutro**, sin escen
 2. Ejecuta `npm test` y `npm run build:archivo` para regenerar la demostración en un solo archivo.
 
 ## Pendiente de confirmar
-- [ ] Términos de uso de la herramienta de IA con que se generaron las imágenes (uso institucional y publicación).
-- [ ] Revisión de la representación de los personajes con el Punto Focal (diversidad, ausencia de estereotipos).
+- [x] Términos de uso de la herramienta de IA: el uso institucional y la publicación están permitidos (31/10/2026).
+- [x] Representación de los personajes aprobada por el Punto Focal (31/10/2026).

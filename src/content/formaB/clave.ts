@@ -1,4 +1,5 @@
-// Clave de la forma B (anexo C). Solo la importa el modo demostración.
+// Clave de la forma B (anexo C). Solo la importan el modo demostración y el generador del banco del servidor
+// (scripts/generate-assessment-seed.ts).
 
 import type { AnswerKey } from '../types';
 

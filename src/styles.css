@@ -1,5 +1,6 @@
 /* Decisiones que protegen — estilos.
-   Verde como acento provisional (variable reemplazable): no es un color oficial de marca. */
+   Acentos verde y naranja, según la consulta institucional (punto 6.4, 31/10/2026).
+   Los valores exactos son reemplazables cuando se reciban los códigos del manual de marca. */
 
 :root {
   --fondo: #f8f4ec;
@@ -11,6 +12,8 @@
   --acento: #2f5d43; /* acento provisional, tomado de las ilustraciones */
   --acento-fuerte: #1f4230;
   --acento-suave: #dbe8de;
+  --acento-2: #a84300; /* naranja: 6,06:1 sobre blanco, 5,52:1 sobre el fondo */
+  --acento-2-suave: #fde3cc;
   --info: #1f4f7a;
   --info-suave: #e3edf6;
   --mejora: #7a4a00;
@@ -54,6 +57,7 @@
   --borde: #000000;
   --acento: #0d4a2f;
   --acento-fuerte: #062a1a;
+  --acento-2: #7a2f00;
 }
 
 * {
@@ -152,9 +156,12 @@ h2:focus-visible {
   justify-content: space-between;
   padding: 10px 16px;
   background: var(--superficie);
-  border-bottom: 1px solid var(--borde);
+  border-bottom: 4px solid var(--acento-2);
 }
 .marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--acento-fuerte);
@@ -173,6 +180,12 @@ h2:focus-visible {
 }
 .cabecera nav a.active {
   font-weight: 700;
+  text-decoration-color: var(--acento-2);
+  text-decoration-thickness: 3px;
+}
+.marca__logo {
+  height: 36px;
+  width: auto;
 }
 
 main {

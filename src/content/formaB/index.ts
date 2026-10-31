@@ -1,15 +1,16 @@
 // Forma alternativa B de la evaluación de cada módulo (documento de respuestas revisadas, 23/10/2026, punto 1.5 y anexo C).
-// Estado: banco inicial PROPUESTO, pendiente de validación del Punto Focal y cotejo de equivalencia con la forma A.
-// Uso: solo en modo demostración, para los nuevos intentos. El registro sigue usando la forma A del servidor
-// hasta que esta forma se valide, se versione y se genere su banco en supabase/migrations.
+// Estado: validada por el Punto Focal de Salvaguarda el 31/10/2026. No se presenta como psicométricamente equivalente
+// a la forma A: evalúa las mismas competencias con preguntas distintas.
+// Uso: los nuevos intentos alternan la forma A y la forma B, en demostración y en registro. Su banco del servidor se
+// genera en supabase/migrations con la versión «<versión del módulo>-B».
 
 import type { AssessmentConfig, Question, ToolId } from '../types';
 import { itemsFormaB } from './items';
 
-export const ESTADO_FORMA_B = 'propuesta' as const;
+export const ESTADO_FORMA_B = 'validada' as const;
 
 export const avisoFormaB =
-  'Este nuevo intento usa la forma B: diez preguntas distintas sobre las mismas competencias. Es un banco inicial propuesto, pendiente de validación del Punto Focal; no se presenta como equivalente validado y no se registra.';
+  'Este nuevo intento usa la forma B: diez preguntas distintas sobre las mismas competencias, validadas por el Punto Focal de Salvaguarda. La regla de aprobación es la misma.';
 
 /** Herramienta temática para la recuperación de cada pregunta crítica de la forma B (número de pregunta → herramienta). */
 const herramientaCritica: Record<number, Record<number, ToolId>> = {
@@ -55,7 +56,7 @@ export function construirFormaB(numeroModulo: number, configA: AssessmentConfig,
     forma: 'B',
     config: {
       ...configA,
-      version: `${configA.version} · forma B (propuesta)`,
+      version: `${configA.version}-B`,
       criticalQuestionIds: preguntas.filter((p) => p.critical).map((p) => p.id),
     },
     preguntas,
