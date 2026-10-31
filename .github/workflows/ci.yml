@@ -39,8 +39,9 @@ jobs:
         run: |
           npx tsx scripts/check-release-config.ts
           npx vite build --outDir dist-registro
-          # Ninguna clave de respuestas (módulos 1 a 6) debe llegar al paquete de registro.
-          for k in 'P1:"P1-B"' 'M2_P1:"M2_P1-B"' 'M3_P1:"M3_P1-A"' 'M4_P1:"M4_P1-B"' 'M5_P1:"M5_P1-B"' 'M6_P1:"M6_P1-C"'; do
+          # Ninguna clave de respuestas (módulos 1 a 6, formas A y B) debe llegar al paquete de registro.
+          for k in 'P1:"P1-B"' 'M2_P1:"M2_P1-B"' 'M3_P1:"M3_P1-A"' 'M4_P1:"M4_P1-B"' 'M5_P1:"M5_P1-B"' 'M6_P1:"M6_P1-C"' \
+                   'M1_B01:"M1_B01-B"' 'M2_B01:"M2_B01-A"' 'M3_B01:"M3_B01-A"' 'M4_B01:"M4_B01-B"' 'M5_B01:"M5_B01-C"' 'M6_B01:"M6_B01-A"'; do
             if grep -q "$k" dist-registro/assets/*.js; then echo "La clave $k aparece en el paquete de registro"; exit 1; fi
           done
       - name: Pruebas de base de datos (PostgreSQL local)

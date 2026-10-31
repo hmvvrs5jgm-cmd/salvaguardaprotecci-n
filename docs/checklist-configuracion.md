@@ -3,7 +3,7 @@
 Marca cada punto solo cuando la institución lo haya verificado.
 
 ## Contenido institucional
-- [ ] Confirmar la vigencia de la Política PRO-POL-080 (revisión prevista para el 30/06/2026) y la fecha de aprobación del Procedimiento PRO-PRO-080 (junio o julio de 2023). Actualizar `src/config/fuentes.ts`.
+- [ ] Confirmar la vigencia de la Política PRO-POL-080 (revisión prevista para el 30/06/2026). La fecha de aprobación del Procedimiento (13 de junio de 2023) quedó confirmada el 23/10/2026.
 - [ ] Revisar con el Punto Focal la fidelidad del episodio al procedimiento y a las rutas (guion, apartado 21).
 - [ ] Confirmar con Asesoría Legal la decisión de denunciar en casos con personas adultas y el alcance del COIP, art. 276 (`docs/discrepancias.md`, puntos 3, 4 y 15).
 - [ ] Armonizar el criterio de niveles 2 y 3 entre la ruta gráfica y el Procedimiento 5.2.3 (punto 16).

@@ -8,8 +8,8 @@ export const fuentes = [
   },
   {
     nombre: 'Procedimiento de Salvaguardia PRO-PRO-080',
-    detalle: 'La portada indica «Aprobado, 13 de julio de 2023»; la política y el nombre del archivo indican 13 de junio de 2023.',
-    advertencia: 'Fecha de aprobación pendiente de confirmación.',
+    detalle:
+      'Aprobado el 13 de junio de 2023, según las respuestas revisadas del 23 de octubre de 2026. La portada del documento indica «13 de julio de 2023».',
   },
   {
     nombre: 'PPT «Salvaguarda actualizado»',
@@ -54,5 +54,15 @@ export const fuentes = [
   {
     nombre: 'Guion «Una imagen que no debió publicarse» (módulo 6)',
     detalle: 'Versión 1.0 para revisión institucional (18 de octubre de 2026). Personas y publicaciones ficticias; no se usan imágenes reales.',
+  },
+  {
+    nombre: 'Respuestas revisadas de la consulta institucional',
+    detalle:
+      'Revisión técnica del 23 de octubre de 2026: decisiones del curso, procedimientos propuestos (rotulados como pendientes de validación) y banco alternativo de preguntas (forma B).',
+  },
+  {
+    nombre: 'Normativa ecuatoriana citada',
+    detalle:
+      'Código Orgánico Integral Penal, art. 276; Ley Orgánica de Protección de Datos Personales, arts. 43 y 46. Su aplicación a cada caso la valora la asesoría legal.',
   },
 ] as const;
